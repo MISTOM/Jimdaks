@@ -7,19 +7,19 @@ import prisma from '$lib/server/prisma';
 let roleCache: any;
 type AuthPayload = {
 	id: number;
-	roleId: number; 
-}
+	roleId: number;
+};
 
 export function sign(payload: AuthPayload): string {
-		//maxAge
-		const maxAge = '30m'; // 30 minutes
-		const id = payload.id;
-		const role = payload.roleId;
+	//maxAge
+	const maxAge = '30m'; // 30 minutes
+	const id = payload.id;
+	const role = payload.roleId;
 
-		return jwt.sign({ id, role }, SECRET_KEY, {
-			expiresIn: maxAge
-		});
-	}
+	return jwt.sign({ id, role }, SECRET_KEY, {
+		expiresIn: maxAge
+	});
+}
 
 /**
  * Generate refresh token and save it to the database
@@ -78,7 +78,7 @@ export async function hash(password: string | Buffer) {
 /**
  * Get roles from the database
  */
-export async function getRoles(roleName: string | null = null) {
+export async function getRoles(roleName: string | null = null): Promise<any> {
 	if (!roleCache) {
 		console.log('Querying db for roles');
 		await prisma.role
@@ -94,6 +94,7 @@ export async function getRoles(roleName: string | null = null) {
 	}
 
 	if (roleName) {
+		//@ts-ignore
 		const role = roleCache.find((role) => role.name === roleName);
 		if (!role) {
 			throw error(404, `Role ${roleName} not found`);
@@ -107,7 +108,8 @@ export async function getRoles(roleName: string | null = null) {
  */
 export async function isAdmin(user: any) {
 	if (!user) return error(401, 'Unauthorized');
-	const roles = await this.getRoles();
+	const roles = await getRoles();
+	//@ts-ignore
 	const adminRole = roles.find((role) => role.name === 'ADMIN');
 	if (!adminRole || user.role !== adminRole.id) {
 		throw error(401, 'Unauthorized, you must be an admin');
