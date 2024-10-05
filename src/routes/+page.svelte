@@ -1,11 +1,11 @@
 <script>
-	// Add any required Svelte logic here
-	import { getStateContext } from '$lib/state.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import { toggleMode } from 'mode-watcher';
 </script>
 
 <main class="font-sans text-gray-800">
 	<header class="bg-green-900 text-white py-4">
-		<nav class="container mx-auto flex justify-between">
+		<nav class="container mx-auto grid grid-cols-2 sticky">
 			<ul class="flex space-x-4">
 				<li><a href="/poultry" class="hover:underline">Poultry</a></li>
 				<li><a href="#financial-services" class="hover:underline">Financial Services</a></li>
@@ -13,6 +13,7 @@
 				<li><a href="#cafe" class="hover:underline transition-all">Café</a></li>
 				<li><a href="#general-shop" class="hover:underline">General Shop</a></li>
 			</ul>
+			<Button variant="outline" on:click={toggleMode}>Toggle Theme</Button>
 		</nav>
 	</header>
 
@@ -21,12 +22,12 @@
 		class="bg-cover bg-center h-screen text-center text-white"
 		style="background-image: url('/chicken.webp');"
 	>
-		<div class="flex flex-col items-center justify-center h-full bg-black bg-opacity-50">
-			<h1 class="text-5xl font-bold mb-4">Jimdaks Farm Fresh</h1>
+		<div class="flex flex-col items-center justify-center h-full bg-opacity-50">
+			<h1 class="text-5xl font-bold mb-4">JTF</h1>
 			<p class="text-2xl mb-3">From farm to fork</p>
 			<div>
-				<button class="bg-yellow-300 text-green-900 py-2 px-6 m-2 rounded">Shop Now</button>
-				<button class="bg-yellow-300 text-green-900 py-2 px-6 m-2 rounded">Learn More</button>
+				<Button variant="outline" href="/">Shop Now</Button>
+				<Button variant="outline">Learn More</Button>
 			</div>
 		</div>
 	</section>

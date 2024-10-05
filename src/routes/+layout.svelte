@@ -1,10 +1,9 @@
 <script>
-	import { setStateContext } from '$lib/state.svelte';
 	import '../app.css';
+	import { ModeWatcher } from 'mode-watcher';
 	let { children } = $props();
-	$effect(() => {
-		setStateContext();
-	});
 </script>
 
+<!-- watches the current light/dark mode -->
+<ModeWatcher />
 {@render children()}
