@@ -1,6 +1,6 @@
 <script>
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { toggleMode } from 'mode-watcher';
+	//import { toggleMode } from 'mode-watcher';
 </script>
 
 <main class="font-sans text-gray-800">
@@ -13,7 +13,7 @@
 				<li><a href="#cafe" class="hover:underline transition-all">Café</a></li>
 				<li><a href="#general-shop" class="hover:underline">General Shop</a></li>
 			</ul>
-			<Button variant="outline" on:click={toggleMode}>Toggle Theme</Button>
+			<!-- <Button variant="outline" on:click={toggleMode}>Toggle Theme</Button> -->
 		</nav>
 	</header>
 
