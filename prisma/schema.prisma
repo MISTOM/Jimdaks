@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,8 +8,196 @@ datasource db {
 }
 
 model User {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  email             String              @unique
+  password          String
+  refreshKey        String?
+  roleId            Int
+  flock             Flock[]
+  feedUsage         FeedUsage[]
+  weightLog         WeightLog[]
+  expenses          Expense[]
+  role              Role                @relation(fields: [roleId], references: [id])
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  VaccinationRecord VaccinationRecord[]
+  Mortality         Mortality[]
+  SlaughterLog      SlaughterLog[]
+}
+
+model Flock {
+  id                 Int                 @id @default(autoincrement())
+  name               String?
+  startDate          DateTime            @default(now())
+  endDate            DateTime?
+  birdAge            Int
+  breeder            String? //Chicks supplier eg. kenchick,
+  birdType           BirdType
+  numberOfBirds      Int
+  notes              String?
+  userId             Int
+  houseId            Int
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  user               User                @relation(fields: [userId], references: [id])
+  house              House               @relation(fields: [houseId], references: [id])
+  feedUsages         FeedUsage[]
+  weightLogs         WeightLog[]
+  expenses           Expense[]
+  vaccinationRecords VaccinationRecord[]
+  Mortality          Mortality[]
+  SlaughterLog       SlaughterLog[]
+}
+
+model House {
+  id          Int      @id @default(autoincrement())
+  name        String
+  capacity    Int
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  flocks      Flock[]
+}
+
+model FeedInventory {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
+  feedType  FeedType
+  notes     String?
+  quantity  Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model FeedUsage {
+  id        Int      @id @default(autoincrement())
+  date      DateTime @default(now())
+  quantity  Float
+  feedType  FeedType
+  userId    Int
+  flockId   Int
+  expenseId Int
+  expense   Expense  @relation(fields: [expenseId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  flock     Flock    @relation(fields: [flockId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Expense {
+  id          Int             @id @default(autoincrement())
+  date        DateTime        @default(now())
+  category    ExpenseCategory
+  amount      Float
+  description String?
+  userId      Int
+  flockId     Int
+  user        User            @relation(fields: [userId], references: [id])
+  flock       Flock           @relation(fields: [flockId], references: [id])
+  feedUsage   FeedUsage[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model WeightLog {
+  id           Int   @id @default(autoincrement())
+  sampleWeight Float
+  userId       Int
+  flockId      Int
+  user         User  @relation(fields: [userId], references: [id])
+  flock        Flock @relation(fields: [flockId], references: [id])
+}
+
+model Vaccine {
+  id                   Int                   @id @default(autoincrement())
+  name                 String
+  notes                String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  vaccinationRecords   VaccinationRecord[]
+  vaccinationSchedules VaccinationSchedule[]
+}
+
+model VaccinationRecord {
+  id             Int      @id @default(autoincrement())
+  notes          String?
+  userId         Int
+  flockId        Int
+  vaccineId      Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  administeredBy User     @relation(fields: [userId], references: [id])
+  flock          Flock    @relation(fields: [flockId], references: [id])
+  vaccine        Vaccine  @relation(fields: [vaccineId], references: [id])
+}
+
+model VaccinationSchedule {
+  id        Int      @id @default(autoincrement())
+  ageInDays Int //age when the vaccine should be administered
+  notes     String?
+  vaccineId Int
+  birdType  BirdType
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  vaccine   Vaccine  @relation(fields: [vaccineId], references: [id])
+}
+
+model Mortality {
+  id           Int      @id @default(autoincrement())
+  number       Int
+  causeOfDeath String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  flockId      Int
+  userId       Int
+  flock        Flock    @relation(fields: [flockId], references: [id])
+  loggedBy     User     @relation(fields: [userId], references: [id])
+}
+
+model SlaughterLog {
+  id            Int      @id @default(autoincrement())
+  date          DateTime @default(now())
+  number        Int
+  averageWeight Float
+  flockId       Int
+  userId        Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  flock         Flock    @relation(fields: [flockId], references: [id])
+  user          User     @relation(fields: [userId], references: [id])
+}
+
+model Role {
+  id        Int      @id @default(autoincrement())
+  name      Roles
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     User[]
+}
+
+enum Roles {
+  ADMIN
+  CARETAKER
+}
+
+enum BirdType {
+  BROILER
+  LAYER
+}
+
+enum ExpenseCategory {
+  FEED
+  VACCINE
+  UTILITIES
+  SUPPLIES
+  LABOR
+  OTHER
+}
+
+enum FeedType {
+  STARTER_MASH
+  STARTER_CRUMBS
+  GROWER
+  FINISHER_PELLETS
+  OTHER
 }

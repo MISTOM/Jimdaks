@@ -2,6 +2,12 @@
 	"name": "jimdaks01",
 	"version": "0.0.1",
 	"private": true,
+	"author": {
+		"name": "TOM"
+	},
+	"prisma": {
+		"seed": "node prisma/seed.ts"	
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",

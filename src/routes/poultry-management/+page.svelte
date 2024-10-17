@@ -1,11 +1,9 @@
 <script lang="ts">
-    import type { PageData } from './$types';
-    
-    const data = $props()
+	import type { PageData } from './$types';
 
-    let search = $state()
+	const data = $props();
+
+	let search = $state();
 </script>
 
 <!-- Poultry Management System -->
-
-
