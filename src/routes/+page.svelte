@@ -3,7 +3,7 @@
 	//import { toggleMode } from 'mode-watcher';
 </script>
 
-<main class="font-sans text-gray-800">
+<main class="font-sans text-gray-800 dark">
 	<header class="bg-green-900 text-white py-4">
 		<nav class="container mx-auto grid grid-cols-2 sticky">
 			<ul class="flex space-x-4">
@@ -121,7 +121,7 @@
 			Jimdaks Farm Fresh is a well-established farm and company based in Kenya...
 		</p>
 		<div class="text-center">
-			<a href="about.html" class="bg-yellow-300 text-green-900 py-2 px-6 rounded">Learn more</a>
+			<a href="/about-us" class="bg-yellow-300 text-green-900 py-2 px-6 rounded">Learn more</a>
 		</div>
 	</section>
 
