@@ -62,7 +62,7 @@ export function generateResetToken(id: number) {
  */
 export async function compare(password: string | Buffer, hash: string) {
 	const validPassword = await bcrypt.compare(password, hash);
-	if (!validPassword) throw error(400, 'Invalid password');
+	if (!validPassword) throw error(400, 'Invalid username or password');
 }
 
 /**

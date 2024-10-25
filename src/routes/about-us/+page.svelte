@@ -1,8 +1,8 @@
 <script lang="ts">
 </script>
 
-<h4 class="text-xl text-transparent text-amber-900">About Jimdaks</h4>
-<img class="bg-cover h-1/2 opacity-75" src="/farm.png" alt="Farm Images" />
+<h4 class="text-xl text-amber-900 text-transparent">About Jimdaks</h4>
+<img class="h-1/2 bg-cover opacity-75" src="/farm.png" alt="Farm Images" />
 <div>
 	<p>
 		Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum aut rerum delectus praesentium
@@ -32,7 +32,7 @@
 		delectus sed quos recusandae doloribus cum! Explicabo, molestiae esse?
 	</p>
 </div>
-<h3 class="font-extralight text-5xl">Eservices</h3>
+<h3 class="text-5xl font-extralight">Eservices</h3>
 <p>Web Development and tech services.</p>
 <ul class="">
 	<li class="list-item">web developmetnt</li>

@@ -1,38 +1,75 @@
-# create-svelte
+# JIMDAKS FARM FRESH
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Jimdaks Farm Fresh is a comprehensive poultry management system designed to streamline operations, enhance efficiency, and improve oversight for poultry farming, specifically for broilers and layers. With modules for managing flocks, feed inventory, expenses, vaccinations, mortality, and processing, this system allows farm owners and caretakers to track every critical aspect of their farm.
 
-## Creating a project
+## Table of Contents
 
-If you're seeing this, you've probably already done this step. Congrats!
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Development](#development)
+- [Building](#building)
+
+## Features
+
+- **Flock Management**: Track details of each flock, including bird type, age, breeder, number of birds, and housing assignments.
+- **Feed Inventory and Usage Tracking**: Maintain a real-time inventory of different feed types. Log feed usage per flock, with auto-deduction from inventory and expense generation.
+- **Vaccination Tracking and Scheduling**: Manage vaccinations for each flock with scheduled records and tracking of administered vaccines.
+- **Mortality Logging**: Record daily mortality for each flock, with data stored for later analysis.
+- **Processing Logs**: Keep records of birds processed for slaughter, including batch weight averages.
+- **Expense Management**: Track farm expenses in categories like feed, utilities, vaccines, supplies, and labor.
+- **User Roles**: Admin and caretaker roles for permissions-based access.
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/en/download/) (v20 or higher recommended)
+- [MySQL](https://www.mysql.com/downloads/) for database management
+
+### Installation
+
+Clone this repository and install dependencies:
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+git clone https://github.com/MISTOM/Jimdaks
+cd Jimdaks
+npm install
 ```
 
-## Developing
+Setup your environment variables:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+1. Create a `.env` file in the root directory
+2. Add your database connection string
+
+```bash
+DATABASE_URL=mysql://user:password@host:port/[database-name]
+```
+
+Generate, seed and sync database tables based on Prisma schema models [(prisma.schema)](/prisma/schema.prisma)
+
+```bash
+npx prisma migrate dev && npx prisma db seed
+```
+
+### Development
+
+Run the app in dev mode with:
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+Access prisma studio to interact with the app directly
 
-To create a production version of your app:
+```bash
+npx prisma studio
+```
+
+### Building
+
+To create a production build and preview:
 
 ```bash
 npm run build
+npm run preview
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
