@@ -33,6 +33,8 @@ export async function generateRefreshToken(user: any): Promise<string> {
 			expiresIn: maxAge
 		});
 		//save the refresh token to the database
+
+		// TODO - move database operation to the route handler
 		await prisma.user.update({
 			where: { id },
 			data: {
@@ -42,6 +44,7 @@ export async function generateRefreshToken(user: any): Promise<string> {
 
 		return refreshToken;
 	} catch (e) {
+		// TODO - Error handling
 		console.log('Error generating refresh token', e);
 		throw error(500, 'Error generating refresh token');
 	}

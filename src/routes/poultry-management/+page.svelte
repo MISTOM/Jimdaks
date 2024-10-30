@@ -7,3 +7,4 @@
 </script>
 
 <!-- Poultry Management System -->
+ <h1>Poultry management dashboard</h1>
