@@ -42,7 +42,12 @@ Setup your environment variables:
 2. Add your database connection string
 
 ```bash
-DATABASE_URL=mysql://user:password@host:port/[database-name]
+DATABASE_URL="mysql://user:password@host:port/database-name"   #eg. "mysql://root:@127.0.0.1:3306/jimdaks"
+SECRET_KEY="secret"
+REFRESH_KEY="refresh"
+RESET_KEY="reset"
+BASE_URL=""
+SENDGRID_API_KEY=""
 ```
 
 Generate, seed and sync database tables based on Prisma schema models [(prisma.schema)](/prisma/schema.prisma)
