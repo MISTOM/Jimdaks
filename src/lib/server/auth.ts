@@ -2,120 +2,127 @@ import { error } from '@sveltejs/kit';
 import { REFRESH_KEY, SECRET_KEY, RESET_KEY } from '$env/static/private';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { type User, type Role, Roles } from '@prisma/client';
 import prisma from '$lib/server/prisma';
+import { maxAge } from '$lib/server/utils';
 
-let roleCache: any;
-type AuthPayload = {
-	id: number;
-	roleId: number;
-};
+let roleCache: Role[];
 
-export function sign(payload: AuthPayload): string {
-	//maxAge
-	const maxAge = '30m'; // 30 minutes
-	const id = payload.id;
-	const role = payload.roleId;
+export default {
+	/**
+	 * Sign payload
+	 * @param payload
+	 * @returns  token
+	 */
+	sign(payload: User): string {
+		const id = payload.id;
+		const roleId = payload.roleId;
 
-	return jwt.sign({ id, role }, SECRET_KEY, {
-		expiresIn: maxAge
-	});
-}
-
-/**
- * Generate refresh token and save it to the database
- */
-export async function generateRefreshToken(user: any): Promise<string> {
-	const maxAge = '7d'; // 7 days
-	const id = user.id;
-
-	try {
-		const refreshToken = jwt.sign({ id }, REFRESH_KEY, {
+		return jwt.sign({ id, roleId }, SECRET_KEY, {
 			expiresIn: maxAge
 		});
-		//save the refresh token to the database
+	},
 
-		// TODO - move database operation to the route handler
-		await prisma.user.update({
-			where: { id },
-			data: {
-				refreshToken: refreshToken
-			}
-		});
+	/**
+	 * Generate refresh token, hash it and save it to the database
+	 * @returns hashed refreshToken
+	 */
+	async generateRefreshToken(user: User): Promise<string> {
+		const maxAge = 60 * 60 * 24 * 7; // 1 week
+		const id = user.id;
 
-		return refreshToken;
-	} catch (e) {
-		// TODO - Error handling
-		console.log('Error generating refresh token', e);
-		throw error(500, 'Error generating refresh token');
-	}
-}
-
-/**
- * Generate reset Password token
- */
-export function generateResetToken(id: number) {
-	const maxAge = 60 * 60; // 1 hour
-	return jwt.sign({ id }, RESET_KEY, { expiresIn: maxAge });
-}
-
-/**
- * Compare Passwords to it's hash
- * @param password
- * @param hash
- */
-export async function compare(password: string | Buffer, hash: string) {
-	const validPassword = await bcrypt.compare(password, hash);
-	if (!validPassword) throw error(400, 'Invalid username or password');
-}
-
-/**
- * Hash Password
- * @param password The password to encrypt
- * @returns Encrypted Password
- */
-export async function hash(password: string | Buffer) {
-	const salt = await bcrypt.genSalt();
-	return await bcrypt.hash(password, salt);
-}
-
-/**
- * Get roles from the database
- */
-export async function getRoles(roleName: string | null = null): Promise<any> {
-	if (!roleCache) {
-		console.log('Querying db for roles');
-		await prisma.role
-			.findMany()
-			//@ts-ignore
-			.then((roles) => {
-				roleCache = roles;
-			}) //@ts-ignore
-			.catch((err) => {
-				console.log('Error getting roles', err);
-				throw error(500, 'Error getting roles');
+		try {
+			const refreshToken = jwt.sign({ id }, REFRESH_KEY, {
+				expiresIn: maxAge
 			});
-	}
+			const hashedToken = await this.hash(refreshToken);
+			await prisma.user.update({
+				where: { id },
+				data: { refreshToken: hashedToken }
+			});
 
-	if (roleName) {
-		//@ts-ignore
-		const role = roleCache.find((role) => role.name === roleName);
-		if (!role) {
-			throw error(404, `Role ${roleName} not found`);
+			return refreshToken;
+		} catch (e) {
+			console.log('Error generating refresh token', e);
+			return '';
 		}
-		return [role];
+	},
+	/**
+	 * Verify refresh token
+	 */
+	async verifyRefreshToken(token: string, userId: number): Promise<boolean> {
+		try {
+			const user = await prisma.user.findUnique({
+				where: { id: userId },
+				select: { refreshToken: true }
+			});
+
+			if (!user || !user.refreshToken) {
+				return false;
+			}
+
+			const isMatch = await bcrypt.compare(token, user.refreshToken);
+			return isMatch;
+		} catch (e) {
+			console.log('Error verifying refresh token', e);
+			return false;
+		}
+	},
+
+	/**
+	 * Generate reset Password token
+	 */
+	generateResetToken(id: User['id']) {
+		const maxAge = 60 * 60; // 1 hour
+		return jwt.sign({ id }, RESET_KEY, { expiresIn: maxAge });
+	},
+
+	/**
+	 * Compare Passwords to it's hash
+	 */
+	async compare(password: string | Buffer, hash: string) {
+		return await bcrypt.compare(password, hash);
+	},
+
+	/**
+	 * Hash Password
+	 * @param  password The password to encrypt
+	 * @returns Encrypted Password
+	 */
+	async hash(password: string | Buffer): Promise<string> {
+		const salt = await bcrypt.genSalt();
+		return await bcrypt.hash(password, salt);
+	},
+
+	/**
+	 * Get roles from the database
+	 * @returns roles
+	 **/
+	async getRoles(): Promise<Role[]> {
+		if (!roleCache) {
+			console.log('Querying db for roles');
+			await prisma.role
+				.findMany()
+				.then((roles) => {
+					roleCache = roles;
+				})
+				.catch((err) => {
+					console.log('Error getting roles', err);
+					throw error(500, 'Error getting roles');
+				});
+		}
+		return roleCache;
+	},
+
+	/**
+	 * Check if user is an admin
+	 * @param user
+	 */
+	async isAdmin(user: any | null): Promise<boolean> {
+		const roles = await this.getRoles();
+		const adminRole = roles.find((role) => role.name === Roles.ADMIN);
+
+		if (adminRole && user?.roleId === adminRole.id) return true;
+		return false;
 	}
-	return roleCache;
-}
-/**
- * Check if user is an admin
- */
-export async function isAdmin(user: any) {
-	if (!user) return error(401, 'Unauthorized');
-	const roles = await getRoles();
-	//@ts-ignore
-	const adminRole = roles.find((role) => role.name === 'ADMIN');
-	if (!adminRole || user.role !== adminRole.id) {
-		throw error(401, 'Unauthorized, you must be an admin');
-	}
-	return true;
-}
+};

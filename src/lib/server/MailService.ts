@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 import { BASE_URL, SECRET_KEY, SENDGRID_API_KEY } from '$env/static/private';
 import sendgrid, { type MailDataRequired } from '@sendgrid/mail';
 import jwt from 'jsonwebtoken';
-import { generateResetToken } from '$lib/server/auth';
+import auth from '$lib/server/auth';
 
 sendgrid.setApiKey(SENDGRID_API_KEY);
 
@@ -84,7 +84,7 @@ type User = {
 }; //TODO Get user from prisma
 export async function sendResetPasswordEmail({ id, firstName: name, email }: User) {
 	try {
-		const token = generateResetToken(id);
+		const token = auth.generateResetToken(id);
 		const link = `${BASE_URL}/reset-password?token=${token}`;
 
 		await sendDynamicMail(email, '', { name, link });

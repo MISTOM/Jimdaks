@@ -26,7 +26,7 @@
 			<h1 class="mb-4 text-5xl font-bold">JTF</h1>
 			<p class="mb-3 text-2xl">From farm to fork</p>
 			<div>
-				<Button variant="outline" href="/">Shop Now</Button>
+				<Button class="" variant="outline" href="/">Shop Now</Button>
 				<Button variant="outline">Learn More</Button>
 			</div>
 		</div>

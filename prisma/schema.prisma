@@ -35,7 +35,7 @@ model Flock {
   breeder            String? //Chicks supplier eg. kenchick,
   birdType           BirdType
   numberOfBirds      Int
-  notes              String?
+  notes               String?
   userId             Int
   houseId            Int
   createdAt          DateTime            @default(now())
@@ -169,7 +169,7 @@ model SlaughterLog {
 
 model Role {
   id        Int      @id @default(autoincrement())
-  name      Roles
+  name      Roles   @unique	
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   users     User[]
