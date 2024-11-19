@@ -64,7 +64,7 @@ Run the app in dev mode with:
 npm run dev
 ```
 
-Access prisma studio to interact with the app directly
+Access prisma studio to interact with the database directly
 
 ```bash
 npx prisma studio
