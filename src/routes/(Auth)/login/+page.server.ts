@@ -1,33 +1,66 @@
-// import type { PageServerLoad } from './$types';
-// import prisma from '$lib/server/prisma';
-// import { fail } from '@sveltejs/kit';
+import prisma from '$lib/server/prisma.js';
+import auth from '$lib/server/auth.js';
+import { fail, redirect } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
+import { maxAge, refreshTokenMaxAge } from '$lib/server/utils';
+import { NODE_ENV } from '$env/static/private';
 
-// export const load = (async () => {
-// 	return {};
-// }) satisfies PageServerLoad;
+// export const load = (async ({ locals: { user } }) => {}) satisfies PageServerLoad;
 
-// export const actions = {
-// 	default: async ({ request }) => {
+export const actions = {
+	default: async ({ request, cookies }) => {
+		const formData = await request.formData();
+		console.log(formData);
+		const email = formData.get('email');
+		const password = formData.get('password');
 
-// 		const formData = await request.formData();
-// 		const email = formData.get('email') as string;
-// 		const password = formData.get('password') as string;
+		if (!email || !password) {
+			return fail(400, {
+				data: { email },
+				errors: 'Username and password required'
+			});
+		}
 
-// 		try {
+		let user;
+		try {
+			user = await prisma.user.findUnique({
+				where: { email: email.toString() }
+			});
+			if (!user) {
+				return fail(400, {
+					data: { email },
+					errors: 'Invalid emmail or password'
+				});
+			}
+		} catch (e) {
+			console.log(e);
+			return fail(500, {
+				data: { email },
+				errors: 'Internal Server Error'
+			});
+		}
 
-// 			const user = await prisma.user.findUnique({
-// 				where: { email: email }
-// 			});
-// 			if (!user) return fail(401, { email, message: 'Invalid email or password' });
-// 			await compare(password, user.password);
-// 			const token = sign({ id: user.id, roleId: user.roleId });
-// 			const refreshToken = generateRefreshToken(user);
-// 			return { success: true, token, refreshToken };
-// 		} catch (e) {
+		const isvalidPassword = await auth.compare(password.toString(), user.password);
+		if (!isvalidPassword) {
+			return fail(401, {
+				data: { email },
+				errors: 'Invalid email or passsword'
+			});
+		}
+		const token = auth.sign(user);
+		const refreshToken = await auth.generateRefreshToken(user);
 
-// 			//@ts-ignore
-// 			return fail(e.status || 500, { message: e.body });
-// 		}
+		//TODO - set secure to true in production
+		cookies.set('token', token, { httpOnly: true, secure: NODE_ENV === 'production', path: '/', maxAge });
+		cookies.set('refreshToken', refreshToken, {
+			httpOnly: true,
+			secure: NODE_ENV === 'production',
+			path: '/',
+			maxAge: refreshTokenMaxAge
+		});
 
-// 	}
-// };
+        redirect(303, '/dashboard');
+
+		// (await auth.isAdmin(user)) ? redirect(303, '/dashboard') : redirect(303, '/product');
+	}
+} satisfies Actions;
