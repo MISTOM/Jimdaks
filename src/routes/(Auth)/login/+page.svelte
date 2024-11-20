@@ -17,13 +17,10 @@
 </svelte:head>
 
 <div class="flex min-h-screen">
-    <!-- Left half with image -->
-	<div 
-    class="w-1/2 bg-cover bg-center bg-no-repeat"
-    style="background-image: url('/chicks.jpg');">
-</div>
-
-    <!-- Right half with login form -->
+	<div class="w-1/2 h-screen" style="background-color: #f0f0f0; overflow: hidden;">
+		<img src="/chicks.jpg" alt="Chicks" class="w-full h-full object-cover" />
+	</div>
+	
     <div class="w-1/2 flex items-center justify-center bg-gray-100 lg:bg-contain">
         <div class="w-2/3 min-w-72 rounded-md bg-white p-8 shadow-lg">
             <h2 class="text-center text-2xl font-bold">Login</h2>
@@ -87,11 +84,11 @@
                 >
                 <div class="mt-3 flex justify-between">
                     <a href="/register" class="text-xs transition-colors hover:text-secondary"
-                        >If you dont have an account,Register</a
+                        >Sign Up</a
                     >
                     <a
                         href="/forgotPassword"
-                        class="text-xs transition-colors  hover:underline">Forgot Passoword</a
+                        class="text-xs transition-colors  hover:underline">Forgot Passoword?</a
                     >
                 </div>
             </form>
