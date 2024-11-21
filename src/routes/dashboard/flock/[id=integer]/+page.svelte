@@ -3,8 +3,20 @@
 	const flock = $derived(data?.flock);
 </script>
 
-<h1 class="text-2xl text-lime-700">Flock {flock?.name} Details</h1>
-<p>Details for lot {flock?.birdType}</p>
+<!-- Flock Details -->
 
-<h4 class="text-3xl">Expenses</h4>
-<p>{flock?.expenses.toLocaleString()}</p>
+{#if !flock}
+	<p>Flock not found</p>
+{:else}
+	<main class="grid gap-5 md:grid-cols-2 lg:grid-cols-2">
+		<div class="rounded-md shadow-md">
+			<div class="border-b border-gray-200 p-4">
+				<h2 class="text-xl text-lime-700">{flock.name}</h2>
+				<p>{flock.numberOfBirds}</p>
+			</div>
+			<div>
+				<p>{flock.notes}</p>
+			</div>
+		</div>
+	</main>
+{/if}
