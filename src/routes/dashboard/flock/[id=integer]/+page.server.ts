@@ -8,7 +8,7 @@ export const load = (async ({ params }) => {
 		const flock = await prisma.flock.findUnique({
 			where: { id },
 			include: { weightLogs: true, expenses: true }
-		})
+		});
 		return { flock };
 	} catch (error) {
 		console.error(error);

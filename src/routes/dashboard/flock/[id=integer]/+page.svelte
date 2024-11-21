@@ -1,8 +1,6 @@
 <script lang="ts">
-
-	const {data} = $props();
-	const flock = $derived(data?.flock )
-
+	const { data } = $props();
+	const flock = $derived(data?.flock);
 </script>
 
 <h1 class="text-2xl text-lime-700">Flock {flock?.name} Details</h1>

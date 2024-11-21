@@ -76,18 +76,17 @@
 			</div>
 			<button
 				type="submit"
-				class="w-full rounded-md border p-2 transition-colors hover:bg-primary hover:text-secondary"
+				class="hover:bg-primary hover:text-secondary w-full rounded-md border p-2 transition-colors"
 				>Login</button
 			>
 
 			<div class="mt-3 flex justify-between">
-				<a href="/register" class="text-xs transition-colors hover:text-secondary"
+				<a href="/register" class="hover:text-secondary text-xs transition-colors"
 					>If you dont have an account,Register</a
 				>
 
-				<a
-					href="/forgotPassword"
-					class="text-xs transition-colors  hover:underline">Forgot Passowrd</a
+				<a href="/forgotPassword" class="text-xs transition-colors hover:underline"
+					>Forgot Passowrd</a
 				>
 			</div>
 		</form>

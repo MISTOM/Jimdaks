@@ -1,5 +1,4 @@
 <script>
-	import Button from '$lib/components/ui/button/button.svelte';
 	//import { toggleMode } from 'mode-watcher';
 </script>
 
@@ -23,11 +22,10 @@
 		style="background-image: url('/chicken.webp');"
 	>
 		<div class="flex h-full flex-col items-center justify-center bg-opacity-50">
-			<h1 class="mb-4 text-5xl font-bold">JTF</h1>
+			<h1 class="mb-4 text-5xl font-bold">Jimdaks Farm Fresh</h1>
 			<p class="mb-3 text-2xl">From farm to fork</p>
 			<div>
-				<Button class="" variant="outline" href="/">Shop Now</Button>
-				<Button variant="outline">Learn More</Button>
+				<button class="rounded-md bg-black px-3 py-2 text-white"> Shop now </button>
 			</div>
 		</div>
 	</section>
