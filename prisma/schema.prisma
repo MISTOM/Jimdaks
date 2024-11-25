@@ -17,7 +17,7 @@ model User {
   flock             Flock[]
   feedUsage         FeedUsage[]
   weightLog         WeightLog[]
-  expenses          Expense[]
+  expense           Expense[]
   role              Role                @relation(fields: [roleId], references: [id])
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
@@ -35,7 +35,7 @@ model Flock {
   breeder            String? //Chicks supplier eg. kenchick,
   birdType           BirdType
   numberOfBirds      Int
-  notes               String?
+  notes              String?
   userId             Int
   houseId            Int
   createdAt          DateTime            @default(now())
@@ -62,9 +62,9 @@ model House {
 
 model FeedInventory {
   id        Int      @id @default(autoincrement())
-  feedType  FeedType
+  feedType  FeedType @unique
   notes     String?
-  quantity  Float
+  quantity  Float // in kgs
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -72,7 +72,7 @@ model FeedInventory {
 model FeedUsage {
   id        Int      @id @default(autoincrement())
   date      DateTime @default(now())
-  quantity  Float
+  quantity  Float // in kgs
   feedType  FeedType
   userId    Int
   flockId   Int
@@ -169,7 +169,7 @@ model SlaughterLog {
 
 model Role {
   id        Int      @id @default(autoincrement())
-  name      Roles   @unique	
+  name      Roles    @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   users     User[]
