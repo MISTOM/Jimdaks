@@ -63,7 +63,7 @@ export const actions = {
 				maxAge: refreshTokenMaxAge
 			});
 
-			console.log('User created', formData);
+			// console.log('User created', formData);
 		} catch (e) {
 			console.log(e);
 			return fail(500, {
