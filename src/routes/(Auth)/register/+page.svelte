@@ -36,7 +36,14 @@
 		>
 			<div class="mb-4">
 				<label for="email" class="block text-sm font-semibold">Full Name</label>
-				<input type="text" id="name" name="name" class="w-full rounded-md border p-2" bind:value={name} required />
+				<input
+					type="text"
+					id="name"
+					name="name"
+					class="w-full rounded-md border p-2"
+					bind:value={name}
+					required
+				/>
 			</div>
 			<div class="mb-4">
 				<label for="email" class="block text-sm font-semibold">Email</label>
@@ -71,19 +78,20 @@
 					required
 				/>
 				{#if !passwordMatch}
-					<span class="text-xs text-red-600" in:fade={{ duration: 100 }}>Passwords do not match</span>
+					<span class="text-xs text-red-600" in:fade={{ duration: 100 }}
+						>Passwords do not match</span
+					>
 				{/if}
 			</div>
 			<button
 				type="submit"
-				class="w-full rounded-md border p-2 transition-colors hover:bg-primary hover:text-white disabled:opacity-50"
+				class="hover:bg-primary w-full rounded-md border p-2 transition-colors hover:text-white disabled:opacity-50"
 				>Register
 			</button>
-			<span class="text-sm hover:text-secondary"><a href="/login">Back to login</a></span>
+			<span class="hover:text-secondary text-sm"><a href="/login">Back to login</a></span>
 		</form>
 	</div>
 </div>
 
 <style>
-	
 </style>

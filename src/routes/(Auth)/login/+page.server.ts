@@ -2,8 +2,7 @@ import prisma from '$lib/server/prisma.js';
 import auth from '$lib/server/auth.js';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import { maxAge, refreshTokenMaxAge } from '$lib/server/utils';
-import { NODE_ENV } from '$env/static/private';
+import { maxAge, refreshTokenMaxAge, secure } from '$lib/server/utils';
 
 // export const load = (async ({ locals: { user } }) => {}) satisfies PageServerLoad;
 
@@ -51,15 +50,15 @@ export const actions = {
 		const refreshToken = await auth.generateRefreshToken(user);
 
 		//TODO - set secure to true in production
-		cookies.set('token', token, { httpOnly: true, secure: NODE_ENV === 'production', path: '/', maxAge });
+		cookies.set('token', token, { httpOnly: true, secure: secure, path: '/', maxAge });
 		cookies.set('refreshToken', refreshToken, {
 			httpOnly: true,
-			secure: NODE_ENV === 'production',
+			secure: secure,
 			path: '/',
 			maxAge: refreshTokenMaxAge
 		});
 
-        redirect(303, '/dashboard');
+		redirect(303, '/dashboard');
 
 		// (await auth.isAdmin(user)) ? redirect(303, '/dashboard') : redirect(303, '/product');
 	}

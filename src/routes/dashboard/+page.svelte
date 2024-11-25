@@ -1,31 +1,70 @@
-<!-- Poultry Management System Dashboard -->
-<h1 class="text-2xl font-semibold mb-6">Poultry Management Dashboard</h1>
+<script lang="ts">
+	import Sidebar from '$lib/components/Sidebar.svelte';
+	import Block from '$lib/components/Block.svelte';
 
-<div class="flex space-x-4">
-    <!-- Block A: User Summary -->
-    <div class="w-full sm:w-1/3 bg-gray-100 p-4 rounded shadow-lg">
-        <h2 class="text-xl font-semibold mb-4">Block A: User Summary</h2>
-        <!-- Example Content: Total Users -->
-        <p class="text-lg">Total Users: <span class="font-bold">25</span></p>
-        <p class="text-lg">Active Users: <span class="font-bold">20</span></p>
-        <p class="text-lg">Inactive Users: <span class="font-bold">5</span></p>
-    </div>
+	let selections = [
+		{ name: 'Chicks', dropdown: ['Item 1', 'Item 2'] },
+		{ name: 'Profile', dropdown: ['Edit', 'Settings'] },
+		{ name: 'Monthly Stats', dropdown: ['Report 1', 'Report 2'] }
+	];
 
-    <!-- Block B: Flock Summary -->
-    <div class="w-full sm:w-1/3 bg-gray-100 p-4 rounded shadow-lg">
-        <h2 class="text-xl font-semibold mb-4">Block B: Flock Summary</h2>
-        <!-- Example Content: Total Flocks -->
-        <p class="text-lg">Total Flocks: <span class="font-bold">10</span></p>
-        <p class="text-lg">Bird Type: <span class="font-bold">Broilers</span></p>
-        <p class="text-lg">Total Birds: <span class="font-bold">500</span></p>
-    </div>
+	let profile = { name: 'John Doe', role: 'Admin' };
 
-    <!-- Block C: Expense Summary -->
-    <div class="w-full sm:w-1/3 bg-gray-100 p-4 rounded shadow-lg">
-        <h2 class="text-xl font-semibold mb-4">Block C: Expense Summary</h2>
-        <!-- Example Content: Total Expenses -->
-        <p class="text-lg">Total Expenses: <span class="font-bold">$2,500</span></p>
-        <p class="text-lg">Feed Expenses: <span class="font-bold">$1,500</span></p>
-        <p class="text-lg">Vaccine Expenses: <span class="font-bold">$500</span></p>
-    </div>
+	let houses = [
+		{
+			name: 'House A',
+			capacity: 100,
+			description: 'This is the first house.',
+			createdAt: '2024-01-01',
+			updatedAt: '2024-11-01',
+			flocks: [
+				{ name: 'Chickens', count: 50 },
+				{ name: 'Turkeys', count: 70 }
+			]
+		},
+		{
+			name: 'House B',
+			capacity: 150,
+			description: null,
+			createdAt: '2024-02-01',
+			updatedAt: '2024-11-02',
+			flocks: [
+				{ name: 'Chickens', count: 50 },
+				{ name: 'Ducks', count: 30 }
+			]
+		},
+		{
+			name: 'House C',
+			capacity: 200,
+			description: 'This is the third house.',
+			createdAt: '2024-03-01',
+			updatedAt: '2024-11-03',
+			flocks: [
+				{ name: 'Chickens', count: 50 },
+				{ name: 'Ducks', count: 30 }
+			]
+		}
+	];
+</script>
+
+<div class="flex h-screen">
+	<!-- Sidebar -->
+	<Sidebar {selections} {profile} />
+
+	<!-- Main Content -->
+	<div class="flex-1 bg-gray-100 p-6">
+		<h1 class="mb-6 text-3xl font-bold">Dashboard</h1>
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+			{#each houses as house}
+				<Block
+					name={house.name}
+					capacity={house.capacity}
+					description={house.description}
+					createdAt={house.createdAt}
+					updatedAt={house.updatedAt}
+					flocks={house.flocks}
+				/>
+			{/each}
+		</div>
+	</div>
 </div>
