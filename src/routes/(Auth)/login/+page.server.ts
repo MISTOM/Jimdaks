@@ -58,8 +58,8 @@ export const actions = {
 			maxAge: refreshTokenMaxAge
 		});
 
-		redirect(303, '/dashboard');
+		//  redirect(303, '/dashboard');
 
-		// (await auth.isAdmin(user)) ? redirect(303, '/dashboard') : redirect(303, '/product');
+		(await auth.isAdmin(user)) ? redirect(303, '/dashboard') : redirect(303, '/farm'); // TODO - if user is not admin, redirect to caretaker page
 	}
 } satisfies Actions;
