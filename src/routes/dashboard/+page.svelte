@@ -1,14 +1,9 @@
 <script lang="ts">
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import Block from '$lib/components/Block.svelte';
+	import { selections } from '$lib/selections';
 
-	let selections = [
-		{ name: 'Chicks', dropdown: ['Item 1', 'Item 2'] },
-		{ name: 'Profile', dropdown: ['Edit', 'Settings'] },
-		{ name: 'Monthly Stats', dropdown: ['Report 1', 'Report 2'] }
-	];
-
-	let profile = { name: 'John Doe', role: 'Admin' };
+	let profile = { name: 'nasinza', role: 'Admin' };
 
 	let houses = [
 		{
@@ -45,14 +40,49 @@
 			]
 		}
 	];
+
+	// Reactive variable for dark mode
+	let isDarkMode = false;
+
+	// Apply theme based on user selection
+	const toggleTheme = () => {
+		isDarkMode = !isDarkMode;
+		if (isDarkMode) {
+			document.documentElement.classList.add('dark');
+			localStorage.setItem('theme', 'dark');
+		} else {
+			document.documentElement.classList.remove('dark');
+			localStorage.setItem('theme', 'light');
+		}
+	};
+
+	// On mount, apply saved theme
+	import { onMount } from 'svelte';
+	onMount(() => {
+		const savedTheme = localStorage.getItem('theme') || 'light';
+		if (savedTheme === 'dark') {
+			isDarkMode = true;
+			document.documentElement.classList.add('dark');
+		}
+	});
 </script>
 
 <div class="flex h-screen">
 	<!-- Sidebar -->
 	<Sidebar {selections} {profile} />
 
-	<!-- Main Content -->
+	<!-- Main Content -->ss
 	<div class="flex-1 bg-gray-100 p-6">
+		<!-- Theme Toggle Button at the top-right corner -->
+		<div class="absolute right-4 top-4">
+			<button
+				class="rounded border px-4 py-2 text-sm font-semibold transition duration-300"
+				on:click={toggleTheme}
+			>
+				{isDarkMode ? '🌙 Dark Mode' : '☀️ Light Mode'}
+			</button>
+		</div>
+
 		<h1 class="mb-6 text-3xl font-bold">Dashboard</h1>
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 			{#each houses as house}
