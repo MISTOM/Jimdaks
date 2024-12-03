@@ -1,10 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import Header from '$lib/components/Header.svelte';
 
 	let { data }: { data: PageData } = $props();
 	const houses = $derived(data?.houses || []);
 </script>
 
+<Header />
 <!-- Houses page with Table Layout -->
 <div class="p-6">
 	<div class="mb-4 flex justify-between">

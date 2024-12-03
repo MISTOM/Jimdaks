@@ -23,7 +23,6 @@
 <div class="container mx-auto p-4">
 	<!-- Add New Flock Button -->
 	<div class="mb-4 flex justify-end">
-		<!-- svelte-ignore event_directive_deprecated -->
 		<button
 			class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
 			on:click={() => (showModal = true)}
@@ -37,15 +36,15 @@
 		<table class="w-full table-auto border-collapse border border-gray-300">
 			<thead class="bg-green-100">
 				<tr>
-					<th class="border border-gray-300 px-4 py-2">Name</th>
-					<th class="border border-gray-300 px-4 py-2">Start Date</th>
-					<th class="border border-gray-300 px-4 py-2">Bird Age</th>
-					<th class="border border-gray-300 px-4 py-2">Breeder</th>
-					<th class="border border-gray-300 px-4 py-2">Bird Type</th>
-					<th class="border border-gray-300 px-4 py-2">Number of Birds</th>
-					<th class="border border-gray-300 px-4 py-2">Notes</th>
-					<th class="border border-gray-300 px-4 py-2">House</th>
-					<th class="border border-gray-300 px-4 py-2">Actions</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Name</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Start Date</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Bird Age</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Breeder</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Bird Type</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Number of Birds</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600"></th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">House</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
