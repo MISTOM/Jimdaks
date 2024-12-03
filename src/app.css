@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base styles for light and dark modes */
 html {
 	transition:
 		background-color 0.3s,
@@ -13,84 +14,17 @@ body {
 	color: var(--text);
 }
 
-/* Light Theme Variables */
 html[data-theme='light'] {
 	--background: #ffffff;
 	--text: #000000;
-	--border: #e0e0e0;
-	--button-bg: #f0f0f0;
-	--button-text: #000000;
-	--link: #1d4ed8;
-	--link-hover: #2563eb;
-	--card-bg: #f9f9f9;
-	--card-shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* Dark Theme Variables */
 html[data-theme='dark'] {
 	--background: #121212;
 	--text: #ffffff;
-	--border: #333333;
-	--button-bg: #1f1f1f;
-	--button-text: #ffffff;
-	--link: #60a5fa;
-	--link-hover: #3b82f6;
-	--card-bg: #1e1e1e;
-	--card-shadow: rgba(255, 255, 255, 0.1);
 }
 
-/* Global Styles */
-a {
-	color: var(--link);
-	text-decoration: none;
-	transition: color 0.3s;
-}
-
-a:hover {
-	color: var(--link-hover);
-}
-
-button {
-	background-color: var(--button-bg);
-	color: var(--button-text);
-	border: 1px solid var(--border);
-	transition:
-		background-color 0.3s,
-		color 0.3s;
-}
-
-button:hover {
-	background-color: var(--link-hover);
-	color: var(--text);
-}
-
-.card {
-	background-color: var(--card-bg);
-	box-shadow: 0 4px 6px var(--card-shadow);
-	border: 1px solid var(--border);
-	border-radius: 0.5rem;
-	padding: 1rem;
-	transition:
-		background-color 0.3s,
-		box-shadow 0.3s;
-}
-
-/* Add smooth transitions to commonly used elements */
-input,
-textarea,
-select {
+body {
 	background-color: var(--background);
 	color: var(--text);
-	border: 1px solid var(--border);
-	transition:
-		background-color 0.3s,
-		color 0.3s,
-		border-color 0.3s;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-	outline: none;
-	border-color: var(--link);
 }

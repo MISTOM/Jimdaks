@@ -1,99 +1,209 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import Sidebar from '$lib/components/Sidebar.svelte';
-	import Block from '$lib/components/Block.svelte';
-	import { toggleTheme, applySavedTheme, isDarkMode } from '$lib/utils/theme';
+	import { enhance } from '$app/forms';
+	import Header from '$lib/components/Header.svelte';
 
-	// Define the type for the profile object
-	type Profile = {
-		name: string;
-		role: string;
-	};
+	const { data, form } = $props();
 
-	let profile: Profile = { name: 'nasinza', role: 'Admin' };
+	let flocks = $derived(data.flocks || []);
+	let houses = $derived(data.houses || []);
 
-	let houses = [
-		{
-			name: 'House A',
-			capacity: 100,
-			description: 'This is the first house.',
-			createdAt: '2024-01-01',
-			updatedAt: '2024-11-01',
-			flocks: [
-				{ name: 'Chickens', count: 50 },
-				{ name: 'Turkeys', count: 70 }
-			]
-		},
-		{
-			name: 'House B',
-			capacity: 150,
-			description: 'for sale',
-			createdAt: '2024-02-01',
-			updatedAt: '2024-11-02',
-			flocks: [
-				{ name: 'Chickens', count: 50 },
-				{ name: 'Ducks', count: 30 }
-			]
-		},
-		{
-			name: 'House C',
-			capacity: 200,
-			description: 'This is the third house.',
-			createdAt: '2024-03-01',
-			updatedAt: '2024-11-03',
-			flocks: [
-				{ name: 'Chickens', count: 50 },
-				{ name: 'Ducks', count: 30 }
-			]
-		}
-	];
-
-	// Apply saved theme on mount
-	onMount(() => {
-		applySavedTheme();
-	});
+	let name = $state('');
+	let startDate = $state('');
+	let birdAge = $state('');
+	let breeder = $state('');
+	let birdType = $state('BROILER');
+	let numberOfBirds = $state();
+	let notes = $state('');
+	let houseId = $state('');
+	let showModal = $state(false);
 </script>
 
-<div class="flex h-screen">
-	<!-- Sidebar -->
-	<Sidebar {profile} />
+<Header />
 
-	<!-- Main Content -->
-	<div class="flex-1 p-6">
-		<!-- Theme Toggle Button -->
-		<div class="absolute right-4 top-4">
-			<button
-				class="rounded border px-4 py-2 text-sm font-semibold transition duration-300"
-				on:click={toggleTheme}
-			>
-				{#if $isDarkMode}
-					🌙 Dark Mode
-				{:else}
-					☀️ Light Mode
-				{/if}
-			</button>
-		</div>
-
-		<h1 class="mb-6 text-3xl font-bold">Dashboard</h1>
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-			{#each houses as house}
-				<div class="space-y-2 rounded-lg border p-4 shadow">
-					<Block
-						name={house.name}
-						capacity={house.capacity}
-						description={house.description}
-						createdAt={house.createdAt}
-						updatedAt={house.updatedAt}
-						flocks={house.flocks}
-					/>
-					<a
-						href={`/dashboard/house`}
-						class="block w-full rounded bg-blue-500 px-4 py-2 text-center text-white hover:bg-blue-600"
-					>
-						View Details
-					</a>
-				</div>
-			{/each}
-		</div>
+<div class="container mx-auto p-4">
+	<!-- Add New Flock Button -->
+	<div class="mb-4 flex justify-end">
+		<!-- svelte-ignore event_directive_deprecated -->
+		<button
+			class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+			on:click={() => (showModal = true)}
+		>
+			Add New Flock
+		</button>
 	</div>
+
+	<!-- Data Table -->
+	<div class="overflow-x-auto rounded-lg shadow-lg">
+		<table class="w-full table-auto border-collapse border border-gray-300">
+			<thead class="bg-green-100">
+				<tr>
+					<th class="border border-gray-300 px-4 py-2">Name</th>
+					<th class="border border-gray-300 px-4 py-2">Start Date</th>
+					<th class="border border-gray-300 px-4 py-2">Bird Age</th>
+					<th class="border border-gray-300 px-4 py-2">Breeder</th>
+					<th class="border border-gray-300 px-4 py-2">Bird Type</th>
+					<th class="border border-gray-300 px-4 py-2">Number of Birds</th>
+					<th class="border border-gray-300 px-4 py-2">Notes</th>
+					<th class="border border-gray-300 px-4 py-2">House</th>
+					<th class="border border-gray-300 px-4 py-2">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each flocks as flock}
+					<tr class="hover:bg-green-50">
+						<td class="border border-gray-300 px-4 py-2">{flock.name}</td>
+						<td class="border border-gray-300 px-4 py-2">
+							{new Date(flock.startDate).toLocaleDateString()}
+						</td>
+						<td class="border border-gray-300 px-4 py-2">{flock.birdAge}</td>
+						<td class="border border-gray-300 px-4 py-2">{flock.breeder}</td>
+						<td class="border border-gray-300 px-4 py-2">{flock.birdType}</td>
+						<td class="border border-gray-300 px-4 py-2">{flock.numberOfBirds}</td>
+						<td class="border border-gray-300 px-4 py-2">{flock.notes}</td>
+						<td class="border border-gray-300 px-4 py-2">{flock.house.name}</td>
+						<td class="border border-gray-300 px-4 py-2">
+							<button
+								class="mr-2 rounded bg-yellow-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
+								on:click={() => editFlock(flock)}
+							>
+								Edit
+							</button>
+							<button
+								class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
+								on:click={() => deleteFlock(flock.id)}
+							>
+								Delete
+							</button>
+						</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Modal for Add/Edit Form -->
+	{#if showModal}
+		<div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50">
+			<div class="w-full max-w-lg rounded bg-white p-6 shadow-lg">
+				<h2 class="mb-6 text-2xl font-bold text-green-600">Flock Form</h2>
+				<form class="grid grid-cols-1 gap-4 md:grid-cols-2" method="POST" use:enhance>
+					<!-- Name -->
+					<div>
+						<label for="name" class="mb-2 block font-medium text-gray-700">Name</label>
+						<input
+							type="text"
+							name="name"
+							placeholder="Enter flock name"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+							bind:value={name}
+							required
+						/>
+					</div>
+					<!-- Start Date -->
+					<div>
+						<label for="startDate" class="mb-2 block font-medium text-gray-700">Start Date</label>
+						<input
+							type="date"
+							name="startDate"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+							bind:value={startDate}
+							required
+						/>
+					</div>
+					<!-- Bird Age -->
+					<div>
+						<label for="birdAge" class="mb-2 block font-medium text-gray-700">Bird Age</label>
+						<input
+							type="number"
+							name="birdAge"
+							placeholder="Enter bird age"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+							bind:value={birdAge}
+						/>
+					</div>
+					<!-- Breeder -->
+					<div>
+						<label for="breeder" class="mb-2 block font-medium text-gray-700">Breeder</label>
+						<input
+							type="text"
+							name="breeder"
+							placeholder="Enter breeder name"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+							bind:value={breeder}
+						/>
+					</div>
+					<!-- Bird Type -->
+					<div>
+						<label for="birdType" class="mb-2 block font-medium text-gray-700">Bird Type</label>
+						<select
+							name="birdType"
+							id="birdType"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+							bind:value={birdType}
+						>
+							<option value="BROILER">Broiler</option>
+							<option value="LAYER">Layer</option>
+						</select>
+					</div>
+					<!-- Number of Birds -->
+					<div>
+						<label for="numberOfBirds" class="mb-2 block font-medium text-gray-700"
+							>Number of Birds</label
+						>
+						<input
+							type="number"
+							name="numberOfBirds"
+							placeholder="Enter number of birds"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+							bind:value={numberOfBirds}
+							required
+						/>
+					</div>
+					<!-- Notes -->
+					<div class="md:col-span-2">
+						<label for="notes" class="mb-2 block font-medium text-gray-700">Notes</label>
+						<textarea
+							id="notes"
+							name="notes"
+							placeholder="Enter additional notes"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+							bind:value={notes}
+						></textarea>
+					</div>
+
+					<!-- House -->
+					<div class="md:col-span-2">
+						<label for="houseId" class="mb-2 block font-medium text-gray-700">House</label>
+						<select
+							name="houseId"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+							bind:value={houseId}
+						>
+							{#each houses as house}
+								<option value={house.id}>{house.name}</option>
+							{/each}
+						</select>
+					</div>
+
+					<!-- Submit Button -->
+					<div class="flex justify-between md:col-span-2">
+						<!-- svelte-ignore event_directive_deprecated -->
+						<button
+							type="button"
+							class="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+							on:click={() => (showModal = false)}
+						>
+							Cancel
+						</button>
+						<button
+							type="submit"
+							class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+						>
+							Save
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	{/if}
 </div>

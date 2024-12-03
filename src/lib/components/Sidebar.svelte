@@ -23,7 +23,7 @@
 							{selection.name}
 						</summary>
 						<ul class="mt-2 pl-4">
-							{#each selection.dropdown as item}
+							{#each selection.dropdown ?? [] as item}
 								<li class="text-sm">{item}</li>
 							{/each}
 						</ul>
