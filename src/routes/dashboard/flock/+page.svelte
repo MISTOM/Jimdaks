@@ -16,13 +16,41 @@
 	let notes = $state('');
 	let houseId = $state('');
 	let showModal = $state(false);
+	let searchTerm = $state('');
+
+	// Filtered flocks based on search term
+	let filteredFlocks = $derived(() =>
+		flocks.filter((flock) =>
+			flock.name ? flock.name.toLowerCase().includes(searchTerm.toLowerCase()) : false
+		)
+	);
 </script>
 
 <Header />
 
 <div class="p-6">
 	<!-- Add New Flock Button -->
-	<div class="mb-4 flex justify-end">
+	<div class="mb-4 flex justify-between">
+		<div class="relative flex items-center">
+			<svg
+				class="absolute left-3 h-5 w-5 text-gray-500"
+				fill="currentColor"
+				viewBox="0 0 20 20"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					fill-rule="evenodd"
+					d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM8 14a6 6 0 100-12 6 6 0 000 12z"
+					clip-rule="evenodd"
+				></path>
+			</svg>
+			<input
+				type="text"
+				placeholder="Search..."
+				class="w-64 rounded border py-2 pl-10 pr-4"
+				bind:value={searchTerm}
+			/>
+		</div>
 		<!-- svelte-ignore event_directive_deprecated -->
 		<button
 			class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
