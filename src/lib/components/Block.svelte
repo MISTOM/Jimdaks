@@ -37,7 +37,4 @@
 	</div>
 
 	<!-- View Details Button -->
-	<div class="mt-4 text-right">
-		<button class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">View Details</button>
-	</div>
 </div>
