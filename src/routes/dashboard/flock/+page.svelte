@@ -51,6 +51,7 @@
 					) + flock.birdAge}
 				</p>
 			</div>
+			<button class="">Log Mortality</button>
 		{/each}
 	</div>
 

@@ -1,19 +1,14 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { slide } from 'svelte/transition';
-	import type { PageData } from './$types';
 	import { enhance } from '$app/forms';
+	import type { FeedType } from '@prisma/client';
 
-	let { data }: { data: PageData } = $props();
+	let { data } = $props();
 
-	let feedTypeFilter = $state('');
-	let sortBy = $state('createdAt');
-	let sortOrder = $state('desc');
 	let openFormFeedType = $state('');
 	let formErrors = $state();
 
 	let inventoryData = $derived(data.feedInventoryMap);
-	let feedInventory = $derived(data.feedInventory);
 
 	const feedTypes = Object.values(data.FeedType);
 	// $inspect('Feed inventory: ', inventoryData
@@ -22,12 +17,17 @@
 		openFormFeedType = openFormFeedType === feedType ? '' : feedType;
 		formErrors = '';
 	};
+
+	const getProgressWidth = (feedType: FeedType) => {
+		const quantity = inventoryData[feedType]?.quantity ?? 0;
+		return Math.min((quantity / 500) * 100, 100);
+	};
 </script>
 
 <h1 class="mb-4 text-2xl font-bold">Feed Inventory</h1>
 
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-	{#each feedTypes as feedType, i (feedType)}
+	{#each feedTypes as feedType (feedType)}
 		<div class="flex flex-col justify-between rounded-lg border p-4 shadow-sm hover:shadow-md">
 			<div>
 				<h2 class="mb-2 text-xl font-semibold">{feedType.replace('_', ' ')}</h2>
@@ -42,7 +42,7 @@
 				<div class="mb-4 h-2 w-full rounded-full bg-gray-200">
 					<div
 						class="h-2 rounded-full bg-green-700"
-						style="width: {Math.min(((inventoryData[feedType]?.quantity ?? 0) / 500) * 100, 100)}%"
+						style="width: {getProgressWidth(feedType)}%"
 					></div>
 				</div>
 				<span class="ml-2 text-center text-sm text-gray-600">500KG</span>
@@ -85,12 +85,12 @@
 								class="w-full rounded border px-3 py-2"
 							/>
 							<input
-								type="text"
+								type="textarea"
 								name="notes"
 								placeholder="Notes"
 								class="w-full rounded border px-3 py-2"
 							/>
-							<input type="hidden" name="feedType" value={feedTypes[i]} />
+							<input type="hidden" name="feedType" value={feedType} />
 							<button
 								type="submit"
 								class="rounded bg-green-700 px-3 py-2 text-white transition-colors hover:bg-green-800"
