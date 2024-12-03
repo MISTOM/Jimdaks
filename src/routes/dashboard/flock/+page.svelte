@@ -20,20 +20,21 @@
 
 <Header />
 
-<div class="container mx-auto p-4">
+<div class="p-6">
 	<!-- Add New Flock Button -->
 	<div class="mb-4 flex justify-end">
+		<!-- svelte-ignore event_directive_deprecated -->
 		<button
 			class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
 			on:click={() => (showModal = true)}
 		>
-			Add New Flock
+			Add Flock
 		</button>
 	</div>
 
 	<!-- Data Table -->
 	<div class="overflow-x-auto rounded-lg shadow-lg">
-		<table class="w-full table-auto border-collapse border border-gray-300">
+		<table class="w-full table-auto border-collapse rounded-lg bg-white shadow-md">
 			<thead class="bg-green-100">
 				<tr>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Name</th>
@@ -54,19 +55,21 @@
 						<td class="border border-gray-300 px-4 py-2">
 							{new Date(flock.startDate).toLocaleDateString()}
 						</td>
-						<td class="border border-gray-300 px-4 py-2">{flock.birdAge}</td>
-						<td class="border border-gray-300 px-4 py-2">{flock.breeder}</td>
-						<td class="border border-gray-300 px-4 py-2">{flock.birdType}</td>
-						<td class="border border-gray-300 px-4 py-2">{flock.numberOfBirds}</td>
-						<td class="border border-gray-300 px-4 py-2">{flock.notes}</td>
-						<td class="border border-gray-300 px-4 py-2">{flock.house.name}</td>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border px-4 py-2 text-sm">{flock.birdAge}</td>
+						<td class="border px-4 py-2 text-sm">{flock.breeder}</td>
+						<td class="border px-4 py-2 text-sm">{flock.birdType}</td>
+						<td class="border px-4 py-2 text-sm">{flock.numberOfBirds}</td>
+						<td class="border px-4 py-2 text-sm">{flock.notes}</td>
+						<td class="border px-4 py-2 text-sm">{flock.house.name}</td>
+						<td class="border px-4 py-2 text-sm">
+							<!-- svelte-ignore event_directive_deprecated -->
 							<button
 								class="mr-2 rounded bg-yellow-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
 								on:click={() => editFlock(flock)}
 							>
 								Edit
 							</button>
+							<!-- svelte-ignore event_directive_deprecated -->
 							<button
 								class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
 								on:click={() => deleteFlock(flock.id)}
@@ -186,7 +189,6 @@
 
 					<!-- Submit Button -->
 					<div class="flex justify-between md:col-span-2">
-						<!-- svelte-ignore event_directive_deprecated -->
 						<button
 							type="button"
 							class="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
