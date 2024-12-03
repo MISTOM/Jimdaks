@@ -4,16 +4,40 @@
 
 	let { data }: { data: PageData } = $props();
 	const houses = $derived(data?.houses || []);
+	let searchTerm = $state('');
+
+	let filteredFlocks = $derived(() =>
+		houses.filter((house) =>
+			house.name ? house.name.toLowerCase().includes(searchTerm.toLowerCase()) : false
+		)
+	);
 </script>
 
 <Header />
 <!-- Houses page with Table Layout -->
 <div class="p-6">
 	<div class="mb-4 flex justify-between">
-		<h1 class="text-3xl font-bold text-gray-700">Houses</h1>
-		<button
-			class="rounded-md bg-blue-500 px-4 py-2 text-white transition duration-300 hover:bg-blue-600"
-		>
+		<div class="relative flex items-center">
+			<svg
+				class="absolute left-3 h-5 w-5 text-gray-500"
+				fill="currentColor"
+				viewBox="0 0 20 20"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					fill-rule="evenodd"
+					d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM8 14a6 6 0 100-12 6 6 0 000 12z"
+					clip-rule="evenodd"
+				></path>
+			</svg>
+			<input
+				type="text"
+				placeholder="Search..."
+				class="w-64 rounded border py-2 pl-10 pr-4"
+				bind:value={searchTerm}
+			/>
+		</div>
+		<button class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600">
 			Add House
 		</button>
 	</div>

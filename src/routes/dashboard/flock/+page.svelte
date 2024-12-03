@@ -18,7 +18,7 @@
 	let showModal = $state(false);
 	let searchTerm = $state('');
 
-	// Filtered flocks based on search term
+	//!filter function to be done on backend
 	let filteredFlocks = $derived(() =>
 		flocks.filter((flock) =>
 			flock.name ? flock.name.toLowerCase().includes(searchTerm.toLowerCase()) : false

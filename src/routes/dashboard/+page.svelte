@@ -18,6 +18,18 @@
 				{ name: 'Chickens', count: 50 },
 				{ name: 'Turkeys', count: 70 }
 			]
+		},
+
+		{
+			name: 'House B',
+			capacity: 100,
+			description: 'This is the first house.',
+			createdAt: '2024-01-01',
+			updatedAt: '2024-11-01',
+			flocks: [
+				{ name: 'Chickens', count: 50 },
+				{ name: 'Turkeys', count: 70 }
+			]
 		}
 		// Other houses...
 	];
