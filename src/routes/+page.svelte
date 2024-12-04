@@ -1,9 +1,9 @@
 <script>
-	//import { toggleMode } from 'mode-watcher';
+	const { data } = $props();
 </script>
 
 <main class="dark font-sans text-gray-800">
-	<header class="bg-green-900 py-4 text-white">
+	<header class="bg-green-900 p-4 text-white">
 		<nav class="container sticky mx-auto grid grid-cols-2">
 			<ul class="flex space-x-4">
 				<li><a href="/poultry" class="hover:underline">Poultry</a></li>
@@ -13,6 +13,12 @@
 				<li><a href="#general-shop" class="hover:underline">General Shop</a></li>
 			</ul>
 			<!-- <Button variant="outline" on:click={toggleMode}>Toggle Theme</Button> -->
+
+			{#if data.user}
+				<div class="text-right"><a href="/dashboard" class="hover:underline">Dashboard</a></div>
+			{:else}
+				<div class="text-right"><a href="/login" class="hover:underline">Login</a></div>
+			{/if}
 		</nav>
 	</header>
 

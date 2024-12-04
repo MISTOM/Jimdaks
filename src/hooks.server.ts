@@ -12,24 +12,20 @@ export const handle: Handle = async ({ event, resolve }) => {
 	try {
 		if (token) {
 			await authenticateWithAccessToken(event, token, refreshToken);
-		} else if (refreshToken) {
-			await authenticateWithRefreshToken(event, refreshToken);
-		} else {
-			throw error(401, 'No authentication tokens provided');
-		}
+		} else if (refreshToken) await authenticateWithRefreshToken(event, refreshToken);
 	} catch (err: any) {
 		clearUserSession(event);
 		console.error('Authentication error:', err);
 	}
 
 	// **Admin Route Protection**
-	if (event.url.pathname.startsWith('/admin')) {
+	if (event.url.pathname.startsWith('/dashboard')) {
 		if (!event.locals.user) {
 			throw redirect(303, '/login');
 		}
 
 		if (!(await auth.isAdmin(event.locals.user))) {
-			throw redirect(303, '/product');
+			throw redirect(303, '/');
 		}
 	}
 

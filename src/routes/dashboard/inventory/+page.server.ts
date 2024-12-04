@@ -1,6 +1,7 @@
+import type { Actions, PageServerLoad } from './$types';
 import prisma from '$lib/server/prisma';
 import { FeedType } from '@prisma/client';
-import type { PageServerLoad } from './$types';
+import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ url }) => {
 	const feedType = url.searchParams.get('feedType') as FeedType;
@@ -8,13 +9,16 @@ export const load: PageServerLoad = async ({ url }) => {
 	const sortOrder = url.searchParams.get('sortOrder') === 'asc' ? 'asc' : 'desc';
 
 	// Fetch total quantity for each feed type
-	const feedInventory = await prisma.feedInventory.groupBy({
-		by: ['feedType', 'notes'],
-		_sum: { quantity: true }
-	}); // TODO: feedtype is unique so we can use findMany instead of groupBy
+	// const feedInventory = await prisma.feedInventory.groupBy({
+	// 	by: ['feedType', 'notes'],
+	// 	_sum: { quantity: true }
+	// });
+
+	// TODO: feedtype is unique so we can use findMany instead of groupBy
+	const feedInventory = await prisma.feedInventory.findMany();
 
 	// Create a record with feedType as key and record as value
-	const feedInventoryMap = feedInventory.reduce(
+	const feedInventoryMap = feedInventory.reduce<Record<FeedType, (typeof feedInventory)[0]>>(
 		(acc, record) => {
 			acc[record.feedType] = record;
 			return acc;
@@ -22,5 +26,42 @@ export const load: PageServerLoad = async ({ url }) => {
 		{} as Record<FeedType, (typeof feedInventory)[0]>
 	);
 
-	return { feedInventoryMap, FeedType };
+	return { feedInventoryMap, FeedType, feedInventory };
+};
+
+export const actions: Actions = {
+	default: async ({ request }) => {
+		const formData = Object.fromEntries((await request.formData()).entries());
+
+		const { quantity, notes, feedType } = formData;
+
+		//validate feedType
+		if (!Object.values(FeedType).includes(feedType as FeedType)) {
+			return fail(400, { error: 'Invalid feed type' });
+		}
+
+		//validate quantity
+		if (isNaN(Number(quantity))) {
+			return fail(400, { error: 'Invalid quantity' });
+		}
+
+		try {
+			const feedInventory = await prisma.feedInventory.upsert({
+				where: { feedType: feedType as FeedType },
+				update: {
+					quantity: { increment: Number(quantity) },
+					notes: notes ? notes.toString() : undefined
+				},
+				create: {
+					feedType: feedType as FeedType,
+					quantity: Number(quantity),
+					notes: notes ? notes.toString() : undefined
+				}
+			});
+			return { feedInventory };
+		} catch (e) {
+			console.error(e);
+			return fail(500, { error: 'Failed to update feed inventory' });
+		}
+	}
 };
