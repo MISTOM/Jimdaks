@@ -11,25 +11,40 @@
 <div class="flex h-screen w-64 flex-col justify-between bg-gray-800 text-white">
 	<!-- Sidebar Header -->
 	<div>
-		<h1 class="p-4 text-3xl font-bold">JIMDAKS</h1>
+		<h1 class="p-4 text-3xl font-bold"><a href="/dashboard/">JIMDAKS</a></h1>
 
 		<!-- Navigation Menu -->
 		<ul class="p-4">
-			{#each selections as selection}
-				<li class="mb-4">
-					<details>
-						<summary class="flex cursor-pointer items-center">
-							<span class="mr-2">{@html selection.icon}</span>
-							{selection.name}
-						</summary>
-						<ul class="mt-2 pl-4">
-							{#each selection.dropdown ?? [] as item}
-								<li class="text-sm">{item}</li>
-							{/each}
-						</ul>
-					</details>
-				</li>
-			{/each}
+			<li class="mb-4">
+				<details>
+					<summary class="flex cursor-pointer items-center">
+						<span class="mr-2"></span>
+						<a href="/dashboard/flock">Flock</a>
+					</summary>
+					<ul class="mt-2 pl-4"></ul>
+				</details>
+				<details>
+					<summary class="flex cursor-pointer items-center">
+						<span class="mr-2"></span>
+						<a href="/dashboard/house">House</a>
+					</summary>
+					<ul class="mt-2 pl-4"></ul>
+				</details>
+				<details>
+					<summary class="flex cursor-pointer items-center">
+						<span class="mr-2"></span>
+						<a href="/dashboard/inventory">Inventory</a>
+					</summary>
+					<ul class="mt-2 pl-4"></ul>
+				</details>
+				<details>
+					<summary class="flex cursor-pointer items-center">
+						<span class="mr-2"></span>
+						<a href="/dashboard/users">Users</a>
+					</summary>
+					<ul class="mt-2 pl-4"></ul>
+				</details>
+			</li>
 		</ul>
 	</div>
 
