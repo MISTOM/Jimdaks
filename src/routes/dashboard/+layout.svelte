@@ -4,7 +4,9 @@
 	import Block from '$lib/components/Block.svelte';
 	import { toggleTheme, applySavedTheme, isDarkMode } from '$lib/utils/theme';
 
-	const { children } = $props();
+	const { children, data } = $props();
+
+	const user = $derived(data.user)
 
 	type Profile = { name: string; role: string };
 	let profile: Profile = { name: 'nasinza', role: 'Admin' };
@@ -40,7 +42,7 @@
 </script>
 
 <div class="flex h-screen">
-	<Sidebar {profile} />
+	<Sidebar {user} />
 
 	<div class="flex-1 p-6">
 		<div class="absolute right-4 top-4">

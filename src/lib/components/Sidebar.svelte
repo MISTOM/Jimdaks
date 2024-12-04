@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { selections } from '$lib/utils/selections';
+	const { user } = $props();
 
-	export let profile = { name: 'John Doe', role: 'Admin' };
-	let isImageExpanded = false;
+	let isImageExpanded = $state(false);
 	const toggleImageSize = () => {
 		isImageExpanded = !isImageExpanded;
 	};
@@ -54,14 +53,14 @@
 			class={`cursor-pointer overflow-hidden rounded-full border-2 border-gray-600 transition-all duration-300 ${
 				isImageExpanded ? 'h-32 w-32' : 'h-12 w-12'
 			}`}
-			on:click={toggleImageSize}
+			onclick={toggleImageSize}
 		>
 			<img src="/chicks.jpg" alt="Profile" class="h-full w-full object-cover" />
 		</button>
 
 		<div class="ml-4 text-left">
-			<p class="font-semibold">{profile.name}</p>
-			<p class="text-sm text-gray-400">{profile.role}</p>
+			<p class="font-semibold">{user.name}</p>
+			<p class="text-sm text-gray-400">{user.email}</p>
 		</div>
 	</div>
 </div>

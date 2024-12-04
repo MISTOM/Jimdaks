@@ -5,7 +5,8 @@ export const load = (async ({ locals: { user } }) => {
 	try {
 		if (user) {
 			const loggedInUser = await prisma.user.findUnique({
-				where: { id: user.id }
+				where: { id: user.id },
+				include: {role: {select: {name: true}}}
 			});
 			return { user: loggedInUser };
 		}
