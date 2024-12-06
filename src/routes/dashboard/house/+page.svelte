@@ -46,7 +46,7 @@
 		<p class="text-gray-600">No houses found.</p>
 	{:else}
 		<table class="w-full table-auto border-collapse rounded-lg bg-white shadow-md">
-			<thead class="bg-gray-100">
+			<thead class="bg-gray-200">
 				<tr>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Name</th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Capacity</th>
@@ -58,7 +58,7 @@
 			</thead>
 			<tbody>
 				{#each houses as house}
-					<tr class="border-b hover:bg-gray-50">
+					<tr class="border-b hover:bg-gray-100">
 						<td class="border px-4 py-2 text-sm">{house.name}</td>
 						<td class="border px-4 py-2 text-sm">{house.capacity}</td>
 						<td class="border px-4 py-2 text-sm">{house.description || 'N/A'}</td>

@@ -16,31 +16,46 @@
 	<!-- Navigation Menu -->
 	<ul class="flex-1 space-y-4 overflow-auto p-4">
 		<li class="mb-4">
-			<a href="/dashboard/flock" class="flex cursor-pointer items-center">
+			<a
+				href="/dashboard/flock"
+				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
+			>
 				<span class="mr-2"><i class="fas fa-dove"></i></span>
 				Flock
 			</a>
 		</li>
 		<li class="mb-4">
-			<a href="/dashboard/house" class="flex cursor-pointer items-center">
+			<a
+				href="/dashboard/house"
+				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
+			>
 				<span class="mr-2"><i class="fas fa-home"></i></span>
 				House
 			</a>
 		</li>
 		<li class="mb-4">
-			<a href="/dashboard/inventory" class="flex cursor-pointer items-center">
+			<a
+				href="/dashboard/inventory"
+				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
+			>
 				<span class="mr-2"><i class="fas fa-boxes"></i></span>
 				Inventory
 			</a>
 		</li>
 		<li class="mb-4">
-			<a href="/dashboard/mortality" class="flex cursor-pointer items-center">
+			<a
+				href="/dashboard/mortality"
+				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
+			>
 				<span class="mr-2"><i class="fas fa-skull-crossbones"></i></span>
 				Mortality
 			</a>
 		</li>
 		<li class="mb-4">
-			<a href="/dashboard/users" class="flex cursor-pointer items-center">
+			<a
+				href="/dashboard/users"
+				class="hover:bg-opacity-50x flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-50 hover:bg-opacity-50"
+			>
 				<span class="mr-2"><i class="fas fa-users"></i></span>
 				Users
 			</a>
@@ -48,7 +63,6 @@
 	</ul>
 
 	<div class="border-t border-gray-400"></div>
-
 	<!-- Profile Section at the bottom -->
 	<div class="mt-auto flex items-center p-4">
 		<button
