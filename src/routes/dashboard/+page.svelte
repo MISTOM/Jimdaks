@@ -36,8 +36,8 @@
 	};
 </script>
 
-<div class="min-h-screen bg-gray-100 p-8">
-	<h1 class="mb-6 text-4xl font-bold">Dashboard</h1>
+<div class="min-h-screen bg-gray-100 p-6">
+	<h1 class="mb-6 text-2xl font-bold hover:font-normal">Dashboard</h1>
 
 	<!-- Summary Cards -->
 	<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -47,7 +47,7 @@
 		</div>
 		<div class="card">
 			<h2 class="text-xl font-semibold">Total Feed Used</h2>
-			<p class="text-4xl font-bold text-purple-600">{summary.totalFeedUsed} kg</p>
+			<p class="basis-1/2 text-4xl font-bold text-purple-600">{summary.totalFeedUsed} kg</p>
 		</div>
 		<div class="card">
 			<h2 class="text-xl font-semibold">Total Expenses</h2>

@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import Header from '$lib/components/Header.svelte';
 
-	const { data, form } = $props();
+	const { data } = $props();
 
 	let flocks = $derived(data.flocks || []);
 	let houses = $derived(data.houses || []);
@@ -53,7 +53,7 @@
 		</div>
 		<!-- svelte-ignore event_directive_deprecated -->
 		<button
-			class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+			class="rounded bg-green-700 px-4 py-2 text-white hover:bg-green-600"
 			on:click={() => (showModal = true)}
 		>
 			Add Flock
@@ -63,7 +63,7 @@
 	<!-- Data Table -->
 	<div class="overflow-x-auto rounded-lg shadow-lg">
 		<table class="w-full table-auto border-collapse rounded-lg bg-white shadow-md">
-			<thead class="bg-green-100">
+			<thead class="bg-gray-200">
 				<tr>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Name</th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Start Date</th>
@@ -71,14 +71,14 @@
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Breeder</th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Bird Type</th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Number of Birds</th>
-					<th class="border px-4 py-2 text-left text-sm text-gray-600"></th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600"> Notes </th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">House</th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				{#each flocks as flock}
-					<tr class="hover:bg-green-50">
+					<tr class="hover:bg-gray-100">
 						<td class="border border-gray-300 px-4 py-2">{flock.name}</td>
 						<td class="border border-gray-300 px-4 py-2">
 							{new Date(flock.startDate).toLocaleDateString()}
@@ -92,16 +92,17 @@
 						<td class="border px-4 py-2 text-sm">
 							<!-- svelte-ignore event_directive_deprecated -->
 							<button
+								class="mr-2 rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
+							>
+								Log
+							</button>
+							<button
 								class="mr-2 rounded bg-yellow-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
-								on:click={() => editFlock(flock)}
 							>
 								Edit
 							</button>
 							<!-- svelte-ignore event_directive_deprecated -->
-							<button
-								class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
-								on:click={() => deleteFlock(flock.id)}
-							>
+							<button class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600">
 								Delete
 							</button>
 						</td>
