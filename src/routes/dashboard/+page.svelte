@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 
-	let { data }: { data: PageData } = $props();
+	let { data } = $props();
 </script>
 
 <h1 class="text-4xl font-bold">Dashboard Home</h1>
