@@ -53,7 +53,7 @@
 			class={`cursor-pointer overflow-hidden rounded-full border-2 border-gray-600 transition-all duration-300 ${
 				isImageExpanded ? 'h-32 w-32' : 'h-12 w-12'
 			}`}
-			on:click={toggleImageSize}
+			onclick={toggleImageSize}
 		>
 			<img src="/chicks.jpg" alt="Profile" class="h-full w-full object-cover" />
 		</button>

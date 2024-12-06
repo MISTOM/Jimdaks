@@ -13,7 +13,7 @@
 	<div class="flex items-center">
 		<button
 			class="cursor-pointer overflow-hidden rounded-full border-2 border-green-500 transition-all duration-300"
-			on:click={toggleImageSize}
+			onclick={toggleImageSize}
 		>
 			<img
 				src="/chicks.jpg"

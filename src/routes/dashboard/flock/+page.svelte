@@ -26,41 +26,89 @@
 	);
 </script>
 
-<!-- Display all flocks -->
-<div class="flex flex-col md:flex-row md:space-x-8">
-	<div class="w-full md:w-2/3">
-		<h2 class="mb-4 text-2xl font-bold">Flocks</h2>
-		{#if flocks.length === 0}
-			<p class="text-xl text-gray-400">No flocks found</p>
-		{/if}
-		{#each flocks as flock}
-			<div class="mb-4 rounded border p-4">
-				<h3 class="text-xl font-semibold">{flock.name}</h3>
-				<p>
-					<span class="font-medium">Start Date:</span>
-					{new Date(flock.startDate).toLocaleDateString()}
-				</p>
-				{#if flock.endDate}
-					<p>
-						<span class="font-medium">End Date:</span>
-						{new Date(flock.endDate).toLocaleDateString()}
-					</p>
-				{/if}
-				<p><span class="font-medium">Breeder:</span> {flock.breeder}</p>
-				<p><span class="font-medium">Bird Type:</span> {flock.birdType}</p>
-				<p><span class="font-medium">Number of Birds:</span> {flock.numberOfBirds}</p>
-				<p><span class="font-medium">Initial chick age (in days)</span> {flock.birdAge}</p>
-				<p><span class="font-medium">Notes:</span> {flock.notes}</p>
-				<p><span class="font-medium">House:</span> {flock.house.name}</p>
-				<p>
-					<span class="font-medium">Current age of birds in days </span>
-					{Math.floor(
-						(new Date().getTime() - new Date(flock.startDate).getTime()) / (1000 * 60 * 60 * 24)
-					) + flock.birdAge}
-				</p>
-			</div>
-			<button class="">Log Mortality</button>
-		{/each}
+<Header />
+
+<div class="p-6">
+	<!-- Add New Flock Button -->
+	<div class="mb-4 flex justify-between">
+		<div class="relative flex items-center">
+			<svg
+				class="absolute left-3 h-5 w-5 text-gray-500"
+				fill="currentColor"
+				viewBox="0 0 20 20"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					fill-rule="evenodd"
+					d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM8 14a6 6 0 100-12 6 6 0 000 12z"
+					clip-rule="evenodd"
+				></path>
+			</svg>
+			<input
+				type="text"
+				placeholder="Search..."
+				class="w-64 rounded border py-2 pl-10 pr-4"
+				bind:value={searchTerm}
+			/>
+		</div>
+		<!-- svelte-ignore event_directive_deprecated -->
+		<button
+			class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+			on:click={() => (showModal = true)}
+		>
+			Add Flock
+		</button>
+	</div>
+
+	<!-- Data Table -->
+	<div class="overflow-x-auto rounded-lg shadow-lg">
+		<table class="w-full table-auto border-collapse rounded-lg bg-white shadow-md">
+			<thead class="bg-green-100">
+				<tr>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Name</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Start Date</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Bird Age</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Breeder</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Bird Type</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Number of Birds</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600"></th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">House</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each flocks as flock}
+					<tr class="hover:bg-green-50">
+						<td class="border border-gray-300 px-4 py-2">{flock.name}</td>
+						<td class="border border-gray-300 px-4 py-2">
+							{new Date(flock.startDate).toLocaleDateString()}
+						</td>
+						<td class="border px-4 py-2 text-sm">{flock.birdAge}</td>
+						<td class="border px-4 py-2 text-sm">{flock.breeder}</td>
+						<td class="border px-4 py-2 text-sm">{flock.birdType}</td>
+						<td class="border px-4 py-2 text-sm">{flock.numberOfBirds}</td>
+						<td class="border px-4 py-2 text-sm">{flock.notes}</td>
+						<td class="border px-4 py-2 text-sm">{flock.house.name}</td>
+						<td class="border px-4 py-2 text-sm">
+							<!-- svelte-ignore event_directive_deprecated -->
+							<button
+								class="mr-2 rounded bg-yellow-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
+								on:click={() => editFlock(flock)}
+							>
+								Edit
+							</button>
+							<!-- svelte-ignore event_directive_deprecated -->
+							<button
+								class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
+								on:click={() => deleteFlock(flock.id)}
+							>
+								Delete
+							</button>
+						</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
 	</div>
 
 	<!-- Modal for Add/Edit Form -->
