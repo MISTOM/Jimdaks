@@ -1,5 +1,5 @@
 import prisma from '$lib/server/prisma';
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
 	const id = Number(params.id);
@@ -14,3 +14,11 @@ export const load = (async ({ params }) => {
 		console.error(error);
 	}
 }) satisfies PageServerLoad;
+
+export const actions: Actions = {
+	// TODO: edit flock
+	// TODO: delete flock
+	// TODO: add weight log
+	// TODO: add expense
+	//
+};

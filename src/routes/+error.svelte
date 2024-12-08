@@ -14,7 +14,7 @@
 
 	<!-- go to history navigation back -->
 	<button
-		class=" mt-4 bg-green-700 hover:bg-green-950 text-white px-4 py-2 rounded"
+		class=" mt-4 rounded bg-green-700 px-4 py-2 text-white hover:bg-green-950"
 		onclick={() => history.back()}>Go back</button
 	>
 </main>

@@ -6,7 +6,7 @@
 
 	const { children, data } = $props();
 
-	const user = $derived(data.user)
+	const user = $derived(data.user);
 
 	type Profile = { name: string; role: string };
 	let profile: Profile = { name: 'nasinza', role: 'Admin' };

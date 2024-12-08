@@ -3,10 +3,10 @@
 </script>
 
 <main class="dark font-sans text-gray-800">
-	<header class="bg-green-900 p-4 text-white">
+	<header class="sticky top-0 bg-black p-4 font-extralight text-white shadow-sm">
 		<nav class="container sticky mx-auto grid grid-cols-2">
 			<ul class="flex space-x-4">
-				<li><a href="/poultry" class="hover:underline">Poultry</a></li>
+				<li><a href="/poultry" class="transition-colors hover:text-green-700">Poultry</a></li>
 				<li><a href="#financial-services" class="hover:underline">Financial Services</a></li>
 				<li><a href="#e-services" class="hover:underline">E-services</a></li>
 				<li><a href="#cafe" class="transition-all hover:underline">Café</a></li>
@@ -17,7 +17,9 @@
 			{#if data.user}
 				<div class="text-right"><a href="/dashboard" class="hover:underline">Dashboard</a></div>
 			{:else}
-				<div class="text-right"><a href="/login" class="hover:underline">Login</a></div>
+				<div class="text-right font-thin">
+					<a href="/login">Login</a>
+				</div>
 			{/if}
 		</nav>
 	</header>
@@ -25,10 +27,14 @@
 	<section
 		id="hero"
 		class="h-screen bg-cover bg-center text-center text-white"
-		style="background-image: url('/chicken.webp');"
+		style="background-image: url('/layerChicken.jpg');"
 	>
 		<div class="flex h-full flex-col items-center justify-center bg-opacity-50">
-			<h1 class="mb-4 text-5xl font-bold">Jimdaks Farm Fresh</h1>
+			<h1
+				class="duration-400 mb-4 text-5xl font-bold text-green-950 opacity-50 transition-opacity hover:opacity-100"
+			>
+				Jimdaks Farm Fresh
+			</h1>
 			<p class="mb-3 text-2xl">From farm to fork</p>
 			<div>
 				<button class="rounded-md bg-black px-3 py-2 text-white"> Shop now </button>
