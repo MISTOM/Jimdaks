@@ -61,7 +61,7 @@
 	</div>
 
 	<!-- Data Table -->
-	<div class="overflow-x-auto rounded-lg shadow-lg">
+	<div class="overflow-x-auto shadow-lg">
 		<table class="w-full table-auto border-collapse rounded-lg bg-white shadow-md">
 			<thead class="bg-gray-200">
 				<tr>

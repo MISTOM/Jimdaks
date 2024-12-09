@@ -6,7 +6,7 @@
 
 <Header />
 <div class="p-6">
-	<h1 class="mb-4 text-2xl font-bold">Mortality Overview</h1>
+	<h1 class="mb-4 text-2xl hover:text-green-700">Mortality Overview</h1>
 
 	<ul class="space-y-4 rounded-lg bg-gray-100 p-4 shadow-md">
 		{#if flocks.length === 0}
@@ -17,13 +17,12 @@
 					<span class="text-black-500">
 						{flock.name || 'Unnamed Flock'} - Total Mortality: {flock.totalMortality}
 					</span>
-					<a
-						href="/dashboard/mortality/{flock.id}"
-						class="flex items-center text-green-700 hover:text-green-700"
+					<button
+						class="rounded bg-green-700 px-3 py-1 text-white hover:bg-green-600"
+						onclick={() => (window.location.href = `/dashboard/mortality/${flock.id}`)}
 					>
-						<span class="mr-1">View</span>
-						<i class="fas fa-arrow-right"></i>
-					</a>
+						View
+					</button>
 				</li>
 			{/each}
 		{/if}

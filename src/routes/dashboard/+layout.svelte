@@ -6,10 +6,8 @@
 </script>
 
 <div class="flex min-h-screen">
-	<!-- Sidebar container, flex will make it grow with the content -->
-	<Sidebar {user} class="flex-shrink-0" />
+	<Sidebar {user} />
 
-	<!-- Main content area -->
 	<div class="flex-1 p-6">
 		{@render children?.()}
 	</div>
