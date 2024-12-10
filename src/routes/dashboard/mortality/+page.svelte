@@ -4,7 +4,7 @@
 	const flocks = $derived(data.flocks || []);
 </script>
 
-<Header />
+<!-- <Header /> -->
 <div class="p-6">
 	<h1 class="mb-4 text-2xl hover:text-green-700">Mortality Overview</h1>
 

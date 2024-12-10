@@ -1,4 +1,19 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
+	const handleLogout = async () => {
+		const response = await fetch('/api/logout', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' }
+		});
+
+		if (!response.ok) {
+			console.error('Failed to log out');
+		}
+
+		console.log(await response.json());
+		await goto('/', { invalidateAll: true });
+	};
 </script>
 
 <header class="flex items-center justify-between bg-white p-4 shadow-md">
@@ -12,11 +27,11 @@
 	<div>
 		<!-- Profile Section (Right side) -->
 
-		<a
-			href="/logout"
+		<button
+			onclick={handleLogout}
 			class="flex items-center text-lg font-medium text-gray-500 hover:text-gray-700"
 		>
 			<i class="fas fa-sign-out-alt mr-2 text-green-700"></i> Logout
-		</a>
+		</button>
 	</div>
 </header>

@@ -13,7 +13,7 @@
 	);
 </script>
 
-<Header />
+<!-- <Header /> -->
 <!-- Houses page with Table Layout -->
 <div class="p-6">
 	<div class="mb-4 flex justify-between">

@@ -7,7 +7,7 @@
 	let user: any = null;
 </script>
 
-<Header />
+<!-- <Header /> -->
 
 <div class="p-6">
 	<div class="profile-container">

@@ -46,5 +46,8 @@ export const actions: Actions = {
 			console.error(e);
 			return { status: 500, error: e };
 		}
+	},
+	mortalityLog: async ({ request }) => {
+		const data = Object.fromEntries((await request.formData()).entries());
 	}
 };

@@ -32,7 +32,7 @@
 	);
 </script>
 
-<Header />
+<!-- <Header /> -->
 
 <div class="p-6">
 	<!-- Add New Flock Button -->
