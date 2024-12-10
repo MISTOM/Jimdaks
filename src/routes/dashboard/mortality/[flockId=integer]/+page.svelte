@@ -1,43 +1,47 @@
 <script lang="ts">
+	import Header from '$lib/components/Header.svelte';
 	let { data } = $props();
 	const flock = $derived(data.flock);
 </script>
 
-{#if !flock}
-	<p class="text-center text-gray-700">No Flock Found</p>
-{:else}
-	<h1 class="mb-4 text-2xl font-bold">
-		Mortality Logs for {flock.name || 'Unnamed Flock'}
-	</h1>
+<Header />
+<div class="p-6">
+	{#if !flock}
+		<p class="text-center text-gray-700">No Flock Found</p>
+	{:else}
+		<h1 class="mb-4 text-2xl font-bold">
+			Mortality Logs for {flock.name || 'Unnamed Flock'}
+		</h1>
 
-	<table class="min-w-full border">
-		<thead>
-			<tr class="bg-gray-100">
-				<th class="border px-4 py-2">Date</th>
-				<th class="border px-4 py-2">Number of Deaths</th>
-				<th class="border px-4 py-2">Cause of Death</th>
-				<th class="border px-4 py-2">Logged By</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#if flock.Mortality.length === 0}
+		<table class="w-full table-auto border-collapse rounded-lg bg-white shadow-md">
+			<thead class="bg-gray-200">
 				<tr>
-					<td class="border px-4 py-2 text-center text-sm text-gray-700" colspan="4"
-						>No Mortality Logs Found</td
-					>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Date</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Number of Deaths</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Cause of Death</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Logged By</th>
 				</tr>
-			{:else}
-				{#each flock.Mortality as record}
-					<tr class="hover:bg-gray-50">
-						<td class="border px-4 py-2">
-							{new Date(record.createdAt).toLocaleDateString()}
+			</thead>
+			<tbody>
+				{#if flock.Mortality.length === 0}
+					<tr>
+						<td class="border px-4 py-2 text-center text-sm text-gray-700" colspan="4">
+							No Mortality Logs Found
 						</td>
-						<td class="border px-4 py-2">{record.number}</td>
-						<td class="border px-4 py-2">{record.causeOfDeath}</td>
-						<td class="border px-4 py-2">{record.loggedBy.name}</td>
 					</tr>
-				{/each}
-			{/if}
-		</tbody>
-	</table>
-{/if}
+				{:else}
+					{#each flock.Mortality as record}
+						<tr class="border-b hover:bg-gray-100">
+							<td class="border px-4 py-2 text-sm">
+								{new Date(record.createdAt).toLocaleDateString()}
+							</td>
+							<td class="border px-4 py-2 text-sm">{record.number}</td>
+							<td class="border px-4 py-2 text-sm">{record.causeOfDeath}</td>
+							<td class="border px-4 py-2 text-sm">{record.loggedBy.name}</td>
+						</tr>
+					{/each}
+				{/if}
+			</tbody>
+		</table>
+	{/if}
+</div>

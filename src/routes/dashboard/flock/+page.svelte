@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import Header from '$lib/components/Header.svelte';
 
-	const { data, form } = $props();
+	const { data } = $props();
 
 	let flocks = $derived(data.flocks || []);
 	let houses = $derived(data.houses || []);
@@ -17,6 +17,12 @@
 	let houseId = $state('');
 	let showModal = $state(false);
 	let searchTerm = $state('');
+
+	// New state variables for the log form
+	let logDate = $state('');
+	let numberOfDeaths = $state('');
+	let causeOfDeath = $state('');
+	let loggedBy = $state('');
 
 	//!filter function to be done on backend
 	let filteredFlocks = $derived(() =>
@@ -51,19 +57,18 @@
 				bind:value={searchTerm}
 			/>
 		</div>
-		<!-- svelte-ignore event_directive_deprecated -->
 		<button
-			class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
-			on:click={() => (showModal = true)}
+			class="rounded bg-green-700 px-4 py-2 text-white hover:bg-green-600"
+			onclick={() => (showModal = true)}
 		>
 			Add Flock
 		</button>
 	</div>
 
 	<!-- Data Table -->
-	<div class="overflow-x-auto rounded-lg shadow-lg">
+	<div class="overflow-x-auto shadow-lg">
 		<table class="w-full table-auto border-collapse rounded-lg bg-white shadow-md">
-			<thead class="bg-green-100">
+			<thead class="bg-gray-200">
 				<tr>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Name</th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Start Date</th>
@@ -71,14 +76,14 @@
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Breeder</th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Bird Type</th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Number of Birds</th>
-					<th class="border px-4 py-2 text-left text-sm text-gray-600"></th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600"> Notes </th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">House</th>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				{#each flocks as flock}
-					<tr class="hover:bg-green-50">
+					<tr class="hover:bg-gray-100">
 						<td class="border border-gray-300 px-4 py-2">{flock.name}</td>
 						<td class="border border-gray-300 px-4 py-2">
 							{new Date(flock.startDate).toLocaleDateString()}
@@ -90,18 +95,18 @@
 						<td class="border px-4 py-2 text-sm">{flock.notes}</td>
 						<td class="border px-4 py-2 text-sm">{flock.house.name}</td>
 						<td class="border px-4 py-2 text-sm">
-							<!-- svelte-ignore event_directive_deprecated -->
+							<button
+								class="mr-2 rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
+								onclick={() => (showModal = true)}
+							>
+								Log
+							</button>
 							<button
 								class="mr-2 rounded bg-yellow-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
-								on:click={() => editFlock(flock)}
 							>
 								Edit
 							</button>
-							<!-- svelte-ignore event_directive_deprecated -->
-							<button
-								class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
-								on:click={() => deleteFlock(flock.id)}
-							>
+							<button class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600">
 								Delete
 							</button>
 						</td>
@@ -115,104 +120,58 @@
 	{#if showModal}
 		<div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50">
 			<div class="w-full max-w-lg rounded bg-white p-6 shadow-lg">
-				<h2 class="mb-6 text-2xl font-bold text-green-600">Flock Form</h2>
+				<h2 class="mb-6 text-2xl font-bold text-green-600">Log Form</h2>
 				<form class="grid grid-cols-1 gap-4 md:grid-cols-2" method="POST" use:enhance>
-					<!-- Name -->
+					<!-- Log Date -->
 					<div>
-						<label for="name" class="mb-2 block font-medium text-gray-700">Name</label>
-						<input
-							type="text"
-							name="name"
-							placeholder="Enter flock name"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={name}
-							required
-						/>
-					</div>
-					<!-- Start Date -->
-					<div>
-						<label for="startDate" class="mb-2 block font-medium text-gray-700">Start Date</label>
+						<label for="logDate" class="mb-2 block font-medium text-gray-700">Date</label>
 						<input
 							type="date"
-							name="startDate"
+							name="logDate"
 							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={startDate}
+							bind:value={logDate}
 							required
 						/>
 					</div>
-					<!-- Bird Age -->
+					<!-- LOG FORM -->
 					<div>
-						<label for="birdAge" class="mb-2 block font-medium text-gray-700">Bird Age</label>
+						<label for="numberOfDeaths" class="mb-2 block font-medium text-gray-700"
+							>Number of Deaths</label
+						>
 						<input
 							type="number"
-							name="birdAge"
-							placeholder="Enter bird age"
+							name="numberOfDeaths"
+							placeholder="Enter number of deaths"
 							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={birdAge}
+							bind:value={numberOfDeaths}
+							required
 						/>
 					</div>
-					<!-- Breeder -->
+					<!-- Cause of Death -->
 					<div>
-						<label for="breeder" class="mb-2 block font-medium text-gray-700">Breeder</label>
+						<label for="causeOfDeath" class="mb-2 block font-medium text-gray-700"
+							>Cause of Death</label
+						>
 						<input
 							type="text"
-							name="breeder"
-							placeholder="Enter breeder name"
+							name="causeOfDeath"
+							placeholder="Enter cause of death"
 							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={breeder}
-						/>
-					</div>
-					<!-- Bird Type -->
-					<div>
-						<label for="birdType" class="mb-2 block font-medium text-gray-700">Bird Type</label>
-						<select
-							name="birdType"
-							id="birdType"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={birdType}
-						>
-							<option value="BROILER">Broiler</option>
-							<option value="LAYER">Layer</option>
-						</select>
-					</div>
-					<!-- Number of Birds -->
-					<div>
-						<label for="numberOfBirds" class="mb-2 block font-medium text-gray-700"
-							>Number of Birds</label
-						>
-						<input
-							type="number"
-							name="numberOfBirds"
-							placeholder="Enter number of birds"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={numberOfBirds}
+							bind:value={causeOfDeath}
 							required
 						/>
 					</div>
-					<!-- Notes -->
-					<div class="md:col-span-2">
-						<label for="notes" class="mb-2 block font-medium text-gray-700">Notes</label>
-						<textarea
-							id="notes"
-							name="notes"
-							placeholder="Enter additional notes"
+					<!-- Logged By form-->
+					<div>
+						<label for="loggedBy" class="mb-2 block font-medium text-gray-700">Logged By</label>
+						<input
+							type="text"
+							name="loggedBy"
+							placeholder="Enter your name"
 							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={notes}
-						></textarea>
-					</div>
-
-					<!-- House -->
-					<div class="md:col-span-2">
-						<label for="houseId" class="mb-2 block font-medium text-gray-700">House</label>
-						<select
-							name="houseId"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={houseId}
-						>
-							{#each houses as house}
-								<option value={house.id}>{house.name}</option>
-							{/each}
-						</select>
+							bind:value={loggedBy}
+							required
+						/>
 					</div>
 
 					<!-- Submit Button -->
@@ -220,7 +179,7 @@
 						<button
 							type="button"
 							class="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
-							on:click={() => (showModal = false)}
+							onclick={() => (showModal = false)}
 						>
 							Cancel
 						</button>

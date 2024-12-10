@@ -3,28 +3,3 @@
 @tailwind utilities;
 
 /* Base styles for light and dark modes */
-html {
-	transition:
-		background-color 0.3s,
-		color 0.3s;
-}
-
-body {
-	background-color: var(--background);
-	color: var(--text);
-}
-
-html[data-theme='light'] {
-	--background: #ffffff;
-	--text: #000000;
-}
-
-html[data-theme='dark'] {
-	--background: #121212;
-	--text: #ffffff;
-}
-
-body {
-	background-color: var(--background);
-	color: var(--text);
-}
