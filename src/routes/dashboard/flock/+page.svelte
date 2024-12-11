@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { invalidate } from '$app/navigation';
 	import Header from '$lib/components/Header.svelte';
+	import SearchIcon from '$lib/components/SearchIcon.svelte';
 	import { getToastState } from '$lib/Toast.svelte';
 	import { fade, slide } from 'svelte/transition';
 
@@ -47,7 +48,7 @@
 	const showLogForm = (flockId: number) => {
 		formErrors = '';
 
-		//reset log form
+		//reset log form fields
 		logDate = new Date().toISOString().split('T')[0];
 		numberOfDeaths = '';
 		causeOfDeath = '';
@@ -60,7 +61,7 @@
 	const deleteFlock = (flockName: string | null, flockId: number) => async () => {
 		if (!confirm(`Are you sure you want to delete ${flockName || 'this'} flock?`)) return;
 
-		const response = await fetch(`/api/flock/${1000000}`, {
+		const response = await fetch(`/api/flock/${flockId}`, {
 			method: 'DELETE'
 		});
 
@@ -92,18 +93,7 @@
 <div class="p-6">
 	<div class="mb-4 flex justify-between">
 		<div class="relative flex items-center">
-			<svg
-				class="absolute left-3 h-5 w-5 text-gray-500"
-				fill="currentColor"
-				viewBox="0 0 20 20"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path
-					fill-rule="evenodd"
-					d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM8 14a6 6 0 100-12 6 6 0 000 12z"
-					clip-rule="evenodd"
-				></path>
-			</svg>
+			<SearchIcon />
 			<input
 				type="text"
 				placeholder="Search..."
@@ -112,7 +102,7 @@
 			/>
 		</div>
 		<button
-			class="rounded bg-green-700 px-4 py-2 text-white hover:bg-green-600"
+			class="rounded bg-green-700 px-4 py-2 text-white transition-colors hover:bg-green-600"
 			onclick={() => (showFlockModal = true)}
 		>
 			Add Flock
@@ -178,11 +168,23 @@
 	<!-- Modal for add flock-->
 	{#if showFlockModal}
 		<div
-			class="fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50"
+			class="fixed inset-0 z-50 flex cursor-auto items-center justify-center bg-gray-600 bg-opacity-50"
+			role="button"
+			tabindex="-1"
+			onclick={() => (showFlockModal = false)}
+			onkeydown={(e) => {
+				e.key === 'Escape' && (showFlockModal = false);
+			}}
 			in:fade={{ duration: 100 }}
 			out:fade={{ duration: 50 }}
 		>
-			<div class="w-full max-w-lg rounded bg-white p-6 shadow-lg">
+			<div
+				class="w-full max-w-lg cursor-auto rounded bg-white p-6 shadow-lg"
+				role="button"
+				onkeydown={() => {}}
+				tabindex="0"
+				onclick={(e) => e.stopPropagation()}
+			>
 				<h2 class="mb-6 text-2xl font-semibold text-green-600">New Flock</h2>
 				{#if formErrors}
 					{@render formError(formErrors)}
@@ -331,14 +333,26 @@
 		</div>
 	{/if}
 
-	<!-- Modal for Add/Edit Form -->
+	<!-- Modal for mortality logs -->
 	{#if showLogModal}
 		<div
 			class="fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50"
+			role="button"
+			tabindex="-1"
+			onclick={() => (showLogModal = false)}
+			onkeydown={(e) => {
+				e.key === 'Escape' && (showLogModal = false);
+			}}
 			in:fade={{ duration: 100 }}
 			out:fade={{ duration: 50 }}
 		>
-			<div class="w-full max-w-lg rounded bg-white p-6 shadow-lg">
+			<div
+				class="w-full max-w-lg rounded bg-white p-6 shadow-lg"
+				role="button"
+				onkeydown={() => {}}
+				tabindex="0"
+				onclick={(e) => e.stopPropagation()}
+			>
 				<h2 class="mb-6 text-2xl font-bold text-green-600">Log Form</h2>
 				{#if formErrors}
 					{@render formError(formErrors)}
