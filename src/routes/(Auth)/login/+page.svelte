@@ -1,19 +1,19 @@
 <script lang="ts">
-    import { enhance } from '$app/forms';
-    import { goto, invalidateAll } from '$app/navigation';
-    import { error } from '@sveltejs/kit';
-    import { fade } from 'svelte/transition';
+	import { enhance } from '$app/forms';
+	import { goto, invalidateAll } from '$app/navigation';
+	import { error } from '@sveltejs/kit';
+	import { fade } from 'svelte/transition';
 
-    const { form } = $props();
+	const { form } = $props();
 
-    let formErrors = $state();
-    let email = $state(form?.data?.email);
-    let password = $state('');
-    let passwordVisible = $state(false);
+	let formErrors = $state();
+	let email = $state(form?.data?.email);
+	let password = $state('');
+	let passwordVisible = $state(false);
 </script>
 
 <svelte:head>
-    <title>Login</title>
+	<title>Login</title>
 </svelte:head>
 
 <div class="flex min-h-screen">
@@ -94,5 +94,4 @@
 </div>
 
 <style>
- 
 </style>
