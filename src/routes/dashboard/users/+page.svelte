@@ -9,6 +9,7 @@
 
 <!-- <Header /> -->
 
+<h1 class="mb-4 text-3xl font-light">All Users</h1>
 <div class="p-6">
 	<div class="profile-container">
 		{#if user}

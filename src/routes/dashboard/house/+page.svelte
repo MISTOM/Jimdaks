@@ -15,6 +15,8 @@
 
 <!-- <Header /> -->
 <!-- Houses page with Table Layout -->
+ 
+<h1 class="mb-4 text-3xl font-light">Houses</h1>
 <div class="p-6">
 	<div class="mb-4 flex justify-between">
 		<div class="relative flex items-center">

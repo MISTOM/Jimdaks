@@ -5,9 +5,8 @@
 </script>
 
 <!-- <Header /> -->
+<h1 class="mb-4 text-3xl font-light">Mortality Overview</h1>
 <div class="p-6">
-	<h1 class="mb-4 text-2xl hover:text-green-700">Mortality Overview</h1>
-
 	<ul class="space-y-4 rounded-lg bg-gray-100 p-4 shadow-md">
 		{#if flocks.length === 0}
 			<p class="text-center text-gray-400">No flocks found</p>

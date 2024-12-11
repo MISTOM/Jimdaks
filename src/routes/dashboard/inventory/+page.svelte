@@ -24,7 +24,7 @@
 	};
 </script>
 
-<h1 class="mb-4 text-2xl font-bold">Feed Inventory</h1>
+<h1 class="mb-4 text-3xl font-light">Feed Inventory</h1>
 
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 	{#each feedTypes as feedType (feedType)}
