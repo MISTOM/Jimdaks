@@ -2,6 +2,11 @@
 	const { data } = $props();
 </script>
 
+<svelte:head>
+	<title>Home</title>
+	<link rel="preload" href="/layerChicken.jpg" as="image" />
+</svelte:head>
+
 <main class="dark font-sans text-gray-800">
 	<header class="sticky top-0 bg-black p-4 font-extralight text-white shadow-sm">
 		<nav class="container sticky mx-auto grid grid-cols-2">
