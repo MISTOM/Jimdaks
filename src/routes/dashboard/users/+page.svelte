@@ -1,136 +1,79 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import Header from '$lib/components/Header.svelte';
-	// Example: Adapt based on your project setup
+	import { getToastState } from '$lib/Toast.svelte';
 
-	let userId = 1; // Assume a logged-in user ID
-	let user: any = null;
+	const { data, form } = $props();
+
+	const toast = getToastState();
+
+	// Derived data
+	const user = $derived(data.user || {});
+	const flocks = $derived(data.flocks || []);
+	const feedUsage = $derived(data.feedUsage || []);
 </script>
 
-<Header />
-
+<!-- Page Content -->
 <div class="p-6">
-	<div class="profile-container">
-		{#if user}
-			<!-- Profile Header -->
-			<div class="profile-header">
-				<img
-					src="https://via.placeholder.com/150"
-					alt="{user.name}'s Profile Picture"
-					class="profile-picture"
-				/>
-				<div class="profile-details">
-					<h2>{user.name}</h2>
-					<p><strong>Email:</strong> {user.email}</p>
-					<p><strong>Role:</strong> {user.role.name}</p>
-					<p><strong>Joined:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
-				</div>
-			</div>
+	<h1 class="text-2xl font-light text-gray-800 transition duration-300 hover:text-black">
+		User Profile
+	</h1>
 
-			<!-- User Flocks Section -->
-			<div class="profile-section">
-				<h3>Flocks</h3>
-				{#if user.flock.length > 0}
-					<ul>
-						{#each user.flock as flock}
-							<li>
-								<strong>{flock.name}:</strong>
-								{flock.birdType} - {flock.numberOfBirds} birds started on{' '}
-								{new Date(flock.startDate).toLocaleDateString()}
-							</li>
-						{/each}
-					</ul>
-				{:else}
-					<p>No flocks associated.</p>
-				{/if}
-			</div>
+	<!-- User Details -->
+	<div class="mt-4 space-y-4 rounded-lg p-4 shadow-md">
+		<div class="rounded-lg bg-white p-6 shadow-lg">
+			<h2 class="mb-4 text-xl font-semibold text-gray-800">{user.name}'s Profile</h2>
+			<p class="text-gray-600"><strong>Email:</strong> {user.email}</p>
+			<p class="text-gray-600"><strong>Role:</strong> {user.role.name}</p>
+			<p class="text-gray-600">
+				<strong>Joined:</strong>
+				{new Date(user.createdAt).toLocaleDateString()}
+			</p>
+		</div>
 
-			<!-- Feed Usage Section -->
-			<div class="profile-section">
-				<h3>Recent Feed Usage</h3>
-				{#if user.feedUsage.length > 0}
-					<table>
-						<thead>
-							<tr>
-								<th>Date</th>
-								<th>Feed Type</th>
-								<th>Quantity (kg)</th>
+		<!-- Flocks Section -->
+		<div class="rounded-lg bg-white p-6 shadow-lg">
+			<h3 class="mb-4 text-lg font-semibold text-gray-800">Flocks</h3>
+			{#if flocks.length > 0}
+				<ul class="list-inside list-disc text-gray-700">
+					{#each flocks as flock}
+						<li>
+							<strong>{flock.name}:</strong>
+							{flock.birdType} - {flock.numberOfBirds} birds started on {new Date(
+								flock.startDate
+							).toLocaleDateString()}
+						</li>
+					{/each}
+				</ul>
+			{:else}
+				<p class="text-gray-600">No flocks associated.</p>
+			{/if}
+		</div>
+
+		<!-- Feed Usage Section -->
+		<div class="rounded-lg bg-white p-6 shadow-lg">
+			<h3 class="mb-4 text-lg font-semibold text-gray-800">Feed Usage</h3>
+			{#if feedUsage.length > 0}
+				<table class="w-full border-collapse">
+					<thead>
+						<tr class="bg-gray-200">
+							<th class="border px-4 py-2 text-left text-sm text-gray-600">Date</th>
+							<th class="border px-4 py-2 text-left text-sm text-gray-600">Feed Type</th>
+							<th class="border px-4 py-2 text-left text-sm text-gray-600">Quantity (kg)</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each feedUsage as usage}
+							<tr class="hover:bg-gray-100">
+								<td class="border px-4 py-2 text-sm">{new Date(usage.date).toLocaleDateString()}</td
+								>
+								<td class="border px-4 py-2 text-sm">{usage.feedType}</td>
+								<td class="border px-4 py-2 text-sm">{usage.quantity.toFixed(2)}</td>
 							</tr>
-						</thead>
-						<tbody>
-							{#each user.feedUsage as usage}
-								<tr>
-									<td>{new Date(usage.date).toLocaleDateString()}</td>
-									<td>{usage.feedType}</td>
-									<td>{usage.quantity.toFixed(2)}</td>
-								</tr>
-							{/each}
-						</tbody>
-					</table>
-				{:else}
-					<p>No recent feed usage logged.</p>
-				{/if}
-			</div>
-
-			<!-- Weight Logs Section -->
-			<div class="profile-section">
-				<h3>Weight Logs</h3>
-				<p>Total Weight Logs Recorded: {user.weightLog.length}</p>
-			</div>
-		{:else}
-			<p>Loading user data...</p>
-		{/if}
+						{/each}
+					</tbody>
+				</table>
+			{:else}
+				<p class="text-gray-600">No recent feed usage logged.</p>
+			{/if}
+		</div>
 	</div>
 </div>
-
-<style>
-	.profile-container {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: 20px;
-		background: #fff;
-		border-radius: 10px;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	}
-	.profile-header {
-		display: flex;
-		align-items: center;
-		margin-bottom: 20px;
-	}
-	.profile-picture {
-		border-radius: 50%;
-		width: 100px;
-		height: 100px;
-		margin-right: 20px;
-		border: 2px solid #ddd;
-	}
-	.profile-details h2 {
-		margin: 0;
-		color: #333;
-	}
-	.profile-details p {
-		color: #555;
-		margin: 5px 0;
-	}
-	.profile-section {
-		margin-top: 20px;
-	}
-	.profile-section h3 {
-		margin-bottom: 10px;
-		color: #444;
-	}
-	table {
-		width: 100%;
-		border-collapse: collapse;
-		margin-top: 10px;
-	}
-	th,
-	td {
-		padding: 8px 12px;
-		text-align: left;
-		border: 1px solid #ddd;
-	}
-	th {
-		background: #f5f5f5;
-	}
-</style>

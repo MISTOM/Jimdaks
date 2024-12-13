@@ -4,10 +4,12 @@
 	const flocks = $derived(data.flocks || []);
 </script>
 
-<Header />
-<div class="p-6">
-	<h1 class="mb-4 text-2xl hover:text-green-700">Mortality Overview</h1>
+<!-- <Header /> -->
 
+<div class="p-6">
+	<h1 class=" text-2xl font-light text-gray-800 transition duration-300 hover:text-black">
+		Mortality Overview
+	</h1>
 	<ul class="space-y-4 rounded-lg bg-gray-100 p-4 shadow-md">
 		{#if flocks.length === 0}
 			<p class="text-center text-gray-400">No flocks found</p>

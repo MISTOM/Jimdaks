@@ -4,7 +4,7 @@
 	const flock = $derived(data.flock);
 </script>
 
-<Header />
+<!-- <Header /> -->
 <div class="p-6">
 	{#if !flock}
 		<p class="text-center text-gray-700">No Flock Found</p>

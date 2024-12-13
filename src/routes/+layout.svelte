@@ -1,7 +1,7 @@
 <script>
+	import '../app.css';
 	import Toaster from '$lib/components/Toaster.svelte';
 	import { setToastState } from '$lib/Toast.svelte';
-	import '../app.css';
 	let { children } = $props();
 
 	setToastState();
