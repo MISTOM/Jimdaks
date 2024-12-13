@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import {
 		Chart as ChartJS,
 		CategoryScale,
@@ -7,8 +8,11 @@
 		LineElement,
 		PointElement,
 		Tooltip,
-		Legend
+		Legend,
+		BarController,
+		LineController
 	} from 'chart.js';
+
 	// Register Chart.js components
 	ChartJS.register(
 		CategoryScale,
@@ -17,8 +21,11 @@
 		LineElement,
 		PointElement,
 		Tooltip,
-		Legend
+		Legend,
+		BarController,
+		LineController
 	);
+
 	// Placeholder summary data
 	let summary = {
 		totalUsers: 5,
@@ -27,6 +34,71 @@
 		totalExpenses: 4500,
 		totalMortality: 32
 	};
+
+	// Chart data
+	let barChartData = {
+		labels: ['Feed', 'Medicine', 'Utilities', 'Labor'],
+		datasets: [
+			{
+				label: 'Expenses ($)',
+				data: [1000, 700, 1200, 600],
+				backgroundColor: 'rgba(75, 192, 192, 0.5)',
+				borderColor: 'rgba(75, 192, 192, 1)',
+				borderWidth: 1
+			}
+		]
+	};
+
+	let lineChartData = {
+		labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+		datasets: [
+			{
+				label: 'Mortality (birds)',
+				data: [5, 7, 4, 6, 10, 0],
+				borderColor: 'rgba(255, 99, 132, 1)',
+				backgroundColor: 'rgba(255, 99, 132, 0.5)',
+				borderWidth: 1,
+				fill: true
+			}
+		]
+	};
+
+	function renderBarChart() {
+		const ctx = document.getElementById('barChart') as HTMLCanvasElement;
+		new ChartJS(ctx, {
+			type: 'bar',
+			data: barChartData,
+			options: {
+				responsive: true,
+				plugins: {
+					legend: {
+						display: true
+					}
+				}
+			}
+		});
+	}
+
+	function renderLineChart() {
+		const ctx = document.getElementById('lineChart') as HTMLCanvasElement;
+		new ChartJS(ctx, {
+			type: 'line',
+			data: lineChartData,
+			options: {
+				responsive: true,
+				plugins: {
+					legend: {
+						display: true
+					}
+				}
+			}
+		});
+	}
+
+	onMount(() => {
+		renderBarChart();
+		renderLineChart();
+	});
 </script>
 
 <div class="min-h-screen bg-gray-100 p-8">
