@@ -79,13 +79,13 @@
 				</div>
 				<button
 					type="submit"
-					class="hover:bg-primary hover:text-secondary w-full rounded-md border p-2 transition-colors"
+					class="w-full rounded-md border bg-green-700 p-2 text-white transition-colors hover:bg-green-500"
 					>Login</button
 				>
 				<div class="mt-3 flex justify-between">
 					<a href="/register" class="hover:text-secondary text-xs transition-colors">Sign Up</a>
 					<a href="/forgotPassword" class="text-xs transition-colors hover:underline"
-						>Forgot Passoword?</a
+						>Forgot Password?</a
 					>
 				</div>
 			</form>
