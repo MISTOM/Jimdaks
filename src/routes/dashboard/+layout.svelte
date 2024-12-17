@@ -36,15 +36,7 @@
 
 	<!-- Main Content -->
 	<div class="flex-1 p-6">
-		<!-- Header with Toggle Button -->
 		<Header />
-		<div class="flex items-center justify-between">
-			<!-- <Header /> -->
-			<!-- <button class="text-green-800 md:hidden" onclick={toggleSidebar} aria-label="Toggle Sidebar">
-				<i class="fas fa-bars"></i>
-			</button> -->
-		</div>
-
 		{@render children?.()}
 	</div>
 </div>

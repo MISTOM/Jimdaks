@@ -101,8 +101,8 @@
 	});
 </script>
 
-<div class="min-h-screen bg-gray-100 p-4">
-	<h1 class="mb-6 text-4xl font-bold">Dashboard</h1>
+<div class=" bg-gray-100 p-6">
+	<h1 class="mb-6 text-3xl font-bold">Dashboard</h1>
 	<!-- Summary Cards -->
 	<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
 		<div class="card">

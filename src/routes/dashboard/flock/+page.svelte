@@ -7,14 +7,12 @@
 	import { fade, slide } from 'svelte/transition';
 
 	const { data, form } = $props();
-
 	const toast = getToastState();
-
 	const flocks = $derived(data.flocks || []);
 	const houses = $derived(data.houses || []);
-
 	const formattedToday = new Date().toISOString().split('T')[0];
 
+	// State management
 	let name = $state('');
 	let startDate = $state(formattedToday);
 	let birdAge = $state('');
@@ -26,16 +24,13 @@
 	let showLogModal = $state(false);
 	let showFlockModal = $state(false);
 	let searchTerm = $state('');
-
-	// Set default log date to today
 	let logDate = $state(formattedToday);
 	let numberOfDeaths = $state('');
 	let causeOfDeath = $state('');
 	let logFlockId = $state();
-
 	let formErrors = $state();
 
-	// Filter flocks based on search term, either flockname or house name or breeder
+	// Filter flocks based on search
 	let filteredFlocks = $derived.by(() => {
 		return flocks?.filter(
 			(flock) =>
@@ -45,61 +40,41 @@
 		);
 	});
 
+	// Functions
 	const showLogForm = (flockId: number) => {
 		formErrors = '';
-
-		//reset log form fields
 		logDate = new Date().toISOString().split('T')[0];
 		numberOfDeaths = '';
 		causeOfDeath = '';
-
 		logFlockId = flockId;
 		showLogModal = true;
 	};
 
-	// Delete flock
 	const deleteFlock = (flockName: string | null, flockId: number) => async () => {
 		if (!confirm(`Are you sure you want to delete ${flockName || 'this'} flock?`)) return;
-
-		const response = await fetch(`/api/flock/${flockId}`, {
-			method: 'DELETE'
-		});
-
+		const response = await fetch(`/api/flock/${flockId}`, { method: 'DELETE' });
 		if (response.ok) {
 			invalidate('update:flocks');
 			toast.add('Success', 'Flock deleted successfully', 'success');
 		} else {
 			const res = await response.json();
-			console.log('Error deleting flock -> ', res);
-			toast.add('Error', `${res.message || 'Error Deleteing Flock'}`, 'error');
+			toast.add('Error', `${res.message || 'Error Deleting Flock'}`, 'error');
 		}
 	};
 </script>
 
-<!-- Resuable snippet -->
-{#snippet formError(formErrors: any)}
-	<div
-		class="relative mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
-		in:slide={{ duration: 150 }}
-	>
-		<strong class="font-bold">Oops!</strong>
-		<span class="block sm:inline">{formErrors}</span>
-	</div>
-{/snippet}
-
-<!-- <Header /> -->
-
 <div class="p-6">
-	<h1 class=" text-2xl font-light text-gray-800 transition duration-300 hover:text-black">
-		Flocks
-	</h1>
-	<div class="mb-4 flex justify-between">
+	<!-- Header Section -->
+	<h1 class="text-2xl font-light text-gray-800 transition duration-300 hover:text-black">Flocks</h1>
+
+	<!-- Search and Add Section -->
+	<div class="mb-4 flex flex-col gap-4 sm:flex-row sm:justify-between">
 		<div class="relative flex items-center">
 			<SearchIcon />
 			<input
 				type="text"
 				placeholder="Search..."
-				class="w-64 rounded border py-2 pl-10 pr-4"
+				class="w-full rounded border py-2 pl-10 pr-4 sm:w-64"
 				bind:value={searchTerm}
 			/>
 		</div>
@@ -111,8 +86,8 @@
 		</button>
 	</div>
 
-	<!-- Data Table -->
-	<div class="overflow-x-auto shadow-lg">
+	<!-- Desktop Table View -->
+	<div class="hidden overflow-x-auto shadow-lg md:block">
 		<table class="w-full table-auto border-collapse rounded-lg bg-white shadow-md">
 			<thead class="bg-gray-200">
 				<tr>
@@ -146,19 +121,20 @@
 							<td class="border px-4 py-2 text-sm">{flock.notes}</td>
 							<td class="border px-4 py-2 text-sm">{flock.house.name}</td>
 							<td class="border px-4 py-2 text-sm">
-								<button
-									class="mr-2 rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
-									onclick={() => showLogForm(flock.id)}
-								>
-									Log
-								</button>
-
-								<button
-									class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
-									onclick={deleteFlock(flock.name, flock.id)}
-								>
-									Delete
-								</button>
+								<div class="flex space-x-2">
+									<button
+										class="rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
+										onclick={() => showLogForm(flock.id)}
+									>
+										Log
+									</button>
+									<button
+										class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
+										onclick={deleteFlock(flock.name, flock.id)}
+									>
+										Delete
+									</button>
+								</div>
 							</td>
 						</tr>
 					{/each}
@@ -167,10 +143,72 @@
 		</table>
 	</div>
 
+	<!-- Mobile Card View -->
+	<div class="grid gap-4 md:hidden">
+		{#if filteredFlocks.length === 0}
+			<div class="rounded-lg bg-white p-4 text-sm shadow">No flocks found</div>
+		{:else}
+			{#each filteredFlocks as flock (flock.id)}
+				<div class="rounded-lg bg-white p-4 shadow">
+					<div class="mb-4 flex items-center justify-between">
+						<h3 class="text-lg font-semibold">{flock.name}</h3>
+						<div class="flex space-x-2">
+							<button
+								class="rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
+								onclick={() => showLogForm(flock.id)}
+							>
+								Log
+							</button>
+							<button
+								class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
+								onclick={deleteFlock(flock.name, flock.id)}
+							>
+								Delete
+							</button>
+						</div>
+					</div>
+
+					<div class="grid gap-2 text-sm">
+						<div class="grid grid-cols-2 border-b py-2">
+							<span class="font-medium">Start Date:</span>
+							<span>{new Date(flock.startDate).toLocaleDateString()}</span>
+						</div>
+						<div class="grid grid-cols-2 border-b py-2">
+							<span class="font-medium">Bird Age:</span>
+							<span>{flock.birdAge}</span>
+						</div>
+						<div class="grid grid-cols-2 border-b py-2">
+							<span class="font-medium">Breeder:</span>
+							<span>{flock.breeder}</span>
+						</div>
+						<div class="grid grid-cols-2 border-b py-2">
+							<span class="font-medium">Bird Type:</span>
+							<span>{flock.birdType}</span>
+						</div>
+						<div class="grid grid-cols-2 border-b py-2">
+							<span class="font-medium">Number of Birds:</span>
+							<span>{flock.numberOfBirds}</span>
+						</div>
+						<div class="grid grid-cols-2 border-b py-2">
+							<span class="font-medium">House:</span>
+							<span>{flock.house.name}</span>
+						</div>
+						{#if flock.notes}
+							<div class="mt-2">
+								<span class="font-medium">Notes:</span>
+								<p class="mt-1 text-gray-600">{flock.notes}</p>
+							</div>
+						{/if}
+					</div>
+				</div>
+			{/each}
+		{/if}
+	</div>
+
 	<!-- Modal for add flock-->
 	{#if showFlockModal}
 		<div
-			class="fixed inset-0 z-50 flex cursor-auto items-center justify-center bg-gray-600 bg-opacity-50"
+			class="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-gray-600 bg-opacity-50 p-4 sm:p-6"
 			role="button"
 			tabindex="-1"
 			onclick={() => (showFlockModal = false)}
@@ -181,15 +219,17 @@
 			out:fade={{ duration: 50 }}
 		>
 			<div
-				class="w-full max-w-lg cursor-auto rounded bg-white p-6 shadow-lg"
+				class="relative my-4 w-full max-w-lg cursor-auto rounded bg-white p-4 shadow-lg sm:p-6"
 				role="button"
 				onkeydown={() => {}}
 				tabindex="0"
 				onclick={(e) => e.stopPropagation()}
 			>
-				<h2 class="mb-6 text-2xl font-semibold text-green-600">New Flock</h2>
+				<h2 class="mb-4 text-xl font-semibold text-green-600 sm:mb-6 sm:text-2xl">New Flock</h2>
 				{#if formErrors}
-					{@render formError(formErrors)}
+					{#if formErrors}
+						<div class="mb-4 text-red-500">{formErrors}</div>
+					{/if}
 				{/if}
 				<form
 					class="grid grid-cols-1 gap-4 md:grid-cols-2"
@@ -357,7 +397,7 @@
 			>
 				<h2 class="mb-6 text-2xl font-bold text-green-600">Log Form</h2>
 				{#if formErrors}
-					{@render formError(formErrors)}
+					{formErrors}
 				{/if}
 				<form
 					class="grid grid-cols-1 gap-4 md:grid-cols-2"
@@ -384,12 +424,12 @@
 						<input
 							id="logDate"
 							type="date"
+							name="logDate"
 							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
 							bind:value={logDate}
 						/>
 					</div>
-
-					<!-- Number of Deaths -->
+					<!-- LOG FORM -->
 					<div>
 						<label for="numberOfDeaths" class="mb-2 block font-medium text-gray-700"
 							>Number of Deaths</label
@@ -397,12 +437,12 @@
 						<input
 							id="numberOfDeaths"
 							type="number"
+							name="numberOfDeaths"
 							placeholder="Enter number of deaths"
 							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
 							bind:value={numberOfDeaths}
 						/>
 					</div>
-
 					<!-- Cause of Death -->
 					<div>
 						<label for="causeOfDeath" class="mb-2 block font-medium text-gray-700"
@@ -411,6 +451,7 @@
 						<input
 							id="causeOfDeath"
 							type="text"
+							name="causeOfDeath"
 							placeholder="Enter cause of death"
 							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
 							bind:value={causeOfDeath}
