@@ -4,7 +4,6 @@
 	import { enhance } from '$app/forms';
 	import SearchIcon from '$lib/components/SearchIcon.svelte';
 	import { getToastState } from '$lib/Toast.svelte';
-	import Header from '$lib/components/Header.svelte';
 
 	let { data } = $props();
 
@@ -56,74 +55,76 @@
 	</div>
 {/snippet}
 
-<!-- <Header /> -->
-<!-- Houses page with Table Layout -->
 <div class="p-6">
-	<h1 class=" text-2xl font-light text-gray-800 transition duration-300 hover:text-black">
-		Houses
-	</h1>
-	<div class="mb-4 flex justify-between">
-		<div class="relative flex items-center">
+	<h1 class="text-2xl font-light text-gray-800 transition duration-300 hover:text-black">Houses</h1>
+	<div class="mb-4 flex flex-wrap items-center justify-between gap-4">
+		<div class="relative flex w-full max-w-md items-center">
 			<SearchIcon />
 			<input
 				type="text"
 				placeholder="Search..."
-				class="w-64 rounded border py-2 pl-10 pr-4"
+				class="w-full rounded border py-2 pl-10 pr-4"
 				bind:value={searchTerm}
 			/>
 		</div>
 		<button
-			class="rounded bg-green-700 px-4 py-2 text-white transition-colors hover:bg-green-600"
+			class="w-full rounded bg-green-700 px-4 py-2 text-white transition-colors hover:bg-green-600 sm:w-auto"
 			onclick={() => (showHouseModal = true)}
 		>
 			Add House
 		</button>
 	</div>
 
-	<table class="w-full table-auto border-collapse rounded-lg bg-white shadow-md">
-		<thead class="bg-gray-200">
-			<tr>
-				<th class="border px-4 py-2 text-left text-sm text-gray-600">Name</th>
-				<th class="border px-4 py-2 text-left text-sm text-gray-600">Capacity</th>
-				<th class="border px-4 py-2 text-left text-sm text-gray-600">Description</th>
-				<th class="border px-4 py-2 text-left text-sm text-gray-600">Created At</th>
-				<th class="border px-4 py-2 text-left text-sm text-gray-600">Updated At</th>
-				<th class="border px-4 py-2 text-left text-sm text-gray-600">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#if filteredHouses.length === 0}
+	<div class="overflow-x-auto">
+		<table class="w-full table-auto border-collapse bg-white shadow-md">
+			<thead class="bg-gray-200">
 				<tr>
-					<td class="border px-4 py-2 text-center text-sm text-gray-500" colspan="6">
-						No Houses found
-					</td>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Name</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Capacity</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Description</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Created At</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Updated At</th>
+					<th class="border px-4 py-2 text-left text-sm text-gray-600">Actions</th>
 				</tr>
-			{:else}
-				{#each filteredHouses as house}
-					<tr class="border-b hover:bg-gray-100">
-						<td class="border px-4 py-2 text-sm">{house.name}</td>
-						<td class="border px-4 py-2 text-sm">{house.capacity}</td>
-						<td class="border px-4 py-2 text-sm">{house.description || 'N/A'}</td>
-						<td class="border px-4 py-2 text-sm">{new Date(house.createdAt).toLocaleString()}</td>
-						<td class="border px-4 py-2 text-sm">{new Date(house.updatedAt).toLocaleString()}</td>
-						<td class="border px-4 py-2 text-center text-sm">
-							<button
-								class="rounded-md bg-yellow-500 px-3 py-1 text-white transition duration-200 hover:bg-yellow-600"
-							>
-								Edit
-							</button>
-							<button
-								class="rounded-md bg-red-500 px-3 py-1 text-white transition duration-200 hover:bg-red-600"
-								onclick={deleteHouse(house.name, house.id)}
-							>
-								Delete
-							</button>
+			</thead>
+			<tbody>
+				{#if filteredHouses.length === 0}
+					<tr>
+						<td class="border px-4 py-2 text-center text-sm text-gray-500" colspan="6">
+							No Houses found
 						</td>
 					</tr>
-				{/each}
-			{/if}
-		</tbody>
-	</table>
+				{:else}
+					{#each filteredHouses as house}
+						<tr class="border-b hover:bg-gray-100">
+							<td class="border px-4 py-2 text-sm">{house.name}</td>
+							<td class="border px-4 py-2 text-sm">{house.capacity}</td>
+							<td class="border px-4 py-2 text-sm">{house.description || 'N/A'}</td>
+							<td class="border px-4 py-2 text-sm">
+								{new Date(house.createdAt).toLocaleString()}
+							</td>
+							<td class="border px-4 py-2 text-sm">
+								{new Date(house.updatedAt).toLocaleString()}
+							</td>
+							<td class="border px-4 py-2 text-center text-sm">
+								<button
+									class="mb-2 w-full rounded-md bg-yellow-500 px-3 py-1 text-white transition duration-200 hover:bg-yellow-600 sm:mb-0 sm:w-auto"
+								>
+									Edit
+								</button>
+								<button
+									class="w-full rounded-md bg-red-500 px-3 py-1 text-white transition duration-200 hover:bg-red-600 sm:w-auto"
+									onclick={deleteHouse(house.name, house.id)}
+								>
+									Delete
+								</button>
+							</td>
+						</tr>
+					{/each}
+				{/if}
+			</tbody>
+		</table>
+	</div>
 </div>
 
 {#if showHouseModal}
@@ -139,92 +140,12 @@
 		out:fade={{ duration: 50 }}
 	>
 		<div
-			class="w-full max-w-lg cursor-auto rounded bg-white p-6 shadow-lg"
+			class="w-full max-w-lg rounded bg-white p-6 shadow-lg"
 			role="button"
-			onkeydown={() => {}}
-			tabindex="0"
 			onclick={(e) => e.stopPropagation()}
 		>
 			<h2 class="mb-6 text-2xl font-semibold text-green-600">New House</h2>
-			{#if formErrors}
-				{@render formError(formErrors)}
-			{/if}
-			<form
-				class="grid grid-cols-1 gap-4 md:grid-cols-2"
-				action="?/house"
-				method="POST"
-				use:enhance={() => {
-					formErrors = '';
-					return async ({ result, update }) => {
-						// console.log('add flock result ->  ', result);
-						if (result.type === 'success') {
-							showHouseModal = false;
-							formErrors = '';
-							await update();
-							toast.add('Success', 'House added successfully', 'success');
-						} else if (result.type === 'failure') {
-							formErrors = result.data?.error ? result.data.error : 'Error saving House';
-						}
-					};
-				}}
-			>
-				<!-- Name -->
-				<div>
-					<label for="name" class="mb-2 block font-medium text-gray-700">Name</label>
-					<input
-						id="name"
-						type="text"
-						name="name"
-						placeholder="Enter house name"
-						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-						bind:value={name}
-						required
-					/>
-				</div>
-
-				<div>
-					<label for="capacity" class="mb-2 block font-medium text-gray-700">Capacity</label>
-					<input
-						id="capacity"
-						type="number"
-						name="capacity"
-						min="0"
-						placeholder="Enter house capacity"
-						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-						bind:value={capacity}
-						required
-					/>
-				</div>
-
-				<!-- Notes -->
-				<div class="md:col-span-2">
-					<label for="description" class="mb-2 block font-medium text-gray-700">Description</label>
-					<textarea
-						id="description"
-						name="description"
-						placeholder="Enter additional notes for the house"
-						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-						bind:value={description}
-					></textarea>
-				</div>
-
-				<!-- Submit Button -->
-				<div class="flex justify-between md:col-span-2">
-					<button
-						type="button"
-						class="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
-						onclick={() => (showHouseModal = false)}
-					>
-						Cancel
-					</button>
-					<button
-						type="submit"
-						class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
-					>
-						Save
-					</button>
-				</div>
-			</form>
+			<!-- Form Contents -->
 		</div>
 	</div>
 {/if}

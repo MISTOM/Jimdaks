@@ -137,6 +137,14 @@
 
 <style>
 	.card {
-		@apply flex flex-col justify-between rounded-lg bg-white p-6 shadow-lg;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		border-radius: 0.5rem;
+		background-color: white;
+		padding: 1.5rem;
+		box-shadow:
+			0 10px 15px -3px rgba(0, 0, 0, 0.1),
+			0 4px 6px -2px rgba(0, 0, 0, 0.05);
 	}
 </style>
