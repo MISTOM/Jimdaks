@@ -1,60 +1,69 @@
 <script lang="ts">
 	const { user } = $props();
 
-	let isImageExpanded = $state(false);
+	let isImageExpanded = false;
+	let isSidebarVisible = true;
+
 	const toggleImageSize = () => {
 		isImageExpanded = !isImageExpanded;
 	};
+
+	const toggleSidebar = () => {
+		isSidebarVisible = !isSidebarVisible;
+	};
 </script>
 
-<div class="flex min-h-screen w-48 flex-col bg-green-800 text-white">
+<div class="flex min-h-screen w-full flex-col bg-green-800 text-white md:w-48">
 	<!-- Sidebar Header -->
-	<div class="p-4">
+	<div class="flex items-center justify-between p-4">
 		<h1 class="text-3xl font-bold"><a href="/dashboard/">JIMDAKS</a></h1>
+		<button class="text-white md:hidden" onclick={toggleSidebar} aria-label="Toggle Sidebar">
+			<i class="fas fa-bars"></i>
+		</button>
 	</div>
 
 	<!-- Navigation Menu -->
 	<ul class="flex-1 space-y-4 overflow-auto p-4">
-		<li class="mb-4">
+		<li>
 			<a
 				href="/dashboard/flock"
-				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
+				class="flex w-full items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
 			>
 				<span class="mr-2"><i class="fas fa-dove"></i></span>
 				Flock
 			</a>
 		</li>
-		<li class="mb-4">
+		<li>
 			<a
 				href="/dashboard/house"
-				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
+				class="flex w-full items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
 			>
 				<span class="mr-2"><i class="fas fa-home"></i></span>
 				House
 			</a>
 		</li>
-		<li class="mb-4">
+		<li>
 			<a
 				href="/dashboard/inventory"
-				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
+				class="flex w-full items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
 			>
 				<span class="mr-2"><i class="fas fa-boxes"></i></span>
 				Inventory
 			</a>
 		</li>
-		<li class="mb-4">
+		<li>
 			<a
 				href="/dashboard/mortality"
-				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
+				class="flex w-full items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
 			>
 				<span class="mr-2"><i class="fas fa-skull-crossbones"></i></span>
 				Mortality
 			</a>
 		</li>
-		<li class="mb-4">
+		<li>
 			<a
 				href="/dashboard/users"
-				class="hover:bg-opacity-50x flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-50 hover:bg-opacity-50"
+				class="flex w-full items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
 			>
 				<span class="mr-2"><i class="fas fa-users"></i></span>
 				Users
@@ -63,8 +72,9 @@
 	</ul>
 
 	<div class="border-t border-gray-400"></div>
-	<!-- Profile Section at the bottom -->
-	<div class="mt-auto flex items-center p-4">
+
+	<!-- Profile Section -->
+	<div class="mt-4 flex items-center p-4">
 		<button
 			class={`cursor-pointer overflow-hidden rounded-full border-2 border-gray-600 transition-all duration-300 ${
 				isImageExpanded ? 'h-32 w-32' : 'h-12 w-12'
@@ -75,7 +85,7 @@
 		</button>
 
 		<div class="ml-4 text-left">
-			<p class="font-semibold">{user.name}</p>
+			<p class="font-semibold">{user?.name}</p>
 		</div>
 	</div>
 </div>
