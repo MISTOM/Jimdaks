@@ -42,6 +42,14 @@
 			toast.add('Error', `${res.message || 'Error Deleteing House'}`, 'error');
 		}
 	};
+
+	function formatDate(date: Date) {
+		return new Date(date).toLocaleDateString('en-KE', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
+	}
 </script>
 
 <!-- Resuable snippet -->
@@ -95,16 +103,16 @@
 						</td>
 					</tr>
 				{:else}
-					{#each filteredHouses as house}
+					{#each filteredHouses as house (house.id)}
 						<tr class="border-b hover:bg-gray-100">
 							<td class="border px-4 py-2 text-sm">{house.name}</td>
 							<td class="border px-4 py-2 text-sm">{house.capacity}</td>
 							<td class="border px-4 py-2 text-sm">{house.description || 'N/A'}</td>
 							<td class="border px-4 py-2 text-sm">
-								{new Date(house.createdAt).toLocaleString()}
+								{formatDate(house.createdAt)}
 							</td>
 							<td class="border px-4 py-2 text-sm">
-								{new Date(house.updatedAt).toLocaleString()}
+								{formatDate(house.updatedAt)}
 							</td>
 							<td class="border px-4 py-2 text-center text-sm">
 								<button
@@ -140,12 +148,92 @@
 		out:fade={{ duration: 50 }}
 	>
 		<div
-			class="w-full max-w-lg rounded bg-white p-6 shadow-lg"
+			class="w-full max-w-lg cursor-auto rounded bg-white p-6 shadow-lg"
 			role="button"
+			onkeydown={() => {}}
+			tabindex="0"
 			onclick={(e) => e.stopPropagation()}
 		>
 			<h2 class="mb-6 text-2xl font-semibold text-green-600">New House</h2>
-			<!-- Form Contents -->
+			{#if formErrors}
+				{@render formError(formErrors)}
+			{/if}
+			<form
+				class="grid grid-cols-1 gap-4 md:grid-cols-2"
+				action="?/house"
+				method="POST"
+				use:enhance={() => {
+					formErrors = '';
+					return async ({ result, update }) => {
+						// console.log('add flock result ->  ', result);
+						if (result.type === 'success') {
+							showHouseModal = false;
+							formErrors = '';
+							await update();
+							toast.add('Success', 'House added successfully', 'success');
+						} else if (result.type === 'failure') {
+							formErrors = result.data?.error ? result.data.error : 'Error saving House';
+						}
+					};
+				}}
+			>
+				<!-- Name -->
+				<div>
+					<label for="name" class="mb-2 block font-medium text-gray-700">Name</label>
+					<input
+						id="name"
+						type="text"
+						name="name"
+						placeholder="Enter house name"
+						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+						bind:value={name}
+						required
+					/>
+				</div>
+
+				<div>
+					<label for="capacity" class="mb-2 block font-medium text-gray-700">Capacity</label>
+					<input
+						id="capacity"
+						type="number"
+						name="capacity"
+						min="0"
+						placeholder="Enter house capacity"
+						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+						bind:value={capacity}
+						required
+					/>
+				</div>
+
+				<!-- Notes -->
+				<div class="md:col-span-2">
+					<label for="description" class="mb-2 block font-medium text-gray-700">Description</label>
+					<textarea
+						id="description"
+						name="description"
+						placeholder="Enter additional notes for the house"
+						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+						bind:value={description}
+					></textarea>
+				</div>
+
+				<!-- Submit Button -->
+				<div class="flex justify-between md:col-span-2">
+					<button
+						type="button"
+						class="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+						onclick={() => (showHouseModal = false)}
+					>
+						Cancel
+					</button>
+					<button
+						type="submit"
+						class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+					>
+						Save
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
 {/if}

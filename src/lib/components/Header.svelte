@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { goto } from '$app/navigation';
 
-	const dispatch = createEventDispatcher();
+	const { toggleSideBar } = $props();
 
 	const handleLogout = async () => {
 		const response = await fetch('/api/logout', {
@@ -17,10 +16,6 @@
 		console.log(await response.json());
 		await goto('/', { invalidateAll: true });
 	};
-
-	const toggleSidebar = () => {
-		dispatch('toggleSidebar');
-	};
 </script>
 
 <header class="flex items-center justify-between bg-white p-4 shadow-md">
@@ -29,7 +24,7 @@
 		<!-- Toggle Button for Mobile -->
 		<button
 			class="mr-4 text-green-800 md:hidden"
-			onclick={toggleSidebar}
+			onclick={toggleSideBar}
 			aria-label="Toggle Sidebar"
 		>
 			<i class="fas fa-bars"></i>
