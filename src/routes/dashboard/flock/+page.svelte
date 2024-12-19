@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { invalidate } from '$app/navigation';
-	import Header from '$lib/components/Header.svelte';
+	import { goto, invalidate } from '$app/navigation';
+	import { fade, slide } from 'svelte/transition';
 	import SearchIcon from '$lib/components/SearchIcon.svelte';
 	import { getToastState } from '$lib/Toast.svelte';
-	import { fade, slide } from 'svelte/transition';
+	import { formatDate } from '$lib/utils/utils.js';
 
 	const { data, form } = $props();
 	const toast = getToastState();
@@ -112,7 +112,7 @@
 						<tr class="hover:bg-gray-100">
 							<td class="border border-gray-300 px-4 py-2">{flock.name}</td>
 							<td class="border border-gray-300 px-4 py-2">
-								{new Date(flock.startDate).toLocaleDateString()}
+								{formatDate(new Date(flock.startDate))}
 							</td>
 							<td class="border px-4 py-2 text-sm">{flock.birdAge}</td>
 							<td class="border px-4 py-2 text-sm">{flock.breeder}</td>
@@ -123,7 +123,12 @@
 							<td class="border px-4 py-2 text-sm">
 								<div class="flex space-x-2">
 									<button
-										class="rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
+										class="rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-green-600"
+									>
+										<a href="flock/{flock.id}">View</a>
+									</button>
+									<button
+										class="rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-green-600"
 										onclick={() => showLogForm(flock.id)}
 									>
 										Log
@@ -153,6 +158,9 @@
 					<div class="mb-4 flex items-center justify-between">
 						<h3 class="text-lg font-semibold">{flock.name}</h3>
 						<div class="flex space-x-2">
+							<button class="rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-green-600">
+								<a href="flock/{flock.id}">View</a>
+							</button>
 							<button
 								class="rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-yellow-600"
 								onclick={() => showLogForm(flock.id)}

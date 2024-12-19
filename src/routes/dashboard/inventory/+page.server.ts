@@ -8,13 +8,6 @@ export const load: PageServerLoad = async ({ url }) => {
 	const sortBy = url.searchParams.get('sortBy') || 'createdAt';
 	const sortOrder = url.searchParams.get('sortOrder') === 'asc' ? 'asc' : 'desc';
 
-	// Fetch total quantity for each feed type
-	// const feedInventory = await prisma.feedInventory.groupBy({
-	// 	by: ['feedType', 'notes'],
-	// 	_sum: { quantity: true }
-	// });
-
-	// TODO: feedtype is unique so we can use findMany instead of groupBy
 	const feedInventory = await prisma.feedInventory.findMany();
 
 	// Create a record with feedType as key and record as value

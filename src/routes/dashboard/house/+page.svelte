@@ -4,6 +4,7 @@
 	import { enhance } from '$app/forms';
 	import SearchIcon from '$lib/components/SearchIcon.svelte';
 	import { getToastState } from '$lib/Toast.svelte';
+	import { formatDate } from '$lib/utils/utils.js';
 
 	let { data } = $props();
 
@@ -42,14 +43,6 @@
 			toast.add('Error', `${res.message || 'Error Deleteing House'}`, 'error');
 		}
 	};
-
-	function formatDate(date: Date) {
-		return new Date(date).toLocaleDateString('en-KE', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		});
-	}
 </script>
 
 <!-- Resuable snippet -->

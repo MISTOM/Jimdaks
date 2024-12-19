@@ -36,7 +36,7 @@
 	>
 		<div class="flex h-full flex-col items-center justify-center bg-opacity-50">
 			<h1
-				class="duration-400 mb-4 text-5xl font-bold text-green-950 opacity-50 transition-opacity hover:opacity-100"
+				class="duration-400 mb-4 text-6xl font-bold text-green-950 opacity-70 transition-opacity hover:opacity-100"
 			>
 				Jimdaks Farm Fresh
 			</h1>
@@ -51,11 +51,7 @@
 		<h2 class="mb-8 text-3xl font-bold">Our Services</h2>
 		<div class="container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
 			<div class="service">
-				<img
-					src="/chicken.webp"
-					alt="Poultry"
-					class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover"
-				/>
+				<img src="" alt="Poultry" class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover" />
 				<a href="#poultry" class="text-xl font-semibold text-green-900">Poultry</a>
 				<p>
 					We're focused on delivering high quality chicken meat. With over <strong>2 Decades</strong
@@ -65,7 +61,7 @@
 			</div>
 			<div class="service">
 				<img
-					src="financial-services.jpg"
+					src=""
 					alt="Financial Services"
 					class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover"
 				/>
@@ -78,11 +74,7 @@
 				</p>
 			</div>
 			<div class="service">
-				<img
-					src="e-services.jpg"
-					alt="E-services"
-					class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover"
-				/>
+				<img src="" alt="E-services" class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover" />
 				<a href="#e-services" class="text-xl font-semibold text-green-900">E-services</a>
 				<p>
 					In addition to photocopy/printing/scanning services, we also offer digital services, kra
@@ -90,16 +82,12 @@
 				</p>
 			</div>
 			<div class="service">
-				<img src="cafe.jpg" alt="Café" class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover" />
+				<img src="" alt="Café" class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover" />
 				<a href="#cafe" class="text-xl font-semibold text-green-900">Café</a>
 				<p>Our cafe is a place where you can enjoy our delicious beverages and drinks,</p>
 			</div>
 			<div class="service">
-				<img
-					src="general-shop.jpg"
-					alt="General Shop"
-					class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover"
-				/>
+				<img src="" alt="General Shop" class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover" />
 				<a href="#general-shop" class="text-xl font-semibold text-green-900">General Shop</a>
 				<p>Visit our outlet to shop for your daily need or a tasty chicken.</p>
 			</div>
@@ -111,7 +99,7 @@
 		<div class="container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
 			<div class="product text-center">
 				<img
-					src="chicken1.jpg"
+					src=""
 					alt="Chicken Product 1"
 					class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover"
 				/>
@@ -120,7 +108,7 @@
 			</div>
 			<div class="product text-center">
 				<img
-					src="chicken2.jpg"
+					src=""
 					alt="Chicken Product 2"
 					class="mx-auto mb-4 h-48 w-48 rounded-lg object-cover"
 				/>
