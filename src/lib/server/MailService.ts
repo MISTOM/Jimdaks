@@ -3,6 +3,7 @@ import { BASE_URL, SECRET_KEY, SENDGRID_API_KEY } from '$env/static/private';
 import sendgrid, { type MailDataRequired } from '@sendgrid/mail';
 import jwt from 'jsonwebtoken';
 import auth from '$lib/server/auth';
+import type { User } from '@prisma/client';
 
 sendgrid.setApiKey(SENDGRID_API_KEY);
 
@@ -77,12 +78,7 @@ export async function sendVerificationEmail(name: string, email: string) {
 /**
  * Send a reset password email to the user
  */
-type User = {
-	id: number;
-	firstName: string;
-	email: string;
-}; //TODO Get user from prisma
-export async function sendResetPasswordEmail({ id, firstName: name, email }: User) {
+export async function sendResetPasswordEmail({ id, name, email }: User) {
 	try {
 		const token = auth.generateResetToken(id);
 		const link = `${BASE_URL}/reset-password?token=${token}`;

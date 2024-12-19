@@ -34,7 +34,6 @@
 							await goto(result.location, { invalidateAll: true });
 						} else if (result.type === 'failure') {
 							password = '';
-							//TODO: handle form errors
 							formErrors = result?.data?.errors ? result.data.errors : 'Error logging in';
 						}
 					};
