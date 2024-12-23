@@ -32,7 +32,7 @@
 {#if !flock}
 	<p class="text-center text-gray-600">Flock not found</p>
 {:else}
-<!-- Header Section -->
+	<!-- Header Section -->
 	<div class="p-6">
 		<a
 			href="/dashboard/flock"

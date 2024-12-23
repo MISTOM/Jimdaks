@@ -5,9 +5,11 @@
 	import SearchIcon from '$lib/components/SearchIcon.svelte';
 	import { getToastState } from '$lib/Toast.svelte';
 	import { formatDate } from '$lib/utils/utils.js';
+	import Modal from '$lib/components/Modal.svelte';
 
 	const { data, form } = $props();
 	const toast = getToastState();
+
 	const flocks = $derived(data.flocks || []);
 	const houses = $derived(data.houses || []);
 	const formattedToday = new Date().toISOString().split('T')[0];
@@ -384,108 +386,83 @@
 	{/if}
 
 	<!-- Modal for mortality logs -->
-	{#if showLogModal}
-		<div
-			class="fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50"
-			role="button"
-			tabindex="-1"
-			onclick={() => (showLogModal = false)}
-			onkeydown={(e) => {
-				e.key === 'Escape' && (showLogModal = false);
-			}}
-			in:fade={{ duration: 100 }}
-			out:fade={{ duration: 50 }}
-		>
-			<div
-				class="w-full max-w-lg rounded bg-white p-6 shadow-lg"
-				role="button"
-				onkeydown={() => {}}
-				tabindex="0"
-				onclick={(e) => e.stopPropagation()}
-			>
-				<h2 class="mb-6 text-2xl font-bold text-green-600">Log Form</h2>
-				{#if formErrors}
-					{formErrors}
-				{/if}
-				<form
-					class="grid grid-cols-1 gap-4 md:grid-cols-2"
-					method="POST"
-					action="?/mortalityLog"
-					use:enhance={() => {
+	<Modal bind:show={showLogModal} title="Log mortality">
+		{#if formErrors}
+			{formErrors}
+		{/if}
+		<form
+			class="grid grid-cols-1 gap-4 md:grid-cols-2"
+			method="POST"
+			action="?/mortalityLog"
+			use:enhance={() => {
+				formErrors = '';
+				return async ({ result, update }) => {
+					// console.log('add flock result ->  ', result);
+					if (result.type === 'success') {
+						showLogModal = false;
 						formErrors = '';
-						return async ({ result, update }) => {
-							// console.log('add flock result ->  ', result);
-							if (result.type === 'success') {
-								showLogModal = false;
-								formErrors = '';
-								await update();
-								toast.add('Success', 'Mortality logged successfully', 'success', 2000);
-							} else if (result.type === 'failure') {
-								formErrors = result.data?.error ? result.data.error : 'Error saving mortality log';
-							}
-						};
-					}}
-				>
-					<!-- Log Date -->
-					<div>
-						<label for="logDate" class="mb-2 block font-medium text-gray-700">Date</label>
-						<input
-							id="logDate"
-							type="date"
-							name="logDate"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={logDate}
-						/>
-					</div>
-					<!-- LOG FORM -->
-					<div>
-						<label for="numberOfDeaths" class="mb-2 block font-medium text-gray-700"
-							>Number of Deaths</label
-						>
-						<input
-							id="numberOfDeaths"
-							type="number"
-							name="numberOfDeaths"
-							placeholder="Enter number of deaths"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={numberOfDeaths}
-						/>
-					</div>
-					<!-- Cause of Death -->
-					<div>
-						<label for="causeOfDeath" class="mb-2 block font-medium text-gray-700"
-							>Cause of Death</label
-						>
-						<input
-							id="causeOfDeath"
-							type="text"
-							name="causeOfDeath"
-							placeholder="Enter cause of death"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={causeOfDeath}
-							required
-						/>
-
-						<input type="hidden" name="flockId" bind:value={logFlockId} />
-					</div>
-					<!-- Submit Button -->
-					<div class="flex justify-between md:col-span-2">
-						<button
-							type="button"
-							class="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
-							onclick={() => (showLogModal = false)}
-						>
-							Cancel
-						</button>
-						<button
-							type="submit"
-							class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
-						>
-							Save
-						</button>
-					</div>
-				</form>
+						await update();
+						toast.add('Success', 'Mortality logged successfully', 'success', 2000);
+					} else if (result.type === 'failure') {
+						formErrors = result.data?.error ? result.data.error : 'Error saving mortality log';
+					}
+				};
+			}}
+		>
+			<!-- Log Date -->
+			<div>
+				<label for="logDate" class="mb-2 block font-medium text-gray-700">Date</label>
+				<input
+					id="logDate"
+					type="date"
+					name="logDate"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+					bind:value={logDate}
+				/>
 			</div>
-		</div>
-	{/if}
+			<!-- LOG FORM -->
+			<div>
+				<label for="numberOfDeaths" class="mb-2 block font-medium text-gray-700"
+					>Number of Deaths</label
+				>
+				<input
+					id="numberOfDeaths"
+					type="number"
+					name="numberOfDeaths"
+					placeholder="Enter number of deaths"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+					bind:value={numberOfDeaths}
+				/>
+			</div>
+			<!-- Cause of Death -->
+			<div>
+				<label for="causeOfDeath" class="mb-2 block font-medium text-gray-700">Cause of Death</label
+				>
+				<input
+					id="causeOfDeath"
+					type="text"
+					name="causeOfDeath"
+					placeholder="Enter cause of death"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+					bind:value={causeOfDeath}
+					required
+				/>
+
+				<input type="hidden" name="flockId" bind:value={logFlockId} />
+			</div>
+			<!-- Submit Button -->
+			<div class="flex justify-between md:col-span-2">
+				<button
+					type="button"
+					class="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+					onclick={() => (showLogModal = false)}
+				>
+					Cancel
+				</button>
+				<button type="submit" class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600">
+					Save
+				</button>
+			</div>
+		</form>
+	</Modal>
 </div>
