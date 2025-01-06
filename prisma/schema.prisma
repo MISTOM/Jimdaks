@@ -162,6 +162,7 @@ model SlaughterLog {
   number        Int
   averageWeight Float
   flockId       Int
+  //TODO WHERE
   userId        Int
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
