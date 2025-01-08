@@ -4,7 +4,7 @@
 	import { fade, slide } from 'svelte/transition';
 	import SearchIcon from '$lib/components/SearchIcon.svelte';
 	import { getToastState } from '$lib/Toast.svelte';
-	import { formatDate } from '$lib/utils/utils.js';
+	import { calculateBirdAge, formatDate } from '$lib/utils/utils.js';
 	import Modal from '$lib/components/Modal.svelte';
 
 	const { data, form } = $props();
@@ -17,7 +17,6 @@
 	// State management
 	let name = $state('');
 	let startDate = $state(formattedToday);
-	let birdAge = $state('');
 	let breeder = $state('');
 	let birdType = $state('BROILER');
 	let numberOfBirds = $state();
@@ -116,7 +115,7 @@
 							<td class="border border-gray-300 px-4 py-2">
 								{formatDate(new Date(flock.startDate))}
 							</td>
-							<td class="border px-4 py-2 text-sm">{flock.birdAge}</td>
+							<td class="border px-4 py-2 text-sm">{calculateBirdAge(flock.startDate)}</td>
 							<td class="border px-4 py-2 text-sm">{flock.breeder}</td>
 							<td class="border px-4 py-2 text-sm">{flock.birdType}</td>
 							<td class="border px-4 py-2 text-sm">{flock.numberOfBirds}</td>
@@ -185,7 +184,7 @@
 						</div>
 						<div class="grid grid-cols-2 border-b py-2">
 							<span class="font-medium">Bird Age:</span>
-							<span>{flock.birdAge}</span>
+							<span>{calculateBirdAge(flock.startDate)}</span>
 						</div>
 						<div class="grid grid-cols-2 border-b py-2">
 							<span class="font-medium">Breeder:</span>
@@ -284,18 +283,7 @@
 							required
 						/>
 					</div>
-					<!-- Bird Age -->
-					<div>
-						<label for="birdAge" class="mb-2 block font-medium text-gray-700">Bird Age</label>
-						<input
-							id="birdAge"
-							type="number"
-							name="birdAge"
-							placeholder="Enter bird age in days"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-							bind:value={birdAge}
-						/>
-					</div>
+
 					<!-- Breeder -->
 					<div>
 						<label for="breeder" class="mb-2 block font-medium text-gray-700">Breeder</label>

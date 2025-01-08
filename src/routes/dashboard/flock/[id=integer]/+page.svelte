@@ -24,6 +24,7 @@
 	let showExpenseModal = $state(false);
 	let showVaccinationModal = $state(false);
 	let formErrors = $state();
+	let today = $state(new Date().toISOString().split('T')[0]);
 
 	const formatCurrency = (num: number) =>
 		num.toLocaleString('en-KE', { style: 'currency', currency: 'KES' });
@@ -195,7 +196,7 @@
 
 					<!-- Feed Usage Chart -->
 					<!-- <div class="rounded-lg bg-white p-4 shadow">
-						<canvas bind:this={feedChart}></canvas> TODO 
+						<canvas bind:this={feedChart}></canvas> 
 					</div> -->
 
 					<!-- Feed Usage Records -->
@@ -311,9 +312,7 @@
 							<tbody class="divide-y divide-gray-200 bg-white">
 								{#each flock.expenses as expense}
 									<tr>
-										<td class="whitespace-nowrap px-6 py-4"
-											>{new Date(expense.createdAt).toLocaleDateString()}</td
-										>
+										<td class="whitespace-nowrap px-6 py-4">{formatDate(expense.createdAt)}</td>
 										<td class="whitespace-nowrap px-6 py-4">{expense.category}</td>
 										<td class="whitespace-nowrap px-6 py-4">{formatCurrency(expense.amount)}</td>
 										<td class="whitespace-nowrap px-6 py-4">{expense.description}</td>
@@ -472,6 +471,7 @@
 					type="date"
 					name="logDate"
 					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+					bind:value={today}
 				/>
 			</div>
 			<!-- LOG FORM -->
@@ -519,16 +519,23 @@
 	</Modal>
 
 	<Modal bind:show={showExpenseModal} title="Record Expense">
+		{#if formErrors}
+			<span class="text-red-500">{formErrors}</span>
+		{/if}
 		<form
 			method="POST"
 			action="?/recordExpense"
 			class="space-y-4"
 			use:enhance={() => {
 				return async ({ result, update }) => {
+					formErrors = '';
 					if (result.type === 'success') {
 						showExpenseModal = false;
+						formErrors = '';
 						await update();
 						toast.add('Success', 'Expense recorded successfully', 'success');
+					} else if (result.type === 'failure') {
+						formErrors = result.data?.error ? result.data.error : 'Error saving expense';
 					}
 				};
 			}}
@@ -594,16 +601,23 @@
 
 	<!-- Feed Usage Modal -->
 	<Modal bind:show={showFeedModal} title="Record Feed Usage">
+		{#if formErrors}
+			<span class="text-red-500">{formErrors}</span>
+		{/if}
 		<form
 			method="POST"
 			action="?/recordFeedUsage"
 			class="space-y-4"
 			use:enhance={() => {
+				formErrors = '';
 				return async ({ result, update }) => {
 					if (result.type === 'success') {
+						formErrors = '';
 						showFeedModal = false;
 						await update();
 						toast.add('Success', 'Feed usage recorded', 'success');
+					} else if (result.type === 'failure') {
+						formErrors = result.data?.error ? result.data.error : 'Error saving feed usage';
 					}
 				};
 			}}
@@ -656,6 +670,8 @@
 					></textarea>
 				</div>
 
+				<input type="hidden" name="flockId" value={flock.id} />
+
 				<div class="flex justify-end space-x-2">
 					<button
 						type="button"
@@ -677,16 +693,24 @@
 
 	<!-- Weight Log Modal -->
 	<Modal bind:show={showWeightModal} title="Record Weight">
+		{#if formErrors}
+			<span class="text-red-500">{formErrors}</span>
+		{/if}
 		<form
 			method="POST"
 			action="?/recordWeight"
 			class="space-y-4"
 			use:enhance={() => {
 				return async ({ result, update }) => {
+					formErrors = '';
 					if (result.type === 'success') {
+						formErrors = '';
 						showWeightModal = false;
 						await update();
 						toast.add('Success', 'Weight recorded', 'success');
+					}
+					if (result.type === 'failure') {
+						formErrors = result.data?.error ? result.data.error : 'Error saving weight log';
 					}
 				};
 			}}
@@ -725,6 +749,8 @@
 					></textarea>
 				</div>
 
+				<input type="hidden" name="flockId" value={flock.id} />
+
 				<div class="flex justify-end space-x-2">
 					<button
 						type="button"
@@ -745,16 +771,23 @@
 	</Modal>
 
 	<Modal bind:show={showVaccinationModal} title="Record Vaccination">
+		{#if formErrors}
+			<span class="text-red-500">{formErrors}</span>
+		{/if}
 		<form
 			method="POST"
 			action="?/recordVaccination"
 			class="space-y-4"
 			use:enhance={() => {
+				formErrors = '';
 				return async ({ result, update }) => {
 					if (result.type === 'success') {
+						formErrors = '';
 						showVaccinationModal = false;
 						await update();
 						toast.add('Success', 'Vaccination recorded', 'success');
+					} else if (result.type === 'failure') {
+						formErrors = result.data?.error ? result.data.error : 'Error saving vaccination record';
 					}
 				};
 			}}
