@@ -1,5 +1,13 @@
 <script lang="ts">
 	import { getToastState } from '$lib/Toast.svelte';
+	import {
+		faEnvelope,
+		faUser,
+		faCalendarAlt,
+		faFeatherAlt,
+		faSeedling
+	} from '@fortawesome/free-solid-svg-icons';
+	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
 
 	const { data, form } = $props();
 
@@ -9,37 +17,63 @@
 	const user = $derived(data.user || {});
 	const flocks = $derived(data.flocks || []);
 	const feedUsage = $derived(data.feedUsage || []);
+
+	function formatDate(date: Date): string {
+		return new Intl.DateTimeFormat('en-GB', {
+			day: 'numeric',
+			month: 'long',
+			year: 'numeric'
+		}).format(date);
+	}
 </script>
 
 <!-- Page Content -->
 <div class="p-6">
-	<h1 class="text-2xl font-light text-gray-800 transition duration-300 hover:text-black">
+	<h1 class=" text-2xl font-light text-gray-800 transition duration-300 hover:text-black">
 		User Profile
 	</h1>
 
 	<!-- User Details -->
 	<div class="mt-4 space-y-4 rounded-lg p-4 shadow-md">
 		<div class="rounded-lg bg-white p-6 shadow-lg">
-			<h2 class="mb-4 text-xl font-semibold text-gray-800">{user.name}'s Profile</h2>
-			<p class="text-gray-600"><strong>Email:</strong> {user.email}</p>
-			<p class="text-gray-600"><strong>Role:</strong> {user.role.name}</p>
-			<p class="text-gray-600">
-				<strong>Joined:</strong>
-				{new Date(user.createdAt).toLocaleDateString()}
-			</p>
+			<h2 class="mb-4 flex items-center space-x-2 text-xl font-semibold text-gray-800">
+				<FontAwesomeIcon icon={faUser} class="text-green-600" />
+				{user.name}'s Profile
+			</h2>
+
+			<div class="space-y-2">
+				<p class="flex items-center text-gray-600">
+					<FontAwesomeIcon icon={faEnvelope} class="mr-2 text-green-600" />
+					<strong>Email:</strong>
+					<span class="ml-2">{user.email}</span>
+				</p>
+
+				<p class="flex items-center text-gray-600">
+					<FontAwesomeIcon icon={faUser} class="mr-2 text-green-600" />
+					<strong>Role:</strong>
+					<span class="ml-2">{user.role.name}</span>
+				</p>
+				<p class="flex items-center text-gray-600">
+					<FontAwesomeIcon icon={faCalendarAlt} class="mr-2 text-green-600" />
+					<strong>Joined:</strong>
+					<span class="ml-2">{formatDate(new Date(user.createdAt))}</span>
+				</p>
+			</div>
 		</div>
 
-		<!-- Flocks Section -->
 		<div class="rounded-lg bg-white p-6 shadow-lg">
-			<h3 class="mb-4 text-lg font-semibold text-gray-800">Flocks</h3>
+			<h3 class="mb-4 flex items-center text-lg font-semibold text-gray-800">
+				<FontAwesomeIcon icon={faFeatherAlt} class="mr-2 text-green-600" />
+				Flocks
+			</h3>
 			{#if flocks.length > 0}
 				<ul class="list-inside list-disc text-gray-700">
 					{#each flocks as flock}
 						<li>
 							<strong>{flock.name}:</strong>
-							{flock.birdType} - {flock.numberOfBirds} birds started on {new Date(
-								flock.startDate
-							).toLocaleDateString()}
+							{flock.birdType} - {flock.numberOfBirds} birds started on {formatDate(
+								new Date(flock.startDate)
+							)}
 						</li>
 					{/each}
 				</ul>
@@ -50,7 +84,10 @@
 
 		<!-- Feed Usage Section -->
 		<div class="rounded-lg bg-white p-6 shadow-lg">
-			<h3 class="mb-4 text-lg font-semibold text-gray-800">Feed Usage</h3>
+			<h3 class="mb-4 flex items-center text-lg font-semibold text-gray-800">
+				<FontAwesomeIcon icon={faSeedling} class="mr-2 text-green-600" />
+				Feed Usage
+			</h3>
 			{#if feedUsage.length > 0}
 				<table class="w-full border-collapse">
 					<thead>

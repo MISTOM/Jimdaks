@@ -127,12 +127,7 @@
 									>
 										<a href="flock/{flock.id}">View</a>
 									</button>
-									<button
-										class="rounded bg-green-500 px-2 py-1 text-white shadow hover:bg-green-600"
-										onclick={() => showLogForm(flock.id)}
-									>
-										Log
-									</button>
+
 									<button
 										class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
 										onclick={deleteFlock(flock.name, flock.id)}

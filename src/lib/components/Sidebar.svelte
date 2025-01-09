@@ -7,7 +7,7 @@
 	};
 </script>
 
-<div class="flex min-h-screen w-48 flex-col bg-green-800 text-white">
+<div class="w-50 flex min-h-screen flex-col bg-green-800 text-white">
 	<!-- Sidebar Header -->
 	<div class="p-4">
 		<h1 class="text-3xl font-bold"><a href="/dashboard/">JIMDAKS</a></h1>
@@ -17,20 +17,21 @@
 	<ul class="flex-1 space-y-4 overflow-auto p-4">
 		<li class="mb-4">
 			<a
-				href="/dashboard/flock"
-				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
-			>
-				<span class="mr-2"><i class="fas fa-dove"></i></span>
-				Flock
-			</a>
-		</li>
-		<li class="mb-4">
-			<a
 				href="/dashboard/house"
 				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
 			>
 				<span class="mr-2"><i class="fas fa-home"></i></span>
 				House
+			</a>
+		</li>
+
+		<li class="mb-4">
+			<a
+				href="/dashboard/flock"
+				class="flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-200 hover:bg-opacity-50"
+			>
+				<span class="mr-2"><i class="fas fa-dove"></i></span>
+				Flock
 			</a>
 		</li>
 		<li class="mb-4">
@@ -75,7 +76,8 @@
 		</button>
 
 		<div class="ml-4 text-left">
-			<p class="font-semibold">{user.name}</p>
+			<p class="text-sm font-normal">{user.name}</p>
+			<p class="text-sm font-normal">{user.email}</p>
 		</div>
 	</div>
 </div>

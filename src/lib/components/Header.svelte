@@ -29,8 +29,11 @@
 		>
 			<i class="fas fa-bars"></i>
 		</button>
-		<a href="/" class="flex items-center text-lg font-medium text-gray-500 hover:text-gray-700">
-			<i class="fas fa-home mr-2 text-green-700"></i> Home
+		<a
+			href="/dashboard"
+			class="flex items-center text-lg font-medium text-gray-500 hover:text-gray-700"
+		>
+			<i class="fas fa-home mr-2 text-green-700"></i> Dashboard
 		</a>
 	</div>
 

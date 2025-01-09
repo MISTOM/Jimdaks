@@ -32,18 +32,18 @@
 {#if !flock}
 	<p class="text-center text-gray-600">Flock not found</p>
 {:else}
-<!-- Header Section -->
+	<!-- Header Section -->
 	<div class="p-6">
 		<a
 			href="/dashboard/flock"
-			class="rounded-sm py-2 pr-2 text-sm text-gray-500 transition-colors hover:bg-gray-100"
+			class="inline-flex items-center rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-300 hover:text-gray-900"
 		>
-			← Back
+			Back
 		</a>
 		<div class="mb-6 flex items-center justify-between">
 			<h1 class="text-2xl font-bold text-gray-800">{flock.name}</h1>
 			<button
-				class="rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
+				class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 				onclick={() => {}}
 				>Edit Flock
 			</button>
@@ -51,26 +51,34 @@
 
 		<!-- Overview Cards -->
 		<div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-			<div class="rounded-lg bg-white p-4 shadow">
+			<div
+				class="rounded-lg bg-green-50 p-4 shadow transition-transform duration-300 ease-in-out hover:scale-105"
+			>
 				<h3 class="text-sm font-medium text-gray-500">Current Age</h3>
-				<p class="text-2xl font-bold">{metrics?.currentAge} days</p>
+				<p class="text-2xl font-bold text-black">{metrics?.currentAge} days</p>
 			</div>
-
-			<div class="rounded-lg bg-white p-4 shadow">
+			<div
+				class="rounded-lg bg-green-50 p-4 shadow transition-transform duration-300 ease-in-out hover:scale-105"
+			>
 				<h3 class="text-sm font-medium text-gray-500">Mortality Rate</h3>
-				<p class="text-2xl font-bold">{metrics?.mortalityRate}%</p>
+				<p class="text-2xl font-bold text-black">{metrics?.mortalityRate}%</p>
 				<p class="text-sm text-gray-500">{metrics?.totalMortality} birds</p>
 			</div>
 
-			<div class="rounded-lg bg-white p-4 shadow">
+			<div
+				class="rounded-lg bg-green-50 p-4 shadow transition-transform duration-300 ease-in-out hover:scale-105"
+			>
 				<h3 class="text-sm font-medium text-gray-500">Birds Remaining</h3>
-				<p class="text-2xl font-bold">{metrics?.birdsRemaining}</p>
+				<p class="text-2xl font-bold text-black">{metrics?.birdsRemaining}</p>
 				<p class="text-sm text-gray-500">Initial: {flock.numberOfBirds} birds</p>
 			</div>
-
-			<div class="rounded-lg bg-white p-4 shadow">
+			<div
+				class="rounded-lg bg-green-50 p-4 shadow transition-transform duration-300 ease-in-out hover:scale-105"
+			>
 				<h3 class="text-sm font-medium text-gray-500">Cost per Bird</h3>
-				<p class="text-2xl font-bold">{formatCurrency(parseInt(metrics?.costPerBird || '0'))}</p>
+				<p class="text-2xl font-bold text-black">
+					{formatCurrency(parseInt(metrics?.costPerBird || '0'))}
+				</p>
 				<p class="text-sm text-gray-500">
 					Total Expenses: {formatCurrency(metrics?.totalExpenses || 0)}
 				</p>
@@ -83,8 +91,8 @@
 				{#each ['Overview', 'Health', 'Feed', 'Weight', 'Expenses', 'Vaccination'] as tab}
 					<button
 						class="border-b-2 px-1 py-4 text-sm font-medium"
-						class:border-blue-500={activeTab === tab.toLowerCase()}
-						class:text-blue-600={activeTab === tab.toLowerCase()}
+						class:border-green-400={activeTab === tab.toLowerCase()}
+						class:text-black-600={activeTab === tab.toLowerCase()}
 						class:border-transparent={activeTab !== tab.toLowerCase()}
 						class:text-gray-500={activeTab !== tab.toLowerCase()}
 						onclick={() => (activeTab = tab.toLowerCase())}
@@ -96,7 +104,7 @@
 		</div>
 
 		<!-- Tab Content -->
-		<div class="rounded-lg bg-white p-6 shadow">
+		<div class="rounded-lg bg-gray-100 p-6 shadow">
 			{#if activeTab === 'overview'}
 				<!-- Basic Information -->
 				<div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -104,19 +112,19 @@
 						<h3 class="mb-4 text-lg font-medium">Flock Details</h3>
 						<dl class="space-y-2">
 							<div class="flex justify-between">
-								<dt class="text-gray-500">Bird Type:</dt>
+								<dt class="text-black">Bird Type:</dt>
 								<dd>{flock.birdType}</dd>
 							</div>
 							<div class="flex justify-between">
-								<dt class="text-gray-500">Start Date:</dt>
+								<dt class="text-black">Start Date:</dt>
 								<dd>{formatDate(new Date(flock.startDate))}</dd>
 							</div>
 							<div class="flex justify-between">
-								<dt class="text-gray-500">House:</dt>
+								<dt class="text-black">House:</dt>
 								<dd>{flock.house.name}</dd>
 							</div>
 							<div class="flex justify-between">
-								<dt class="text-gray-500">Breeder:</dt>
+								<dt class="text-black">Breeder:</dt>
 								<dd>{flock.breeder || 'N/A'}</dd>
 							</div>
 						</dl>
@@ -127,7 +135,7 @@
 					<div class="flex justify-between">
 						<h3 class="text-lg font-medium">Health Records</h3>
 						<button
-							class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+							class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 							onclick={() => (showMortalityModal = true)}
 						>
 							Record Mortality
@@ -169,7 +177,7 @@
 					<div class="flex justify-between">
 						<h3 class="text-lg font-medium">Feed Usage</h3>
 						<button
-							class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+							class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 							onclick={() => (showFeedModal = true)}
 						>
 							Record Feed Usage
@@ -192,11 +200,6 @@
 							<p class="text-2xl font-bold">{metrics?.feedConversionRatio}</p>
 						</div>
 					</div>
-
-					<!-- Feed Usage Chart -->
-					<!-- <div class="rounded-lg bg-white p-4 shadow">
-						<canvas bind:this={feedChart}></canvas> TODO 
-					</div> -->
 
 					<!-- Feed Usage Records -->
 					<div class="overflow-x-auto">
@@ -233,7 +236,7 @@
 					<div class="flex justify-between">
 						<h3 class="text-lg font-medium">Weight Tracking</h3>
 						<button
-							class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+							class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 							onclick={() => (showWeightModal = true)}
 						>
 							Record Weight
@@ -245,11 +248,6 @@
 							<p class="text-2xl font-bold">{metrics?.currentWeight} kg</p>
 						</div>
 					</div>
-
-					<!-- Weight Progress Chart
-					<div class="rounded-lg bg-white p-4 shadow">
-						<canvas bind:this={weightChart}></canvas>
-					</div> -->
 
 					<!-- Weight Records -->
 					<div class="overflow-x-auto">
@@ -282,7 +280,7 @@
 					<div class="flex justify-between">
 						<h3 class="text-lg font-medium">Expenses</h3>
 						<button
-							class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+							class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 							onclick={() => (showExpenseModal = true)}
 						>
 							Add Expense
@@ -329,7 +327,7 @@
 					<div class="flex justify-between">
 						<h3 class="text-lg font-medium">Vaccination Records</h3>
 						<button
-							class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+							class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 							onclick={() => (showVaccinationModal = true)}
 						>
 							Record Vaccination

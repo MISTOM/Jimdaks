@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
 	import {
 		Chart as ChartJS,
 		CategoryScale,
@@ -101,35 +102,56 @@
 	});
 </script>
 
-<div class=" bg-gray-100 p-6">
-	<h1 class="mb-6 text-3xl font-bold">Dashboard</h1>
+<div class="p-6">
+	<h1 class="mb-6 text-3xl font-bold">Overview</h1>
 	<!-- Summary Cards -->
 	<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-		<div class="card">
-			<h2 class="text-xl font-semibold">Active Flocks</h2>
-			<p class="text-4xl font-bold text-green-600">{summary.totalFlocks}</p>
+		<div
+			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+		>
+			<h2 class="mb-4 text-sm font-semibold text-gray-600">Active Flocks</h2>
+			<p class="text-3xl font-bold text-black">
+				{summary.totalFlocks} <span class="text-sm text-red-400">Flocks</span>
+			</p>
 		</div>
-		<div class="card">
-			<h2 class="text-xl font-semibold">Total Feed Used</h2>
-			<p class="text-4xl font-bold text-purple-600">{summary.totalFeedUsed} kg</p>
+		<div
+			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+		>
+			<h2 class="text-sm font-semibold text-gray-600">Total Feed Used</h2>
+			<p class="text-3xl font-bold text-black">
+				{summary.totalFeedUsed} <span class="text-sm text-red-400">Kg</span>
+			</p>
 		</div>
-		<div class="card">
-			<h2 class="text-xl font-semibold">Total Expenses</h2>
-			<p class="text-4xl font-bold text-red-600">${summary.totalExpenses.toFixed(2)}</p>
+		<div
+			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+		>
+			<h2 class="text-sm font-semibold text-gray-600">Total Expenses</h2>
+			<p class="text-3xl font-bold text-black">
+				{summary.totalExpenses.toFixed(2)} <span class="text-sm text-red-400">$</span>
+			</p>
 		</div>
-		<div class="card">
-			<h2 class="text-xl font-semibold">Total Mortality</h2>
-			<p class="text-4xl font-bold text-gray-600">{summary.totalMortality} birds</p>
+		<div
+			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+		>
+			<h2 class="text-sm font-semibold text-gray-600">Total Mortality</h2>
+			<p class="text-3xl font-bold text-black">
+				{summary.totalMortality} <span class="text-sm text-red-400">Birds</span>
+			</p>
 		</div>
 	</div>
+
 	<!-- Charts Section -->
 	<div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
 		<!-- Bar Chart: Expenses by Category -->
-		<div class="card">
+		<div
+			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+		>
 			<canvas id="barChart" height="200"></canvas>
 		</div>
 		<!-- Line Chart: Monthly Mortality -->
-		<div class="card">
+		<div
+			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+		>
 			<canvas id="lineChart" height="200"></canvas>
 		</div>
 	</div>
