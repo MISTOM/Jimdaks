@@ -84,6 +84,6 @@ export const actions: Actions = {
 				errors: 'An error occurred'
 			});
 		}
-		throw redirect(303, '/admin/product');
+		throw redirect(303, '/dashboard');
 	}
 };
