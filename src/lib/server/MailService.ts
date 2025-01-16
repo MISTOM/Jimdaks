@@ -1,11 +1,11 @@
 import { error } from '@sveltejs/kit';
-import { BASE_URL, SECRET_KEY, SENDGRID_API_KEY } from '$env/static/private';
+import { BASE_URL, SECRET_KEY } from '$env/static/private';
 import sendgrid, { type MailDataRequired } from '@sendgrid/mail';
 import jwt from 'jsonwebtoken';
 import auth from '$lib/server/auth';
 import type { User } from '@prisma/client';
 
-sendgrid.setApiKey(SENDGRID_API_KEY);
+// sendgrid.setApiKey(SENDGRID_API_KEY);
 
 const dateStr = new Date().toLocaleString('en-US', {
 	year: 'numeric',
