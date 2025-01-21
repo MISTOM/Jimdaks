@@ -31,7 +31,6 @@ model Flock {
   name               String?
   startDate          DateTime            @default(now()) //date when the chicks were brought in
   endDate            DateTime?
-  birdAge            Int
   breeder            String? //Chicks supplier eg. kenchick,
   birdType           BirdType
   numberOfBirds      Int
@@ -76,8 +75,6 @@ model FeedUsage {
   feedType  FeedType
   userId    Int
   flockId   Int
-  expenseId Int
-  expense   Expense  @relation(fields: [expenseId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
   flock     Flock    @relation(fields: [flockId], references: [id])
   createdAt DateTime @default(now())
@@ -86,7 +83,6 @@ model FeedUsage {
 
 model Expense {
   id          Int             @id @default(autoincrement())
-  date        DateTime        @default(now())
   category    ExpenseCategory
   amount      Float
   description String?
@@ -96,18 +92,17 @@ model Expense {
   updatedAt   DateTime        @updatedAt
   user        User            @relation(fields: [userId], references: [id])
   flock       Flock           @relation(fields: [flockId], references: [id])
-  feedUsage   FeedUsage[]
 }
 
 model WeightLog {
-  id           Int   @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   sampleWeight Float
   userId       Int
   flockId      Int
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  user         User  @relation(fields: [userId], references: [id])
-  flock        Flock @relation(fields: [flockId], references: [id])
+  user         User     @relation(fields: [userId], references: [id])
+  flock        Flock    @relation(fields: [flockId], references: [id])
 }
 
 model Vaccine {
@@ -123,6 +118,7 @@ model Vaccine {
 model VaccinationRecord {
   id             Int      @id @default(autoincrement())
   notes          String?
+  vaccinationDate DateTime @default(now())
   userId         Int
   flockId        Int
   vaccineId      Int
@@ -162,6 +158,7 @@ model SlaughterLog {
   number        Int
   averageWeight Float
   flockId       Int
+  deliveredTo   String?
   userId        Int
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

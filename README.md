@@ -47,7 +47,6 @@ SECRET_KEY="secret"
 REFRESH_KEY="refresh"
 RESET_KEY="reset"
 BASE_URL=""
-SENDGRID_API_KEY=""
 ```
 
 Generate, seed and sync database tables based on Prisma schema models [(prisma.schema)](/prisma/schema.prisma)

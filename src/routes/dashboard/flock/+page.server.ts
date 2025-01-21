@@ -25,19 +25,10 @@ export const load: PageServerLoad = async ({ depends }) => {
 export const actions: Actions = {
 	flock: async ({ request, locals: { user } }) => {
 		const data = Object.fromEntries((await request.formData()).entries());
-		const { name, startDate, birdAge, breeder, birdType, numberOfBirds, notes, houseId } = data;
+		const { name, startDate, breeder, birdType, numberOfBirds, notes, houseId } = data;
 
 		//TODO - Validate data ~ zod
-		if (
-			!name ||
-			!startDate ||
-			!birdAge ||
-			!breeder ||
-			!birdType ||
-			!numberOfBirds ||
-			!notes ||
-			!houseId
-		) {
+		if (!name || !startDate || !breeder || !birdType || !numberOfBirds || !notes || !houseId) {
 			return fail(400, { error: 'Please Fill all Fileds' });
 		}
 
@@ -46,7 +37,6 @@ export const actions: Actions = {
 				data: {
 					name: name.toString(),
 					startDate: new Date(startDate.toString()),
-					birdAge: parseInt(birdAge.toString()),
 					breeder: breeder.toString(),
 					birdType: birdType.toString() === 'BROILER' ? 'BROILER' : 'LAYER', // TODO review this
 					numberOfBirds: parseInt(numberOfBirds.toString()),
