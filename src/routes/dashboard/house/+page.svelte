@@ -40,12 +40,12 @@
 		} else {
 			const res = await response.json();
 			console.log('Error deleting house -> ', res);
-			toast.add('Error', `${res.message || 'Error Deleteing House'}`, 'error');
+			toast.add('Error', `${res.message || 'Error Deleting House'}`, 'error');
 		}
 	};
 </script>
 
-<!-- Resuable snippet -->
+<!-- Reusable snippet -->
 {#snippet formError(formErrors: any)}
 	<div
 		class="relative mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
@@ -58,16 +58,18 @@
 
 <div class="p-6">
 	<h1 class="text-2xl font-light text-gray-800 transition duration-300 hover:text-black">Houses</h1>
-	<div class="mb-4 flex flex-wrap items-center justify-between gap-4">
+	<div class="mb-4 flex flex-col items-center justify-between gap-4 sm:flex-row">
+		<!-- Search Bar -->
 		<div class="relative flex w-full max-w-md items-center">
-			<SearchIcon />
+			<!-- <SearchIcon class="absolute left-3" /> -->
 			<input
 				type="text"
 				placeholder="Search..."
-				class="w-full rounded border py-2 pl-10 pr-4"
+				class="w-full rounded border py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-green-500"
 				bind:value={searchTerm}
 			/>
 		</div>
+		<!-- Add House Button -->
 		<button
 			class="w-full rounded bg-green-700 px-4 py-2 text-white transition-colors hover:bg-green-600 sm:w-auto"
 			onclick={() => (showHouseModal = true)}
@@ -76,8 +78,9 @@
 		</button>
 	</div>
 
-	<div class="overflow-x-auto">
-		<table class="w-full table-auto border-collapse bg-white shadow-md">
+	<!-- Desktop Table View -->
+	<div class="hidden overflow-x-auto shadow-lg md:block">
+		<table class="w-full table-auto border-collapse rounded-lg bg-white shadow-md">
 			<thead class="bg-gray-200">
 				<tr>
 					<th class="border px-4 py-2 text-left text-sm text-gray-600">Name</th>
@@ -108,17 +111,19 @@
 								{formatDate(house.updatedAt)}
 							</td>
 							<td class="border px-4 py-2 text-center text-sm">
-								<button
-									class="mb-2 w-full rounded-md bg-yellow-500 px-3 py-1 text-white transition duration-200 hover:bg-yellow-600 sm:mb-0 sm:w-auto"
-								>
-									Edit
-								</button>
-								<button
-									class="w-full rounded-md bg-red-500 px-3 py-1 text-white transition duration-200 hover:bg-red-600 sm:w-auto"
-									onclick={deleteHouse(house.name, house.id)}
-								>
-									Delete
-								</button>
+								<div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
+									<button
+										class="rounded bg-yellow-500 px-3 py-1 text-white transition duration-200 hover:bg-yellow-600"
+									>
+										Edit
+									</button>
+									<button
+										class="rounded bg-red-500 px-3 py-1 text-white transition duration-200 hover:bg-red-600"
+										onclick={deleteHouse(house.name, house.id)}
+									>
+										Delete
+									</button>
+								</div>
 							</td>
 						</tr>
 					{/each}
@@ -126,25 +131,73 @@
 			</tbody>
 		</table>
 	</div>
+
+	<!-- Mobile Card View -->
+	<div class="grid gap-4 md:hidden">
+		{#if filteredHouses.length === 0}
+			<div class="rounded-lg bg-white p-4 text-sm shadow">No Houses found</div>
+		{:else}
+			{#each filteredHouses as house (house.id)}
+				<div class="rounded-lg bg-white p-4 shadow">
+					<div class="mb-4 flex items-center justify-between">
+						<h3 class="text-lg font-semibold">{house.name}</h3>
+						<div class="flex space-x-2">
+							<button class="rounded bg-yellow-500 px-2 py-1 text-white shadow hover:bg-yellow-600">
+								Edit
+							</button>
+							<button
+								class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
+								onclick={deleteHouse(house.name, house.id)}
+							>
+								Delete
+							</button>
+						</div>
+					</div>
+
+					<div class="grid gap-2 text-sm">
+						<div class="grid grid-cols-2 border-b py-2">
+							<span class="font-medium">Capacity:</span>
+							<span>{house.capacity}</span>
+						</div>
+						<div class="grid grid-cols-2 border-b py-2">
+							<span class="font-medium">Description:</span>
+							<span>{house.description || 'N/A'}</span>
+						</div>
+						<div class="grid grid-cols-2 border-b py-2">
+							<span class="font-medium">Created At:</span>
+							<span>{formatDate(house.createdAt)}</span>
+						</div>
+						<div class="grid grid-cols-2 border-b py-2">
+							<span class="font-medium">Updated At:</span>
+							<span>{formatDate(house.updatedAt)}</span>
+						</div>
+					</div>
+				</div>
+			{/each}
+		{/if}
+	</div>
 </div>
 
+<!-- Add House Modal -->
 {#if showHouseModal}
+	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 	<div
-		class="fixed inset-0 z-50 flex cursor-default items-center justify-center bg-gray-600 bg-opacity-50"
-		role="button"
-		tabindex="-1"
+		class="fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50 p-4 sm:p-6"
+		role="dialog"
+		aria-modal="true"
 		onclick={() => (showHouseModal = false)}
 		onkeydown={(e) => {
-			e.key === 'Escape' && (showHouseModal = false);
+			if (e.key === 'Escape') {
+				showHouseModal = false;
+			}
 		}}
 		in:fade={{ duration: 100 }}
 		out:fade={{ duration: 50 }}
 	>
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<div
-			class="w-full max-w-lg cursor-auto rounded bg-white p-6 shadow-lg"
-			role="button"
-			onkeydown={() => {}}
-			tabindex="0"
+			class="w-full max-w-lg rounded bg-white p-6 shadow-lg"
+			role="document"
 			onclick={(e) => e.stopPropagation()}
 		>
 			<h2 class="mb-6 text-2xl font-semibold text-green-600">New House</h2>
@@ -158,7 +211,6 @@
 				use:enhance={() => {
 					formErrors = '';
 					return async ({ result, update }) => {
-						// console.log('add flock result ->  ', result);
 						if (result.type === 'success') {
 							showHouseModal = false;
 							formErrors = '';
@@ -184,6 +236,7 @@
 					/>
 				</div>
 
+				<!-- Capacity -->
 				<div>
 					<label for="capacity" class="mb-2 block font-medium text-gray-700">Capacity</label>
 					<input
@@ -198,7 +251,7 @@
 					/>
 				</div>
 
-				<!-- Notes -->
+				<!-- Description -->
 				<div class="md:col-span-2">
 					<label for="description" class="mb-2 block font-medium text-gray-700">Description</label>
 					<textarea
@@ -210,7 +263,7 @@
 					></textarea>
 				</div>
 
-				<!-- Submit Button -->
+				<!-- Submit Buttons -->
 				<div class="flex justify-between md:col-span-2">
 					<button
 						type="button"
