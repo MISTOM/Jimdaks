@@ -61,7 +61,7 @@
 	<div class="mb-4 flex flex-col items-center justify-between gap-4 sm:flex-row">
 		<!-- Search Bar -->
 		<div class="relative flex w-full max-w-md items-center">
-			<SearchIcon class="absolute left-3" />
+			<!-- <SearchIcon class="absolute left-3" /> -->
 			<input
 				type="text"
 				placeholder="Search..."
