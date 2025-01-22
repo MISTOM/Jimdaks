@@ -52,15 +52,7 @@
 				Mortality
 			</a>
 		</li>
-		<li class="mb-4">
-			<a
-				href="/dashboard/users"
-				class="hover:bg-opacity-50x flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-50 hover:bg-opacity-50"
-			>
-				<span class="mr-2"><i class="fas fa-users"></i></span>
-				Users
-			</a>
-		</li>
+
 		<li class="mb-4">
 			<a
 				href="/dashboard/vaccine"

@@ -9,14 +9,15 @@
 	} from '@fortawesome/free-solid-svg-icons';
 	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
 
-	const { data, form } = $props();
+	// const { data, form } = $props();
 
+	export let data: { user: any };
 	const toast = getToastState();
 
 	// Derived data
-	const user = $derived(data.user || {});
-	const flocks = $derived(data.flocks || []);
-	const feedUsage = $derived(data.feedUsage || []);
+	const user = data.user;
+	const flocks = user.flock || [];
+	const feedUsage = user.feedUsage || [];
 
 	function formatDate(date: Date): string {
 		return new Intl.DateTimeFormat('en-GB', {
