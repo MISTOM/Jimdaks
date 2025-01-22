@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fly } from 'svelte/transition';
 	import {
 		Chart as ChartJS,
 		CategoryScale,
