@@ -66,7 +66,7 @@
 				href="/dashboard/vaccine"
 				class="hover:bg-opacity-50x flex w-full cursor-pointer items-center rounded p-2 hover:bg-gray-50 hover:bg-opacity-50"
 			>
-				<span class="mr-2"><i class="fas fa-users"></i></span>
+				<span class="mr-2"><i class="fas fa-syringe"></i></span>
 				Vaccination
 			</a>
 		</li>
