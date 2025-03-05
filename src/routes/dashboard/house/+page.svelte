@@ -65,7 +65,7 @@
 			<input
 				type="text"
 				placeholder="Search..."
-				class="w-full rounded-sm border py-2 pl-10 pr-4 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+				class="w-full rounded-sm border py-2 pr-4 pl-10 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 				bind:value={searchTerm}
 			/>
 		</div>
@@ -111,7 +111,7 @@
 								{formatDate(house.updatedAt)}
 							</td>
 							<td class="border px-4 py-2 text-center text-sm">
-								<div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
+								<div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
 									<button
 										class="rounded-sm bg-yellow-500 px-3 py-1 text-white transition duration-200 hover:bg-yellow-600"
 									>
@@ -142,7 +142,9 @@
 					<div class="mb-4 flex items-center justify-between">
 						<h3 class="text-lg font-semibold">{house.name}</h3>
 						<div class="flex space-x-2">
-							<button class="rounded-sm bg-yellow-500 px-2 py-1 text-white shadow-sm hover:bg-yellow-600">
+							<button
+								class="rounded-sm bg-yellow-500 px-2 py-1 text-white shadow-sm hover:bg-yellow-600"
+							>
 								Edit
 							</button>
 							<button
@@ -182,7 +184,7 @@
 {#if showHouseModal}
 	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50 p-4 sm:p-6"
+		class="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-gray-600 p-4 sm:p-6"
 		role="dialog"
 		aria-modal="true"
 		onclick={() => (showHouseModal = false)}
@@ -230,7 +232,7 @@
 						type="text"
 						name="name"
 						placeholder="Enter house name"
-						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 						bind:value={name}
 						required
 					/>
@@ -245,7 +247,7 @@
 						name="capacity"
 						min="0"
 						placeholder="Enter house capacity"
-						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 						bind:value={capacity}
 						required
 					/>
@@ -258,7 +260,7 @@
 						id="description"
 						name="description"
 						placeholder="Enter additional notes for the house"
-						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 						bind:value={description}
 					></textarea>
 				</div>

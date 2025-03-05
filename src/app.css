@@ -5,11 +5,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-green-light: #a8d5ba;
-  --color-green: #4caf50;
-  --color-green-dark: #388e3c;
+	--color-green-light: #a8d5ba;
+	--color-green: #4caf50;
+	--color-green-dark: #388e3c;
 
-  --color-white: #ffffff;
+	--color-white: #ffffff;
 }
 
 /*
@@ -21,11 +21,11 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
 }

@@ -1,4 +1,4 @@
 <script lang="ts">
 </script>
 
-<h1 class="text-pretty text-center text-3xl">Profile PAge</h1>
+<h1 class="text-center text-3xl text-pretty">Profile PAge</h1>

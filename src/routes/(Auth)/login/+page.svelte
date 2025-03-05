@@ -67,7 +67,7 @@
 					/>
 					<button
 						type="button"
-						class="absolute right-3 top-8 hidden text-xs text-gray-400 group-hover:flex"
+						class="absolute top-8 right-3 hidden text-xs text-gray-400 group-hover:flex"
 						onmousedown={() => (passwordVisible = true)}
 						onmouseup={() => (passwordVisible = false)}
 						onmouseleave={() => (passwordVisible = false)}

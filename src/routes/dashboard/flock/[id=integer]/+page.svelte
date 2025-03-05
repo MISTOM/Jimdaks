@@ -149,13 +149,13 @@
 						<table class="min-w-full divide-y divide-gray-200">
 							<thead class="bg-gray-50">
 								<tr>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Date</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Deaths</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Cause</th
 									>
 								</tr>
@@ -163,11 +163,11 @@
 							<tbody class="divide-y divide-gray-200 bg-white">
 								{#each flock.Mortality as record}
 									<tr>
-										<td class="whitespace-nowrap px-4 py-2"
+										<td class="px-4 py-2 whitespace-nowrap"
 											>{new Date(record.createdAt).toLocaleDateString()}</td
 										>
-										<td class="whitespace-nowrap px-4 py-2">{record.number}</td>
-										<td class="whitespace-nowrap px-4 py-2">{record.causeOfDeath}</td>
+										<td class="px-4 py-2 whitespace-nowrap">{record.number}</td>
+										<td class="px-4 py-2 whitespace-nowrap">{record.causeOfDeath}</td>
 									</tr>
 								{/each}
 							</tbody>
@@ -208,13 +208,13 @@
 						<table class="min-w-full divide-y divide-gray-200">
 							<thead class="bg-gray-50">
 								<tr>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Date</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Feed Type</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Quantity (kg)</th
 									>
 								</tr>
@@ -222,11 +222,11 @@
 							<tbody class="divide-y divide-gray-200 bg-white">
 								{#each flock.feedUsages as usage}
 									<tr>
-										<td class="whitespace-nowrap px-4 py-2"
+										<td class="px-4 py-2 whitespace-nowrap"
 											>{formatDate(new Date(usage.createdAt))}</td
 										>
-										<td class="whitespace-nowrap px-4 py-2">{usage.feedType}</td>
-										<td class="whitespace-nowrap px-4 py-2">{usage.quantity} kg</td>
+										<td class="px-4 py-2 whitespace-nowrap">{usage.feedType}</td>
+										<td class="px-4 py-2 whitespace-nowrap">{usage.quantity} kg</td>
 									</tr>
 								{/each}
 							</tbody>
@@ -256,10 +256,10 @@
 						<table class="min-w-full divide-y divide-gray-200">
 							<thead class="bg-gray-50">
 								<tr>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Date</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Sample Weight (kg)</th
 									>
 								</tr>
@@ -267,10 +267,10 @@
 							<tbody class="divide-y divide-gray-200 bg-white">
 								{#each flock.weightLogs as log}
 									<tr>
-										<td class="whitespace-nowrap px-4 py-2"
+										<td class="px-4 py-2 whitespace-nowrap"
 											>{formatDate(new Date(log.createdAt))}</td
 										>
-										<td class="whitespace-nowrap px-4 py-2">{log.sampleWeight}</td>
+										<td class="px-4 py-2 whitespace-nowrap">{log.sampleWeight}</td>
 									</tr>
 								{/each}
 							</tbody>
@@ -294,16 +294,16 @@
 						<table class="min-w-full divide-y divide-gray-200">
 							<thead class="bg-gray-50">
 								<tr>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Date</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Category</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Amount</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Notes</th
 									>
 								</tr>
@@ -311,10 +311,10 @@
 							<tbody class="divide-y divide-gray-200 bg-white">
 								{#each flock.expenses as expense}
 									<tr>
-										<td class="whitespace-nowrap px-4 py-2">{formatDate(expense.createdAt)}</td>
-										<td class="whitespace-nowrap px-4 py-2">{expense.category}</td>
-										<td class="whitespace-nowrap px-4 py-2">{formatCurrency(expense.amount)}</td>
-										<td class="whitespace-nowrap px-4 py-2">{expense.description}</td>
+										<td class="px-4 py-2 whitespace-nowrap">{formatDate(expense.createdAt)}</td>
+										<td class="px-4 py-2 whitespace-nowrap">{expense.category}</td>
+										<td class="px-4 py-2 whitespace-nowrap">{formatCurrency(expense.amount)}</td>
+										<td class="px-4 py-2 whitespace-nowrap">{expense.description}</td>
 									</tr>
 								{/each}
 							</tbody>
@@ -359,16 +359,16 @@
 						<table class="min-w-full divide-y divide-gray-200">
 							<thead class="bg-gray-50">
 								<tr>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Date</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Vaccine</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Administered by</th
 									>
-									<th class="px-4 py-2 text-left text-xs font-medium uppercase text-gray-500"
+									<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"
 										>Notes</th
 									>
 								</tr>
@@ -376,11 +376,11 @@
 							<tbody class="divide-y divide-gray-200 bg-white">
 								{#each flock.vaccinationRecords as record}
 									<tr class="hover:bg-gray-50">
-										<td class="whitespace-nowrap px-4 py-2"
+										<td class="px-4 py-2 whitespace-nowrap"
 											>{formatDate(new Date(record.createdAt))}</td
 										>
-										<td class="whitespace-nowrap px-4 py-2">{record.vaccine.name}</td>
-										<td class="whitespace-nowrap px-4 py-2">
+										<td class="px-4 py-2 whitespace-nowrap">{record.vaccine.name}</td>
+										<td class="px-4 py-2 whitespace-nowrap">
 											{record.administeredBy.name || 'N/A'}
 										</td>
 										<td class="px-4 py-2">{record.notes || '-'}</td>
@@ -396,7 +396,7 @@
 
 	<!-- Slaughter Modal -->
 	{#if showSlaughterModal}
-		<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+		<div class="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black p-4">
 			<div class="w-full max-w-md rounded-lg bg-white p-6">
 				<h2 class="mb-4 text-xl font-bold">Record Slaughter</h2>
 				<form method="POST" action="?/recordSlaughter">
@@ -423,7 +423,7 @@
 							required
 						/>
 					</div>
-					<div class="flex flex-col space-y-2 sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0">
+					<div class="flex flex-col space-y-2 sm:flex-row sm:justify-end sm:space-y-0 sm:space-x-2">
 						<button
 							type="button"
 							class="rounded-sm bg-gray-300 px-4 py-2 hover:bg-gray-400"
@@ -431,7 +431,10 @@
 						>
 							Cancel
 						</button>
-						<button type="submit" class="rounded-sm bg-red-600 px-4 py-2 text-white hover:bg-red-700">
+						<button
+							type="submit"
+							class="rounded-sm bg-red-600 px-4 py-2 text-white hover:bg-red-700"
+						>
 							Record
 						</button>
 					</div>
@@ -470,7 +473,7 @@
 					id="logDate"
 					type="date"
 					name="logDate"
-					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 					bind:value={today}
 				/>
 			</div>
@@ -484,7 +487,7 @@
 					type="number"
 					name="numberOfDeaths"
 					placeholder="Enter number of deaths"
-					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 				/>
 			</div>
 			<!-- Cause of Death -->
@@ -496,7 +499,7 @@
 					type="text"
 					name="causeOfDeath"
 					placeholder="Enter cause of death"
-					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 					required
 				/>
 
@@ -511,7 +514,10 @@
 				>
 					Cancel
 				</button>
-				<button type="submit" class="rounded-sm bg-green-500 px-4 py-2 text-white hover:bg-green-600">
+				<button
+					type="submit"
+					class="rounded-sm bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+				>
 					Save
 				</button>
 			</div>

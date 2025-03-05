@@ -75,7 +75,7 @@
 			<input
 				type="text"
 				placeholder="Search..."
-				class="w-full rounded-sm border py-2 pl-10 pr-4 sm:w-64"
+				class="w-full rounded-sm border py-2 pr-4 pl-10 sm:w-64"
 				bind:value={searchTerm}
 			/>
 		</div>
@@ -154,7 +154,9 @@
 					<div class="mb-4 flex items-center justify-between">
 						<h3 class="text-lg font-semibold">{flock.name}</h3>
 						<div class="flex space-x-2">
-							<button class="rounded-sm bg-green-500 px-2 py-1 text-white shadow-sm hover:bg-green-600">
+							<button
+								class="rounded-sm bg-green-500 px-2 py-1 text-white shadow-sm hover:bg-green-600"
+							>
 								<a href="flock/{flock.id}">View</a>
 							</button>
 							<button
@@ -212,7 +214,7 @@
 	<!-- Modal for add flock-->
 	{#if showFlockModal}
 		<div
-			class="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-gray-600 bg-opacity-50 p-4 sm:p-6"
+			class="bg-opacity-50 fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-gray-600 p-4 sm:p-6"
 			role="button"
 			tabindex="-1"
 			onclick={() => (showFlockModal = false)}
@@ -262,7 +264,7 @@
 							type="text"
 							name="name"
 							placeholder="Enter flock name"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 							bind:value={name}
 						/>
 					</div>
@@ -273,7 +275,7 @@
 							id="startDate"
 							type="date"
 							name="startDate"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 							bind:value={startDate}
 							required
 						/>
@@ -287,7 +289,7 @@
 							type="text"
 							name="breeder"
 							placeholder="Enter breeder name"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 							bind:value={breeder}
 						/>
 					</div>
@@ -297,7 +299,7 @@
 						<select
 							id="birdType"
 							name="birdType"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 							bind:value={birdType}
 						>
 							<option value="BROILER">Broiler</option>
@@ -314,7 +316,7 @@
 							type="number"
 							name="numberOfBirds"
 							placeholder="Enter number of birds"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 							bind:value={numberOfBirds}
 							required
 						/>
@@ -326,7 +328,7 @@
 							id="notes"
 							name="notes"
 							placeholder="Enter additional notes"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 							bind:value={notes}
 						></textarea>
 					</div>
@@ -337,7 +339,7 @@
 						<select
 							id="houseId"
 							name="houseId"
-							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+							class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 							bind:value={houseId}
 						>
 							<option value="" selected disabled>--Select House--</option>
@@ -399,7 +401,7 @@
 					id="logDate"
 					type="date"
 					name="logDate"
-					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 					bind:value={logDate}
 				/>
 			</div>
@@ -413,7 +415,7 @@
 					type="number"
 					name="numberOfDeaths"
 					placeholder="Enter number of deaths"
-					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 					bind:value={numberOfDeaths}
 				/>
 			</div>
@@ -426,7 +428,7 @@
 					type="text"
 					name="causeOfDeath"
 					placeholder="Enter cause of death"
-					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:outline-hidden"
 					bind:value={causeOfDeath}
 					required
 				/>
@@ -442,7 +444,10 @@
 				>
 					Cancel
 				</button>
-				<button type="submit" class="rounded-sm bg-green-500 px-4 py-2 text-white hover:bg-green-600">
+				<button
+					type="submit"
+					class="rounded-sm bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+				>
 					Save
 				</button>
 			</div>

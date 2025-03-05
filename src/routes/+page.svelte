@@ -9,7 +9,7 @@
 
 <main class="dark font-sans text-gray-800">
 	<header class="sticky top-0 bg-black p-4 font-extralight text-white shadow-xs">
-		<nav class="container sticky mx-auto grid grid-cols-2">
+		<nav class="sticky container mx-auto grid grid-cols-2">
 			<ul class="flex space-x-4">
 				<li><a href="/poultry" class="transition-colors hover:text-green-700">Poultry</a></li>
 				<li><a href="#financial-services" class="hover:underline">Financial Services</a></li>
@@ -34,9 +34,9 @@
 		class="h-screen bg-cover bg-center text-center text-white"
 		style="background-image: url('/layerChicken.jpg');"
 	>
-		<div class="flex h-full flex-col items-center justify-center bg-opacity-50">
+		<div class="bg-opacity-50 flex h-full flex-col items-center justify-center">
 			<h1
-				class="duration-400 mb-4 text-6xl font-bold text-green-950 opacity-70 transition-opacity hover:opacity-100"
+				class="mb-4 text-6xl font-bold text-green-950 opacity-70 transition-opacity duration-400 hover:opacity-100"
 			>
 				Jimdaks Farm Fresh
 			</h1>

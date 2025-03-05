@@ -16,7 +16,7 @@
 		out:fade={{ duration: 100 }}
 	>
 		<div
-			class="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-xs transition-all"
+			class="bg-opacity-30 fixed inset-0 bg-black backdrop-blur-xs transition-all"
 			aria-hidden="true"
 			onclick={close}
 		></div>

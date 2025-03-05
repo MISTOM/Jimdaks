@@ -7,7 +7,7 @@
 	};
 </script>
 
-<div class="w-50 flex min-h-screen flex-col bg-green-800 text-white">
+<div class="flex min-h-screen w-50 flex-col bg-green-800 text-white">
 	<!-- Sidebar Header -->
 	<div class="p-4">
 		<h1 class="text-3xl font-bold"><a href="/dashboard/">JIMDAKS</a></h1>
@@ -18,7 +18,7 @@
 		<li class="mb-4">
 			<a
 				href="/dashboard/house"
-				class="flex w-full cursor-pointer items-center rounded-sm p-2 hover:bg-gray-200 hover:bg-opacity-50"
+				class="hover:bg-opacity-50 flex w-full cursor-pointer items-center rounded-sm p-2 hover:bg-gray-200"
 			>
 				<span class="mr-2"><i class="fas fa-home"></i></span>
 				House
@@ -28,7 +28,7 @@
 		<li class="mb-4">
 			<a
 				href="/dashboard/flock"
-				class="flex w-full cursor-pointer items-center rounded-sm p-2 hover:bg-gray-200 hover:bg-opacity-50"
+				class="hover:bg-opacity-50 flex w-full cursor-pointer items-center rounded-sm p-2 hover:bg-gray-200"
 			>
 				<span class="mr-2"><i class="fas fa-dove"></i></span>
 				Flock
@@ -37,7 +37,7 @@
 		<li class="mb-4">
 			<a
 				href="/dashboard/inventory"
-				class="flex w-full cursor-pointer items-center rounded-sm p-2 hover:bg-gray-200 hover:bg-opacity-50"
+				class="hover:bg-opacity-50 flex w-full cursor-pointer items-center rounded-sm p-2 hover:bg-gray-200"
 			>
 				<span class="mr-2"><i class="fas fa-boxes"></i></span>
 				Inventory
@@ -46,7 +46,7 @@
 		<li class="mb-4">
 			<a
 				href="/dashboard/mortality"
-				class="flex w-full cursor-pointer items-center rounded-sm p-2 hover:bg-gray-200 hover:bg-opacity-50"
+				class="hover:bg-opacity-50 flex w-full cursor-pointer items-center rounded-sm p-2 hover:bg-gray-200"
 			>
 				<span class="mr-2"><i class="fas fa-skull-crossbones"></i></span>
 				Mortality
@@ -56,7 +56,7 @@
 		<li class="mb-4">
 			<a
 				href="/dashboard/vaccine"
-				class="hover:bg-opacity-50x flex w-full cursor-pointer items-center rounded-sm p-2 hover:bg-gray-50 hover:bg-opacity-50"
+				class="hover:bg-opacity-50x hover:bg-opacity-50 flex w-full cursor-pointer items-center rounded-sm p-2 hover:bg-gray-50"
 			>
 				<span class="mr-2"><i class="fas fa-syringe"></i></span>
 				Vaccination
