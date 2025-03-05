@@ -16,7 +16,7 @@
 	},
 	"scripts": {
 		"dev": "vite dev",
-		"build": "npx prisma generate && vite build",
+		"build": "npx prisma generate --no-engine && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
