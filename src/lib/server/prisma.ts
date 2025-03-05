@@ -1,2 +1,3 @@
 import { PrismaClient } from '@prisma/client';
-export default new PrismaClient();
+import {withAccelerate} from '@prisma/extension-accelerate'
+export default new PrismaClient().$extends(withAccelerate());
