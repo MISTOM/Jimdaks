@@ -33,7 +33,7 @@
 			href="/dashboard"
 			class="flex items-center text-lg font-medium text-gray-500 hover:text-gray-700"
 		>
-			<i class="fas fa-home mr-2 text-green-700"></i> Dashboard
+			<i class="fas fa-tachometer-alt mr-2 text-green-700"></i> Dashboard
 		</a>
 	</div>
 
