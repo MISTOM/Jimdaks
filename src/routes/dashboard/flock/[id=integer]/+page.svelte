@@ -44,7 +44,7 @@
 		<div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
 			<h1 class="mb-2 text-2xl font-bold text-gray-800 sm:mb-0">{flock.name}</h1>
 			<button
-				class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+				class="rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 				onclick={() => {}}
 			>
 				Edit Flock
@@ -54,13 +54,13 @@
 		<!-- Overview Cards -->
 		<div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
 			<div
-				class="rounded-lg bg-green-50 p-4 shadow transition-transform duration-300 ease-in-out hover:scale-105"
+				class="rounded-lg bg-green-50 p-4 shadow-sm transition-transform duration-300 ease-in-out hover:scale-105"
 			>
 				<h3 class="text-sm font-medium text-gray-500">Current Age</h3>
 				<p class="text-xl font-bold text-black sm:text-2xl">{metrics?.currentAge} days</p>
 			</div>
 			<div
-				class="rounded-lg bg-green-50 p-4 shadow transition-transform duration-300 ease-in-out hover:scale-105"
+				class="rounded-lg bg-green-50 p-4 shadow-sm transition-transform duration-300 ease-in-out hover:scale-105"
 			>
 				<h3 class="text-sm font-medium text-gray-500">Mortality Rate</h3>
 				<p class="text-xl font-bold text-black sm:text-2xl">{metrics?.mortalityRate}%</p>
@@ -68,14 +68,14 @@
 			</div>
 
 			<div
-				class="rounded-lg bg-green-50 p-4 shadow transition-transform duration-300 ease-in-out hover:scale-105"
+				class="rounded-lg bg-green-50 p-4 shadow-sm transition-transform duration-300 ease-in-out hover:scale-105"
 			>
 				<h3 class="text-sm font-medium text-gray-500">Birds Remaining</h3>
 				<p class="text-xl font-bold text-black sm:text-2xl">{metrics?.birdsRemaining}</p>
 				<p class="text-sm text-gray-500">Initial: {flock.numberOfBirds} birds</p>
 			</div>
 			<div
-				class="rounded-lg bg-green-50 p-4 shadow transition-transform duration-300 ease-in-out hover:scale-105"
+				class="rounded-lg bg-green-50 p-4 shadow-sm transition-transform duration-300 ease-in-out hover:scale-105"
 			>
 				<h3 class="text-sm font-medium text-gray-500">Cost per Bird</h3>
 				<p class="text-xl font-bold text-black sm:text-2xl">
@@ -92,7 +92,7 @@
 			<nav class="-mb-px flex flex-wrap justify-start space-x-2 sm:space-x-8">
 				{#each ['Overview', 'Health', 'Feed', 'Weight', 'Expenses', 'Vaccination'] as tab}
 					<button
-						class="border-b-2 px-1 py-2 text-sm font-medium focus:outline-none"
+						class="border-b-2 px-1 py-2 text-sm font-medium focus:outline-hidden"
 						class:border-green-400={activeTab === tab.toLowerCase()}
 						class:text-black={activeTab === tab.toLowerCase()}
 						class:border-transparent={activeTab !== tab.toLowerCase()}
@@ -106,7 +106,7 @@
 		</div>
 
 		<!-- Tab Content -->
-		<div class="rounded-lg bg-gray-100 p-4 shadow sm:p-6">
+		<div class="rounded-lg bg-gray-100 p-4 shadow-sm sm:p-6">
 			{#if activeTab === 'overview'}
 				<!-- Basic Information -->
 				<div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -137,7 +137,7 @@
 					<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
 						<h3 class="text-lg font-medium">Health Records</h3>
 						<button
-							class="mt-2 rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:mt-0"
+							class="mt-2 rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:mt-0"
 							onclick={() => (showMortalityModal = true)}
 						>
 							Record Mortality
@@ -179,7 +179,7 @@
 					<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
 						<h3 class="text-lg font-medium">Feed Usage</h3>
 						<button
-							class="mt-2 rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:mt-0"
+							class="mt-2 rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:mt-0"
 							onclick={() => (showFeedModal = true)}
 						>
 							Record Feed Usage
@@ -187,17 +187,17 @@
 					</div>
 					<!-- Feed Summary Cards -->
 					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-						<div class="rounded-lg bg-white p-4 shadow">
+						<div class="rounded-lg bg-white p-4 shadow-sm">
 							<h3 class="text-sm font-medium text-gray-500">Total Feed Used</h3>
 							<p class="text-xl font-bold">{metrics?.totalFeedUsed} kg</p>
 						</div>
 
-						<div class="rounded-lg bg-white p-4 shadow">
+						<div class="rounded-lg bg-white p-4 shadow-sm">
 							<h3 class="text-sm font-medium text-gray-500">Average Daily Consumption</h3>
 							<p class="text-xl font-bold">{metrics?.avgDailyFeed.toFixed(1)} kg</p>
 						</div>
 
-						<div class="rounded-lg bg-white p-4 shadow">
+						<div class="rounded-lg bg-white p-4 shadow-sm">
 							<h3 class="text-sm font-medium text-gray-500">Feed Conversion Ratio</h3>
 							<p class="text-xl font-bold">{metrics?.feedConversionRatio}</p>
 						</div>
@@ -238,14 +238,14 @@
 					<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
 						<h3 class="text-lg font-medium">Weight Tracking</h3>
 						<button
-							class="mt-2 rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:mt-0"
+							class="mt-2 rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:mt-0"
 							onclick={() => (showWeightModal = true)}
 						>
 							Record Weight
 						</button>
 					</div>
 					<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-						<div class="rounded-lg bg-white p-4 shadow">
+						<div class="rounded-lg bg-white p-4 shadow-sm">
 							<h3 class="text-sm font-medium text-gray-500">Current Weight</h3>
 							<p class="text-xl font-bold">{metrics?.currentWeight} kg</p>
 						</div>
@@ -282,7 +282,7 @@
 					<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
 						<h3 class="text-lg font-medium">Expenses</h3>
 						<button
-							class="mt-2 rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:mt-0"
+							class="mt-2 rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:mt-0"
 							onclick={() => (showExpenseModal = true)}
 						>
 							Add Expense
@@ -327,7 +327,7 @@
 					<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
 						<h3 class="text-lg font-medium">Vaccination Records</h3>
 						<button
-							class="mt-2 rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:mt-0"
+							class="mt-2 rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:mt-0"
 							onclick={() => (showVaccinationModal = true)}
 						>
 							Record Vaccination
@@ -340,7 +340,7 @@
 						<div class="space-y-2">
 							{#each data.vaccinationSchedule || [] as schedule}
 								<div
-									class="flex flex-col rounded-md bg-white p-3 shadow-sm sm:flex-row sm:items-center sm:justify-between"
+									class="flex flex-col rounded-md bg-white p-3 shadow-xs sm:flex-row sm:items-center sm:justify-between"
 								>
 									<div>
 										<p class="font-medium">{schedule.vaccine.name}</p>
@@ -355,7 +355,7 @@
 					</div>
 
 					<!-- Vaccination History -->
-					<div class="overflow-x-auto rounded-lg bg-white shadow">
+					<div class="overflow-x-auto rounded-lg bg-white shadow-sm">
 						<table class="min-w-full divide-y divide-gray-200">
 							<thead class="bg-gray-50">
 								<tr>
@@ -406,7 +406,7 @@
 							type="number"
 							id="number"
 							name="number"
-							class="w-full rounded border px-3 py-2"
+							class="w-full rounded-sm border px-3 py-2"
 							required
 						/>
 					</div>
@@ -419,19 +419,19 @@
 							id="averageWeight"
 							name="averageWeight"
 							step="0.01"
-							class="w-full rounded border px-3 py-2"
+							class="w-full rounded-sm border px-3 py-2"
 							required
 						/>
 					</div>
 					<div class="flex flex-col space-y-2 sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0">
 						<button
 							type="button"
-							class="rounded bg-gray-300 px-4 py-2 hover:bg-gray-400"
+							class="rounded-sm bg-gray-300 px-4 py-2 hover:bg-gray-400"
 							onclick={() => (showSlaughterModal = false)}
 						>
 							Cancel
 						</button>
-						<button type="submit" class="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700">
+						<button type="submit" class="rounded-sm bg-red-600 px-4 py-2 text-white hover:bg-red-700">
 							Record
 						</button>
 					</div>
@@ -470,7 +470,7 @@
 					id="logDate"
 					type="date"
 					name="logDate"
-					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
 					bind:value={today}
 				/>
 			</div>
@@ -484,7 +484,7 @@
 					type="number"
 					name="numberOfDeaths"
 					placeholder="Enter number of deaths"
-					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
 				/>
 			</div>
 			<!-- Cause of Death -->
@@ -496,7 +496,7 @@
 					type="text"
 					name="causeOfDeath"
 					placeholder="Enter cause of death"
-					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+					class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
 					required
 				/>
 
@@ -506,12 +506,12 @@
 			<div class="flex flex-col sm:flex-row sm:justify-between md:col-span-2">
 				<button
 					type="button"
-					class="mb-2 rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600 sm:mb-0"
+					class="mb-2 rounded-sm bg-gray-500 px-4 py-2 text-white hover:bg-gray-600 sm:mb-0"
 					onclick={() => (showMortalityModal = false)}
 				>
 					Cancel
 				</button>
-				<button type="submit" class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600">
+				<button type="submit" class="rounded-sm bg-green-500 px-4 py-2 text-white hover:bg-green-600">
 					Save
 				</button>
 			</div>
@@ -549,7 +549,7 @@
 						id="category"
 						name="category"
 						required
-						class="mt-1 w-full rounded border px-3 py-2"
+						class="mt-1 w-full rounded-sm border px-3 py-2"
 					>
 						{#each expenseCategories as category}
 							<option value={category}>{category}</option>
@@ -566,7 +566,7 @@
 						required
 						min="0"
 						step="0.01"
-						class="mt-1 w-full rounded border px-3 py-2"
+						class="mt-1 w-full rounded-sm border px-3 py-2"
 					/>
 				</div>
 
@@ -576,21 +576,21 @@
 						id="description"
 						name="description"
 						rows="3"
-						class="mt-1 w-full rounded border px-3 py-2"
+						class="mt-1 w-full rounded-sm border px-3 py-2"
 					></textarea>
 				</div>
 
 				<div class="flex flex-col sm:flex-row sm:justify-end sm:space-x-2">
 					<button
 						type="button"
-						class="mb-2 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 sm:mb-0"
+						class="mb-2 rounded-sm bg-gray-200 px-4 py-2 hover:bg-gray-300 sm:mb-0"
 						onclick={() => (showExpenseModal = false)}
 					>
 						Cancel
 					</button>
 					<button
 						type="submit"
-						class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+						class="rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 					>
 						Save Expense
 					</button>
@@ -631,7 +631,7 @@
 						id="feedType"
 						name="feedType"
 						required
-						class="mt-1 w-full rounded border px-3 py-2"
+						class="mt-1 w-full rounded-sm border px-3 py-2"
 					>
 						{#each feedTypes as feedType}
 							<option value={feedType}>{feedType.replace('_', ' ')}</option>
@@ -648,7 +648,7 @@
 						required
 						min="0"
 						step="0.1"
-						class="mt-1 w-full rounded border px-3 py-2"
+						class="mt-1 w-full rounded-sm border px-3 py-2"
 					/>
 				</div>
 
@@ -659,14 +659,14 @@
 						id="usageDate"
 						name="usageDate"
 						required
-						class="mt-1 w-full rounded border px-3 py-2"
+						class="mt-1 w-full rounded-sm border px-3 py-2"
 						value={new Date().toISOString().split('T')[0]}
 					/>
 				</div>
 
 				<div>
 					<label for="notes" class="block text-sm font-medium">Notes</label>
-					<textarea id="notes" name="notes" rows="2" class="mt-1 w-full rounded border px-3 py-2"
+					<textarea id="notes" name="notes" rows="2" class="mt-1 w-full rounded-sm border px-3 py-2"
 					></textarea>
 				</div>
 
@@ -675,14 +675,14 @@
 				<div class="flex flex-col sm:flex-row sm:justify-end sm:space-x-2">
 					<button
 						type="button"
-						class="mb-2 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 sm:mb-0"
+						class="mb-2 rounded-sm bg-gray-200 px-4 py-2 hover:bg-gray-300 sm:mb-0"
 						onclick={() => (showFeedModal = false)}
 					>
 						Cancel
 					</button>
 					<button
 						type="submit"
-						class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+						class="rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 					>
 						Save
 					</button>
@@ -727,7 +727,7 @@
 						required
 						min="0"
 						step="0.01"
-						class="mt-1 w-full rounded border px-3 py-2"
+						class="mt-1 w-full rounded-sm border px-3 py-2"
 					/>
 				</div>
 
@@ -738,14 +738,14 @@
 						id="weightDate"
 						name="weightDate"
 						required
-						class="mt-1 w-full rounded border px-3 py-2"
+						class="mt-1 w-full rounded-sm border px-3 py-2"
 						value={new Date().toISOString().split('T')[0]}
 					/>
 				</div>
 
 				<div>
 					<label for="notes" class="block text-sm font-medium">Notes</label>
-					<textarea id="notes" name="notes" rows="2" class="mt-1 w-full rounded border px-3 py-2"
+					<textarea id="notes" name="notes" rows="2" class="mt-1 w-full rounded-sm border px-3 py-2"
 					></textarea>
 				</div>
 
@@ -754,14 +754,14 @@
 				<div class="flex flex-col sm:flex-row sm:justify-end sm:space-x-2">
 					<button
 						type="button"
-						class="mb-2 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 sm:mb-0"
+						class="mb-2 rounded-sm bg-gray-200 px-4 py-2 hover:bg-gray-300 sm:mb-0"
 						onclick={() => (showWeightModal = false)}
 					>
 						Cancel
 					</button>
 					<button
 						type="submit"
-						class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+						class="rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 					>
 						Save
 					</button>
@@ -802,7 +802,7 @@
 						id="vaccineId"
 						name="vaccineId"
 						required
-						class="mt-1 w-full rounded border px-3 py-2"
+						class="mt-1 w-full rounded-sm border px-3 py-2"
 					>
 						{#each data.vaccines || [] as vaccine}
 							<option value={vaccine.id}>{vaccine.name}</option>
@@ -818,7 +818,7 @@
 						id="vaccinationDate"
 						name="vaccinationDate"
 						required
-						class="mt-1 w-full rounded border px-3 py-2"
+						class="mt-1 w-full rounded-sm border px-3 py-2"
 						value={new Date().toISOString().split('T')[0]}
 					/>
 				</div>
@@ -826,7 +826,7 @@
 				<!-- Notes -->
 				<div>
 					<label for="notes" class="block text-sm font-medium">Notes</label>
-					<textarea id="notes" name="notes" rows="3" class="mt-1 w-full rounded border px-3 py-2"
+					<textarea id="notes" name="notes" rows="3" class="mt-1 w-full rounded-sm border px-3 py-2"
 					></textarea>
 				</div>
 
@@ -834,14 +834,14 @@
 				<div class="flex flex-col sm:flex-row sm:justify-end sm:space-x-2">
 					<button
 						type="button"
-						class="mb-2 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 sm:mb-0"
+						class="mb-2 rounded-sm bg-gray-200 px-4 py-2 hover:bg-gray-300 sm:mb-0"
 						onclick={() => (showVaccinationModal = false)}
 					>
 						Cancel
 					</button>
 					<button
 						type="submit"
-						class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+						class="rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 					>
 						Record Vaccination
 					</button>

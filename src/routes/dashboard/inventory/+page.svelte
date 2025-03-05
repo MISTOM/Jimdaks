@@ -30,7 +30,7 @@
 	</h1>
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 		{#each feedTypes as feedType (feedType)}
-			<div class="flex flex-col justify-between rounded-lg border p-4 shadow-sm hover:shadow-md">
+			<div class="flex flex-col justify-between rounded-lg border p-4 shadow-xs hover:shadow-md">
 				<div>
 					<h2 class="mb-2 text-xl font-semibold">{feedType.replace('_', ' ')}</h2>
 					<p>Notes: {inventoryData[feedType]?.notes}</p>
@@ -51,7 +51,7 @@
 				</div>
 				<div class="flex space-x-5">
 					<button
-						class="rounded bg-green-700 px-3 py-2 text-white transition-colors hover:bg-green-800"
+						class="rounded-sm bg-green-700 px-3 py-2 text-white transition-colors hover:bg-green-800"
 						onclick={() => toggleForm(feedType)}
 					>
 						{openFormFeedType === feedType ? 'Cancel' : 'Add Stock'}
@@ -86,18 +86,18 @@
 									min="0"
 									step="10"
 									placeholder="Quantity (kg)"
-									class="w-full rounded border px-3 py-2"
+									class="w-full rounded-sm border px-3 py-2"
 								/>
 								<input
 									type="textarea"
 									name="notes"
 									placeholder="Notes"
-									class="w-full rounded border px-3 py-2"
+									class="w-full rounded-sm border px-3 py-2"
 								/>
 								<input type="hidden" name="feedType" value={feedType} />
 								<button
 									type="submit"
-									class="rounded bg-green-700 px-3 py-2 text-white transition-colors hover:bg-green-800"
+									class="rounded-sm bg-green-700 px-3 py-2 text-white transition-colors hover:bg-green-800"
 								>
 									Submit
 								</button>

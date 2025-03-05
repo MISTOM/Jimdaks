@@ -106,7 +106,7 @@
 	<!-- Summary Cards -->
 	<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
 		<div
-			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+			class="card border-gray-150 rounded-lg border p-4 shadow-xs transition-transform ease-in-out hover:scale-105"
 		>
 			<h2 class="mb-4 text-sm font-semibold text-gray-600">Active Flocks</h2>
 			<p class="text-3xl font-bold text-black">
@@ -114,7 +114,7 @@
 			</p>
 		</div>
 		<div
-			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+			class="card border-gray-150 rounded-lg border p-4 shadow-xs transition-transform ease-in-out hover:scale-105"
 		>
 			<h2 class="text-sm font-semibold text-gray-600">Total Feed Used</h2>
 			<p class="text-3xl font-bold text-black">
@@ -122,7 +122,7 @@
 			</p>
 		</div>
 		<div
-			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+			class="card border-gray-150 rounded-lg border p-4 shadow-xs transition-transform ease-in-out hover:scale-105"
 		>
 			<h2 class="text-sm font-semibold text-gray-600">Total Expenses</h2>
 			<p class="text-3xl font-bold text-black">
@@ -130,7 +130,7 @@
 			</p>
 		</div>
 		<div
-			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+			class="card border-gray-150 rounded-lg border p-4 shadow-xs transition-transform ease-in-out hover:scale-105"
 		>
 			<h2 class="text-sm font-semibold text-gray-600">Total Mortality</h2>
 			<p class="text-3xl font-bold text-black">
@@ -143,13 +143,13 @@
 	<div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
 		<!-- Bar Chart: Expenses by Category -->
 		<div
-			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+			class="card border-gray-150 rounded-lg border p-4 shadow-xs transition-transform ease-in-out hover:scale-105"
 		>
 			<canvas id="barChart" height="200"></canvas>
 		</div>
 		<!-- Line Chart: Monthly Mortality -->
 		<div
-			class="card border-gray-150 rounded-lg border p-4 shadow-sm transition-transform ease-in-out hover:scale-105"
+			class="card border-gray-150 rounded-lg border p-4 shadow-xs transition-transform ease-in-out hover:scale-105"
 		>
 			<canvas id="lineChart" height="200"></canvas>
 		</div>

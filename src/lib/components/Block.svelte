@@ -7,7 +7,7 @@
 	export let flocks: { name: string; count: number }[];
 </script>
 
-<div class="rounded-lg border bg-white p-4 shadow">
+<div class="rounded-lg border bg-white p-4 shadow-sm">
 	<h2 class="mb-2 text-xl font-bold">{name}</h2>
 	<p class="mb-1 text-gray-600"><strong>Capacity:</strong> {capacity}</p>
 	<p class="mb-1 text-gray-600">

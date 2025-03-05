@@ -45,7 +45,7 @@
 			</div>
 			<!-- Overlay -->
 			<div
-				class="flex-1 bg-black bg-opacity-30 backdrop-blur-sm"
+				class="flex-1 bg-black bg-opacity-30 backdrop-blur-xs"
 				onclick={toggleSideBar}
 				onkeydown={(e) => e.key === 'Enter' && toggleSideBar()}
 				role="button"

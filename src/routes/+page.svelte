@@ -8,7 +8,7 @@
 </svelte:head>
 
 <main class="dark font-sans text-gray-800">
-	<header class="sticky top-0 bg-black p-4 font-extralight text-white shadow-sm">
+	<header class="sticky top-0 bg-black p-4 font-extralight text-white shadow-xs">
 		<nav class="container sticky mx-auto grid grid-cols-2">
 			<ul class="flex space-x-4">
 				<li><a href="/poultry" class="transition-colors hover:text-green-700">Poultry</a></li>
@@ -124,7 +124,7 @@
 			Jimdaks Farm Fresh is a well-established farm and company based in Kenya...
 		</p>
 		<div class="text-center">
-			<a href="/about-us" class="rounded bg-yellow-300 px-6 py-2 text-green-900">Learn more</a>
+			<a href="/about-us" class="rounded-sm bg-yellow-300 px-6 py-2 text-green-900">Learn more</a>
 		</div>
 	</section>
 
@@ -150,10 +150,10 @@
 					type="email"
 					id="newsletter"
 					name="newsletter"
-					class="rounded border border-gray-300 p-2"
+					class="rounded-sm border border-gray-300 p-2"
 					placeholder="Email"
 				/>
-				<button type="submit" class="ml-2 rounded bg-yellow-300 px-4 py-2 text-green-900"
+				<button type="submit" class="ml-2 rounded-sm bg-yellow-300 px-4 py-2 text-green-900"
 					>Subscribe</button
 				>
 			</form>

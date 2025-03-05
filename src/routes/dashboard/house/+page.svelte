@@ -48,7 +48,7 @@
 <!-- Reusable snippet -->
 {#snippet formError(formErrors: any)}
 	<div
-		class="relative mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+		class="relative mb-4 rounded-sm border border-red-400 bg-red-100 px-4 py-3 text-red-700"
 		in:slide={{ duration: 150 }}
 	>
 		<strong class="font-bold">Oops!</strong>
@@ -65,13 +65,13 @@
 			<input
 				type="text"
 				placeholder="Search..."
-				class="w-full rounded border py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+				class="w-full rounded-sm border py-2 pl-10 pr-4 focus:outline-hidden focus:ring-2 focus:ring-green-500"
 				bind:value={searchTerm}
 			/>
 		</div>
 		<!-- Add House Button -->
 		<button
-			class="w-full rounded bg-green-700 px-4 py-2 text-white transition-colors hover:bg-green-600 sm:w-auto"
+			class="w-full rounded-sm bg-green-700 px-4 py-2 text-white transition-colors hover:bg-green-600 sm:w-auto"
 			onclick={() => (showHouseModal = true)}
 		>
 			Add House
@@ -113,12 +113,12 @@
 							<td class="border px-4 py-2 text-center text-sm">
 								<div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
 									<button
-										class="rounded bg-yellow-500 px-3 py-1 text-white transition duration-200 hover:bg-yellow-600"
+										class="rounded-sm bg-yellow-500 px-3 py-1 text-white transition duration-200 hover:bg-yellow-600"
 									>
 										Edit
 									</button>
 									<button
-										class="rounded bg-red-500 px-3 py-1 text-white transition duration-200 hover:bg-red-600"
+										class="rounded-sm bg-red-500 px-3 py-1 text-white transition duration-200 hover:bg-red-600"
 										onclick={deleteHouse(house.name, house.id)}
 									>
 										Delete
@@ -135,18 +135,18 @@
 	<!-- Mobile Card View -->
 	<div class="grid gap-4 md:hidden">
 		{#if filteredHouses.length === 0}
-			<div class="rounded-lg bg-white p-4 text-sm shadow">No Houses found</div>
+			<div class="rounded-lg bg-white p-4 text-sm shadow-sm">No Houses found</div>
 		{:else}
 			{#each filteredHouses as house (house.id)}
-				<div class="rounded-lg bg-white p-4 shadow">
+				<div class="rounded-lg bg-white p-4 shadow-sm">
 					<div class="mb-4 flex items-center justify-between">
 						<h3 class="text-lg font-semibold">{house.name}</h3>
 						<div class="flex space-x-2">
-							<button class="rounded bg-yellow-500 px-2 py-1 text-white shadow hover:bg-yellow-600">
+							<button class="rounded-sm bg-yellow-500 px-2 py-1 text-white shadow-sm hover:bg-yellow-600">
 								Edit
 							</button>
 							<button
-								class="rounded bg-red-500 px-2 py-1 text-white shadow hover:bg-red-600"
+								class="rounded-sm bg-red-500 px-2 py-1 text-white shadow-sm hover:bg-red-600"
 								onclick={deleteHouse(house.name, house.id)}
 							>
 								Delete
@@ -196,7 +196,7 @@
 	>
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<div
-			class="w-full max-w-lg rounded bg-white p-6 shadow-lg"
+			class="w-full max-w-lg rounded-sm bg-white p-6 shadow-lg"
 			role="document"
 			onclick={(e) => e.stopPropagation()}
 		>
@@ -230,7 +230,7 @@
 						type="text"
 						name="name"
 						placeholder="Enter house name"
-						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
 						bind:value={name}
 						required
 					/>
@@ -245,7 +245,7 @@
 						name="capacity"
 						min="0"
 						placeholder="Enter house capacity"
-						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
 						bind:value={capacity}
 						required
 					/>
@@ -258,7 +258,7 @@
 						id="description"
 						name="description"
 						placeholder="Enter additional notes for the house"
-						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+						class="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:outline-hidden focus:ring-2 focus:ring-green-500"
 						bind:value={description}
 					></textarea>
 				</div>
@@ -267,14 +267,14 @@
 				<div class="flex justify-between md:col-span-2">
 					<button
 						type="button"
-						class="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+						class="rounded-sm bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
 						onclick={() => (showHouseModal = false)}
 					>
 						Cancel
 					</button>
 					<button
 						type="submit"
-						class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+						class="rounded-sm bg-green-500 px-4 py-2 text-white hover:bg-green-600"
 					>
 						Save
 					</button>
